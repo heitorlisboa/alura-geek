@@ -1,0 +1,21 @@
+:where(.button) {
+  padding: var(--size-3);
+}
+
+.contained {
+  background-color: var(--accent-color);
+  color: var(--white-text);
+
+  &:hover, &:focus-visible {
+    background-color: var(--accent-color-light);
+  }
+}
+
+.outlined {
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+
+  &:hover, &:focus-visible {
+    background-color: var(--accent-color-lighter);
+  }
+}

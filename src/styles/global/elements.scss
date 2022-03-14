@@ -1,5 +1,6 @@
 html,
 body {
+  color: var(--dark-gray-text);
   font-family: "Raleway", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
 }
@@ -11,4 +12,12 @@ h4,
 h5,
 h6 {
   line-height: 1.3;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
 }
