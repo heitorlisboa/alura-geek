@@ -1,0 +1,27 @@
+:where(.searchForm) {
+  position: relative;
+  display: flex;
+  width: clamp(17.5rem, 35vw + 1rem, 30rem);
+}
+
+.searchBox {
+  background-color: var(--light-gray);
+
+  font-size: var(--fs-small);
+
+  width: 100%;
+
+  padding-block: 0.75rem;
+  padding-inline: var(--size-3) 3rem;
+  border-radius: 100vw;
+
+  &::placeholder {
+    color: var(--gray-text);
+  }
+}
+.searchButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.75rem;
+}

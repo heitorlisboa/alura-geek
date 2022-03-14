@@ -1,7 +1,17 @@
+import Head from "next/head";
 import type { NextPage } from "next";
 
+import Header from "../src/components/Header";
+
 const Home: NextPage = () => {
-  return <h1>AluraGeek</h1>;
+  return (
+    <>
+      <Head>
+        <title>AluraGeek - Página inicial</title>
+      </Head>
+      <Header />
+    </>
+  );
 };
 
 export default Home;

@@ -1,0 +1,85 @@
+@use "../../styles/partials/screen-breakpoints.scss" as sb;
+
+.header,
+.titleAndForm {
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  --padding: var(--size-3);
+  justify-content: space-between;
+
+  padding: var(--padding);
+}
+
+.titleAndForm {
+  gap: var(--size-5);
+}
+
+.logo {
+  width: clamp(7.5rem, 12.5vw + 1rem, 172px);
+}
+
+.toggleSearchButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: var(--padding);
+}
+
+.loginButton {
+  padding-inline: var(--size-6);
+}
+
+@media (max-width: calc(sb.$bigger-than-phone - 1px)) {
+  .header {
+    --padding: var(--size-2);
+  }
+}
+
+@media (max-width: calc(650px - 1px)) {
+  .header {
+    position: relative;
+    gap: var(--size-2);
+  }
+
+  .loginButton {
+    padding-inline: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
+    margin-inline-end: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
+  }
+
+  .searchFormWrapper {
+    display: none;
+
+    &.active {
+      background-color: white;
+
+      position: absolute;
+      inset: 0;
+      display: grid;
+      gap: var(--size-2);
+      grid-template-columns: 1fr auto;
+      align-items: center;
+
+      padding: var(--size-3);
+    }
+  }
+
+  .searchForm {
+    width: 100%;
+  }
+
+  .searchIcon {
+    fill: var(--dark-gray-text);
+  }
+}
+
+@media (max-width: calc(sb.$bigger-than-tablet - 1px)) {
+  .loginButton {
+    font-size: var(--fs-small);
+    font-weight: 600;
+
+    padding-block: 0.75rem;
+  }
+}
