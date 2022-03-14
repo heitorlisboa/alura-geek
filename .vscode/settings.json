@@ -1,0 +1,4 @@
+{
+  "cssvar.files": ["src/styles/global/variables.css"],
+  "cssvar.extensions": ["css", "scss"]
+}
