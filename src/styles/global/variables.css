@@ -1,0 +1,26 @@
+:root {
+  /* COLORS */
+  /* Text specific colors */
+  --dark-gray-text: hsl(0, 0%, 27%);
+  --gray-text: hsl(0, 0%, 64%);
+  --white-text: hsl(0, 0%, 100%);
+
+  /* General colors */
+  --accent-color: hsl(214, 78%, 53%);
+  --accent-color-light: hsl(214, 77%, 62%);
+  --accent-color-lighter: hsl(215, 79%, 91%);
+  --light-gray: hsl(0, 0%, 96%);
+
+  /* SIZES */
+  --size-1: 0.25rem;
+  --size-2: 0.5rem;
+  --size-3: 1rem;
+  --size-4: 1.5rem;
+  --size-5: 2rem;
+  --size-6: 4rem;
+  --size-7: 6rem;
+
+  /* FONT SIZES */
+  --fs-small: 0.875rem;
+  --fs-normal: 1rem;
+}
