@@ -1,9 +1,11 @@
 .category {
-  margin-block: var(--size-7);
+  margin-block: var(--size-6);
 
   &Header {
     display: flex;
     justify-content: space-between;
+
+    margin-block-end: var(--size-3);
   }
 
   &Title {
