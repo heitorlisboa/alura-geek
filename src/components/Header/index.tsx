@@ -31,7 +31,6 @@ const Header: FC = function HeaderComponent() {
           <Link href="/" passHref>
             <a>
               <span className="sr-only">AluraGeek</span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className={styles.logo} src="/svg/logo.svg" alt="Logo" />
             </a>
           </Link>
