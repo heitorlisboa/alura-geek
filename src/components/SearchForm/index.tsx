@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import SearchSvg from "../svgs/SearchSVG";
+import SearchSvg from "../../icons/SearchSvg";
 import { classNames } from "../../utils";
 
 import styles from "./SearchForm.module.scss";

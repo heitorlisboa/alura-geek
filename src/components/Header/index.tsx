@@ -4,8 +4,8 @@ import type { FC } from "react";
 
 import Button from "../Button";
 import SearchForm from "../SearchForm";
-import SearchSvg from "../svgs/SearchSVG";
-import CloseSvg from "../svgs/CloseSvg";
+import SearchSvg from "../../icons/SearchSvg";
+import CloseSvg from "../../icons/CloseSvg";
 import { useWindowSize } from "../../hooks/WindowSize";
 import { classNames } from "../../utils";
 
