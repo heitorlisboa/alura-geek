@@ -1,12 +1,17 @@
-:where(.button) {
-  padding: var(--size-3);
+@use "../../styles/partials/screen-breakpoints.scss" as sb;
+
+.button {
+  --padding: var(--size-3);
+  padding-inline: var(--padding-inline, var(--padding));
+  padding-block: var(--padding-block, var(--padding));
 }
 
 .contained {
   background-color: var(--accent-color);
   color: var(--white-text);
 
-  &:hover, &:focus-visible {
+  &:hover,
+  &:focus-visible {
     background-color: var(--accent-color-light);
   }
 }
@@ -15,7 +20,17 @@
   border: 1px solid var(--accent-color);
   color: var(--accent-color);
 
-  &:hover, &:focus-visible {
+  &:hover,
+  &:focus-visible {
     background-color: var(--accent-color-lighter);
+  }
+}
+
+@media (max-width: calc(sb.$bigger-than-tablet - 1px)) {
+  .button {
+    font-size: var(--fs-small);
+    font-weight: 600;
+
+    --padding-block: 0.75rem;
   }
 }

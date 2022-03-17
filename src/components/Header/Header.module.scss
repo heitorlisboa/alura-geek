@@ -1,5 +1,3 @@
-@use "../../styles/partials/screen-breakpoints.scss" as sb;
-
 .headerContainer,
 .titleAndForm {
   display: flex;
@@ -28,7 +26,7 @@
 }
 
 .loginButton {
-  padding-inline: var(--size-6);
+  --padding-inline: var(--size-6);
 }
 
 @media (max-width: calc(650px - 1px)) {
@@ -38,7 +36,7 @@
   }
 
   .loginButton {
-    padding-inline: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
+    --padding-inline: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
     margin-inline-end: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
   }
 
@@ -65,14 +63,5 @@
 
   .searchIcon {
     fill: var(--dark-gray-text);
-  }
-}
-
-@media (max-width: calc(sb.$bigger-than-tablet - 1px)) {
-  .loginButton {
-    font-size: var(--fs-small);
-    font-weight: 600;
-
-    padding-block: 0.75rem;
   }
 }

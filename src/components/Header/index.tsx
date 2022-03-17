@@ -37,8 +37,10 @@ const Header: FC = function HeaderComponent() {
               </a>
             </Link>
           </h1>
+          
           {!mobile && <SearchForm />}
         </div>
+
         <Button
           className={styles.loginButton}
           variant="outlined"
@@ -47,6 +49,7 @@ const Header: FC = function HeaderComponent() {
         >
           Login
         </Button>
+
         {mobile && (
           <>
             <button
