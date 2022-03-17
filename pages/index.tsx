@@ -37,10 +37,7 @@ const Home: NextPage = () => {
         <ProductsCategory
           key={index}
           title={category.category}
-          categoryLinkHref={
-            "/products/category/" +
-            products.categories[0].category.toLowerCase()
-          }
+          categoryLinkHref={`/products/category/${category.pathname}`}
           products={category.products}
         />
       ))}
