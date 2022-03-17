@@ -1,0 +1,39 @@
+.hero {
+  background-image: url(/img/banner.png);
+  background-size: cover;
+  background-position: center;
+
+  color: var(--white-text);
+
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      hsla(0, 0%, 0%, 0.5)
+    );
+  }
+
+  &Container {
+    display: grid;
+    gap: var(--size-3);
+    grid-auto-flow: row;
+    justify-items: flex-start;
+
+    padding-block: var(--size-7) var(--size-5);
+  }
+
+  &Title {
+    font-size: var(--fs-big-title);
+  }
+
+  &Paragraph {
+    font-size: var(--fs-big-text);
+  }
+}

@@ -24,7 +24,9 @@
 
   /* FONT SIZES */
   --fs-small: 0.875rem;
-  --fs-normal: 1rem;
+  --fs-text: 1rem;
+  --fs-big-text: 1.4rem;
+  --fs-big-title: clamp(2rem, 5vw + 1rem, 3rem);
 
   /* DEFAULT INLINE PADDING/MARGIN */
   --inline-spacing: var(--size-3);
