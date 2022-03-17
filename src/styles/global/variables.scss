@@ -1,3 +1,5 @@
+@use "../../styles/partials/screen-breakpoints.scss" as sb;
+
 :root {
   /* COLORS */
   /* Text specific colors */
@@ -23,4 +25,13 @@
   /* FONT SIZES */
   --fs-small: 0.875rem;
   --fs-normal: 1rem;
+
+  /* DEFAULT INLINE PADDING/MARGIN */
+  --inline-spacing: var(--size-3);
+}
+
+@media (max-width: sb.$bigger-than-phone) {
+  :root {
+    --inline-spacing: var(--size-2);
+  }
 }

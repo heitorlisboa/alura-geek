@@ -1,16 +1,15 @@
 @use "../../styles/partials/screen-breakpoints.scss" as sb;
 
-.header,
+.headerContainer,
 .titleAndForm {
   display: flex;
   align-items: center;
 }
 
-.header {
-  --padding: var(--size-3);
+.headerContainer {
   justify-content: space-between;
 
-  padding: var(--padding);
+  padding-block: var(--size-3);
 }
 
 .titleAndForm {
@@ -25,21 +24,15 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: var(--padding);
+  right: 0;
 }
 
 .loginButton {
   padding-inline: var(--size-6);
 }
 
-@media (max-width: calc(sb.$bigger-than-phone - 1px)) {
-  .header {
-    --padding: var(--size-2);
-  }
-}
-
 @media (max-width: calc(650px - 1px)) {
-  .header {
+  .headerContainer {
     position: relative;
     gap: var(--size-2);
   }
