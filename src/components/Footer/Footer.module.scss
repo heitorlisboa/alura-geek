@@ -1,0 +1,134 @@
+@use "../../styles/partials/screen-breakpoints.scss" as sb;
+
+.footerContainer {
+  padding-block: var(--size-3);
+}
+
+.info {
+  background-color: var(--accent-color-lightest);
+}
+
+.infoContainer {
+  display: grid;
+  row-gap: var(--size-4);
+  grid-auto-flow: row;
+  justify-items: center;
+
+  padding-block: var(--size-5);
+}
+
+.navList {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+}
+
+.navList {
+  a {
+    color: var(--dark-gray-text);
+    font-weight: 500;
+  }
+}
+
+.contactForm {
+  width: 100%;
+}
+
+.contactFieldset {
+  display: grid;
+  gap: var(--size-3);
+
+  legend {
+    font-weight: bold;
+    margin-bottom: var(--size-1);
+  }
+}
+
+.contactField {
+  --label-color: var(--gray-text);
+  --input-padding-inline: var(--size-3);
+  position: relative;
+
+  label:not([class]) {
+    color: var(--label-color);
+    font-size: var(--fs-smaller);
+
+    position: absolute;
+    top: var(--size-2);
+    left: var(--input-padding-inline);
+  }
+
+  input,
+  textarea {
+    width: 100%;
+
+    border-radius: var(--size-1);
+    box-shadow: 0 1px 0 0 var(--light-gray);
+
+    &::placeholder {
+      color: var(--label-color);
+    }
+  }
+
+  input {
+    padding-block: var(--size-4) var(--size-1);
+    padding-inline: var(--input-padding-inline);
+  }
+
+  textarea {
+    padding: var(--size-3);
+
+    resize: vertical;
+  }
+}
+
+.contactSubmit {
+  justify-self: flex-start;
+}
+
+.copyright {
+  text-align: center;
+  font-weight: 500;
+
+  padding-block: var(--size-4);
+}
+
+@media (min-width: sb.$bigger-than-tablet) {
+  .infoContainer {
+    column-gap: var(--size-7);
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(2, auto);
+
+    padding-block: var(--size-5);
+  }
+
+  .nav {
+    grid-column: 1 / 2;
+  }
+
+  .navList {
+    text-align: start;
+
+    gap: var(--size-4);
+  }
+
+  .contactForm {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+  }
+}
+
+@media (min-width: sb.$bigger-than-laptop) {
+  .infoContainer {
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: 1fr;
+
+    padding-block: var(--size-6);
+  }
+
+  .nav,
+  .contactForm {
+    grid-area: unset;
+  }
+}

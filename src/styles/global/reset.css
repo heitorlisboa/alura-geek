@@ -61,6 +61,11 @@ select {
   border: none;
 }
 
+fieldset {
+  border: none;
+  padding: unset;
+}
+
 /* Avoid text overflows */
 p,
 h1,

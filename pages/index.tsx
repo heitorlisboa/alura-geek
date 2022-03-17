@@ -7,6 +7,7 @@ import Header from "../src/components/Header";
 import Container from "../src/components/Container";
 import Button from "../src/components/Button";
 import ProductsCategory from "../src/components/ProductsCategory";
+import Footer from "../src/components/Footer";
 
 import products from "../src/tmp/products.json";
 
@@ -41,6 +42,8 @@ const Home: NextPage = () => {
           products={category.products}
         />
       ))}
+
+      <Footer />
     </>
   );
 };

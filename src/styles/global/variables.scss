@@ -11,7 +11,9 @@
   --accent-color: hsl(214, 78%, 53%);
   --accent-color-light: hsl(214, 77%, 62%);
   --accent-color-lighter: hsl(215, 79%, 91%);
-  --light-gray: hsl(0, 0%, 96%);
+  --accent-color-lightest: hsl(215, 83%, 95%);
+  --light-gray: hsl(0, 0%, 78%);
+  --lighter-gray: hsl(0, 0%, 96%);
 
   /* SIZES */
   --size-1: 0.25rem;
@@ -23,6 +25,7 @@
   --size-7: 6rem;
 
   /* FONT SIZES */
+  --fs-smaller: 0.750rem;
   --fs-small: 0.875rem;
   --fs-text: 1rem;
   --fs-big-text: 1.4rem;
