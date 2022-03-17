@@ -1,0 +1,54 @@
+.category {
+  margin-block: var(--size-7);
+
+  &Header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &Title {
+    font-size: var(--fs-medium-title);
+  }
+}
+
+.seeAllLink,
+.productLink {
+  --default-color: var(--accent-color);
+  --hover-color: var(--accent-color-light);
+  color: var(--default-color);
+  font-weight: bold;
+
+  &:hover {
+    color: var(--hover-color);
+  }
+}
+
+.seeAllLink {
+  display: flex;
+  align-items: center;
+
+  .linkArrow {
+    fill: var(--default-color);
+  }
+
+  &:hover .linkArrow {
+    fill: var(--hover-color);
+  }
+}
+
+.productList {
+  display: grid;
+  gap: var(--size-3);
+  grid-auto-flow: column;
+}
+
+.product {
+  display: flex;
+  gap: var(--size-2);
+  flex-direction: column;
+
+  &Title {
+    font-size: var(--fs-small);
+    font-weight: normal;
+  }
+}

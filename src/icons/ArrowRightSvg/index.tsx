@@ -1,9 +1,19 @@
+import type { FC } from "react";
+
 import styles from "./ArrowRightSvg.module.scss";
 
-const ArrowRightSvg = function ArrowRightSvgComponent() {
+import { classNames } from "../../utils";
+
+type ArrowRightSvgProps = {
+  className?: string;
+};
+
+const ArrowRightSvg: FC<ArrowRightSvgProps> = function ArrowRightSvgComponent({
+  className,
+}) {
   return (
     <svg
-      className={styles.svg}
+      {...classNames([styles.svg, className])}
       width="16"
       height="16"
       viewBox="0 0 16 16"

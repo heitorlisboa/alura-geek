@@ -1,0 +1,127 @@
+{
+  "categories": [
+    {
+      "category": "Star Wars",
+      "products": [
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/star-wars/cristina-hernandez-6FDXGY9J6y4-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/star-wars/horology-hands-epRFE_hBNjo-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/star-wars/d-a-v-i-d-s-o-n-l-u-n-a-KeGToDVN0l4-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/star-wars/ben-lei-4OHkK555s1A-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/star-wars/jonathan-cooper-R8L1l9RN198-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/star-wars/michael-marais-1VV1MRafd7A-unsplash.jpg"
+        }
+      ]
+    },
+    {
+      "category": "Consoles",
+      "products": [
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/consoles/alex-motoc-0POwK6iAiRQ-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/consoles/martin-katler-caNzzoxls8Q-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/consoles/jason-leung-ZV7lnfyQLmA-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/consoles/ehimetalor-akhere-unuabona-wa5z9o9fgjw-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/consoles/billy-freeman-Zjn4dT993-g-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/consoles/dim-hou-k-xYhI3-gJM-unsplash.jpg"
+        }
+      ]
+    },
+    {
+      "category": "Diversos",
+      "products": [
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/misc/red-dot-fMP-oCze3AY-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/misc/kelly-sikkema-bUgaIaZysH0-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/misc/hello-i-m-nik-sYVY_ZKwaxU-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/misc/joshua-coleman-jMT6BrgBuXU-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/misc/uriel-soberanes-MxVkWPiJALs-unsplash.jpg"
+        },
+        {
+          "name": "Produto XYZ",
+          "price": 60,
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+          "image": "/img/products/misc/jon-tyson-r27umXAelDc-unsplash.jpg"
+        }
+      ]
+    }
+  ]
+}

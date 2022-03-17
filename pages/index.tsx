@@ -6,6 +6,9 @@ import styles from "../src/styles/pages/Home.module.scss";
 import Header from "../src/components/Header";
 import Container from "../src/components/Container";
 import Button from "../src/components/Button";
+import ProductsCategory from "../src/components/ProductsCategory";
+
+import products from "../src/tmp/products.json";
 
 const Home: NextPage = () => {
   return (
@@ -29,6 +32,18 @@ const Home: NextPage = () => {
           </Button>
         </Container>
       </section>
+
+      {products.categories.map((category, index) => (
+        <ProductsCategory
+          key={index}
+          title={category.category}
+          categoryLinkHref={
+            "/products/category/" +
+            products.categories[0].category.toLowerCase()
+          }
+          products={category.products}
+        />
+      ))}
     </>
   );
 };
