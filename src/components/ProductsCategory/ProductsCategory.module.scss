@@ -1,3 +1,5 @@
+@use "../../styles/partials/screen-breakpoints.scss" as sb;
+
 .category {
   margin-block: var(--size-6);
 
@@ -52,5 +54,12 @@
   &Title {
     font-size: var(--fs-small);
     font-weight: normal;
+  }
+}
+
+@media (max-width: 700px) {
+  .productList {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 }

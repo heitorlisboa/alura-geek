@@ -24,7 +24,7 @@ type ProductsCategoryProps = {
 const ProductsCategory: FC<ProductsCategoryProps> =
   function ProductsCategoryComponent({ title, categoryLinkHref, products }) {
     const windowSize = useWindowSize();
-    const numberOfProducts = windowSize <= 768 ? 4 : 6;
+    const numberOfProducts = windowSize < 1024 ? 4 : 6;
 
     const categoryTitleId = `${title.toLowerCase()}-category-title`;
 
