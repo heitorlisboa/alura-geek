@@ -14,6 +14,7 @@ type ProductsCategoryProps = {
   title: string;
   categoryLinkHref: string;
   products: {
+    id: number;
     name: string;
     price: number;
     description: string;
@@ -62,7 +63,7 @@ const ProductsCategory: FC<ProductsCategoryProps> =
                 <p>
                   <strong>{formatPrice(product.price)}</strong>
                 </p>
-                <Link href={`/products/${product.name}`} passHref>
+                <Link href={`/products/${product.id}`} passHref>
                   <a className={styles.productLink}>Ver produto</a>
                 </Link>
               </li>
