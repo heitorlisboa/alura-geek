@@ -44,6 +44,7 @@
   display: grid;
   gap: var(--size-3);
   grid-auto-flow: column;
+  grid-auto-columns: 1fr;
 }
 
 .product {
