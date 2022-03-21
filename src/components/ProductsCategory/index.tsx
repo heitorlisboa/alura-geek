@@ -9,17 +9,12 @@ import Container from "../Container";
 import ArrowRightSvg from "../../icons/ArrowRightSvg";
 import { useWindowSize } from "../../hooks/WindowSize";
 import { formatPrice } from "../../utils";
+import type { ProductType } from "../../types";
 
 type ProductsCategoryProps = {
   title: string;
   categoryLinkHref: string;
-  products: {
-    id: number;
-    name: string;
-    price: number;
-    description: string;
-    image: string;
-  }[];
+  products: ProductType[];
 };
 
 const ProductsCategory: FC<ProductsCategoryProps> =

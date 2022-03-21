@@ -7,7 +7,7 @@ import Container from "../src/components/Container";
 import Button from "../src/components/Button";
 import ProductsCategory from "../src/components/ProductsCategory";
 
-import products from "../src/tmp/products.json";
+import categoriesWithProducts from "../src/tmp/products.json";
 
 const Home: NextPage = () => {
   return (
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           </Container>
         </section>
 
-        {products.categories.map((category, index) => (
+        {categoriesWithProducts.categories.map((category, index) => (
           <ProductsCategory
             key={index}
             title={category.category}
