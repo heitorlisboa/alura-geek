@@ -1,0 +1,18 @@
+.container {
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-height: 60vh;
+}
+
+.title {
+  font-size: 3rem;
+  color: var(--accent-color);
+}
+
+.text {
+  font-size: 1.5rem;
+}
