@@ -3,6 +3,9 @@ import type { AppProps } from "next/app";
 
 import "../src/styles/global/index.scss";
 
+import Header from "../src/components/Header";
+import Footer from "../src/components/Footer";
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -32,7 +35,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="msapplication-TileColor" content="#2d89ef" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
+
+      <Header />
+
       <Component {...pageProps} />
+
+      <Footer />
     </>
   );
 }
