@@ -1,15 +1,17 @@
 import Link from "next/link";
-import type { FC } from "react";
+import type { FC, ButtonHTMLAttributes } from "react";
 
 import { classNames } from "../../utils";
 
 import styles from "./Button.module.scss";
 
+type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>["type"];
+
 type ButtonProps = {
   className?: string;
   variant?: "contained" | "outlined";
   as?: "button" | "link";
-  buttonType?: "button" | "submit" | "reset";
+  buttonType?: ButtonType;
   linkHref?: string;
 };
 
