@@ -20,28 +20,30 @@ const Home: NextPage = () => {
 
       <Header />
 
-      <section className={styles.hero} aria-labelledby="hero-title">
-        <Container className={styles.heroContainer}>
-          <h2 id="hero-title" className={styles.heroTitle}>
-            Dezembro Promocional
-          </h2>
-          <p className={styles.heroParagraph}>
-            <strong>Produtos selecionados com 33% de desconto</strong>
-          </p>
-          <Button as="link" linkHref="/products/category/consoles">
-            Ver Consoles
-          </Button>
-        </Container>
-      </section>
+      <main>
+        <section className={styles.hero} aria-labelledby="hero-title">
+          <Container className={styles.heroContainer}>
+            <h2 id="hero-title" className={styles.heroTitle}>
+              Dezembro Promocional
+            </h2>
+            <p className={styles.heroParagraph}>
+              <strong>Produtos selecionados com 33% de desconto</strong>
+            </p>
+            <Button as="link" linkHref="/products/category/consoles">
+              Ver Consoles
+            </Button>
+          </Container>
+        </section>
 
-      {products.categories.map((category, index) => (
-        <ProductsCategory
-          key={index}
-          title={category.category}
-          categoryLinkHref={`/products/category/${category.pathname}`}
-          products={category.products}
-        />
-      ))}
+        {products.categories.map((category, index) => (
+          <ProductsCategory
+            key={index}
+            title={category.category}
+            categoryLinkHref={`/products/category/${category.pathname}`}
+            products={category.products}
+          />
+        ))}
+      </main>
 
       <Footer />
     </>

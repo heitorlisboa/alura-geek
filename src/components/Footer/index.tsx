@@ -1,13 +1,14 @@
 import Link from "next/link";
-import Button from "../Button";
-import Container from "../Container";
 
 import styles from "./Footer.module.scss";
+
+import Container from "../Container";
+import Button from "../Button";
 
 const Footer = function FooterComponent() {
   return (
     <footer>
-      <section className={styles.info}>
+      <section className={styles.info} aria-label="Informações e contato">
         <Container className={styles.infoContainer}>
           <img src="/svg/logo.svg" alt="Logo" />
 
@@ -57,7 +58,11 @@ const Footer = function FooterComponent() {
                   required
                 />
               </div>
-              <Button className={styles.contactSubmit} as="button" buttonType="submit">
+              <Button
+                className={styles.contactSubmit}
+                as="button"
+                buttonType="submit"
+              >
                 Enviar mensagem
               </Button>
             </fieldset>
