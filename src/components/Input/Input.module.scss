@@ -1,0 +1,44 @@
+.wrapper {
+  --label-color: var(--gray-text);
+  --input-padding-inline: var(--size-3);
+  position: relative;
+}
+
+.label {
+  color: var(--label-color);
+  font-size: var(--fs-smaller);
+
+  position: absolute;
+  top: var(--size-2);
+  left: var(--input-padding-inline);
+}
+
+.input,
+.textarea {
+  width: 100%;
+
+  border-radius: var(--size-1);
+  box-shadow: 0 1px 0 0 var(--light-gray);
+
+  &::placeholder {
+    color: var(--label-color);
+  }
+}
+
+.input {
+  --padding-top: var(--size-1);
+  padding-block: var(--padding-top) var(--size-1);
+  padding-inline: var(--input-padding-inline);
+}
+
+.textarea {
+  --padding-top: var(--size-3);
+  padding-block: var(--padding-top) var(--size-3);
+  padding-inline: var(--input-padding-inline);
+
+  resize: vertical;
+}
+
+.withLabelVisible {
+  --padding-top: var(--size-4);
+}

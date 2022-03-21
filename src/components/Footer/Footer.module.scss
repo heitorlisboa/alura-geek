@@ -45,44 +45,6 @@
   }
 }
 
-.contactField {
-  --label-color: var(--gray-text);
-  --input-padding-inline: var(--size-3);
-  position: relative;
-
-  label:not([class]) {
-    color: var(--label-color);
-    font-size: var(--fs-smaller);
-
-    position: absolute;
-    top: var(--size-2);
-    left: var(--input-padding-inline);
-  }
-
-  input,
-  textarea {
-    width: 100%;
-
-    border-radius: var(--size-1);
-    box-shadow: 0 1px 0 0 var(--light-gray);
-
-    &::placeholder {
-      color: var(--label-color);
-    }
-  }
-
-  input {
-    padding-block: var(--size-4) var(--size-1);
-    padding-inline: var(--input-padding-inline);
-  }
-
-  textarea {
-    padding: var(--size-3);
-
-    resize: vertical;
-  }
-}
-
 .contactSubmit {
   justify-self: flex-start;
 }

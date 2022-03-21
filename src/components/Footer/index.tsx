@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./Footer.module.scss";
 
 import Container from "../Container";
+import Input from "../Input";
 import Button from "../Button";
 
 const Footer = function FooterComponent() {
@@ -42,22 +43,24 @@ const Footer = function FooterComponent() {
             <fieldset className={styles.contactFieldset}>
               <legend>Fale conosco</legend>
 
-              <div className={styles.contactField}>
-                <label htmlFor="name">Nome</label>
-                <input id="name" name="name" type="text" required />
-              </div>
+              <Input
+                id="name"
+                name="name"
+                label="Nome"
+                inputType="text"
+                labelVisible
+                required
+              />
 
-              <div className={styles.contactField}>
-                <label htmlFor="message" className="sr-only">
-                  Mensagem
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Escreva sua mensagem"
-                  required
-                />
-              </div>
+              <Input
+                as="textarea"
+                id="message"
+                name="message"
+                label="Mensagem"
+                placeholder="Escreva sua mensagem"
+                required
+              />
+
               <Button
                 className={styles.contactSubmit}
                 as="button"
