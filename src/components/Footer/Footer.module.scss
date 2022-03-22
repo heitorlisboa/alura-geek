@@ -35,14 +35,17 @@
   width: 100%;
 }
 
-.contactFieldset {
+.formTitle {
+  font-size: var(--fs-text);
+  font-weight: bold;
+
+  margin-bottom: var(--size-1);
+}
+
+.formFields {
   display: grid;
   gap: var(--size-3);
-
-  legend {
-    font-weight: bold;
-    margin-bottom: var(--size-1);
-  }
+  grid-auto-rows: min-content;
 }
 
 .contactSubmit {

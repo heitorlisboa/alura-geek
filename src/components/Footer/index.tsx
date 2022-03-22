@@ -40,9 +40,9 @@ const Footer = function FooterComponent() {
             className={styles.contactForm}
             onSubmit={(e) => e.preventDefault()}
           >
-            <fieldset className={styles.contactFieldset}>
-              <legend>Fale conosco</legend>
+            <h2 className={styles.formTitle}>Fale conosco</h2>
 
+            <div className={styles.formFields}>
               <Input
                 id="name"
                 name="name"
@@ -68,7 +68,7 @@ const Footer = function FooterComponent() {
               >
                 Enviar mensagem
               </Button>
-            </fieldset>
+            </div>
           </form>
         </Container>
       </section>

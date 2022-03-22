@@ -5,7 +5,7 @@ import styles from "../src/styles/pages/Login.module.scss";
 
 import Container from "../src/components/Container";
 import Input from "../src/components/Input";
-import Button from "../src/components/Button"
+import Button from "../src/components/Button";
 
 const Login: NextPage = function LoginPage() {
   return (
@@ -20,8 +20,9 @@ const Login: NextPage = function LoginPage() {
             className={styles.loginForm}
             onSubmit={(e) => e.preventDefault()}
           >
-            <fieldset className={styles.loginFieldset}>
-              <legend>Iniciar Sessão</legend>
+            <h2 className={styles.formTitle}>Iniciar Sessão</h2>
+
+            <div className={styles.formFields}>
               <Input
                 id="email-address"
                 name="email"
@@ -30,6 +31,7 @@ const Login: NextPage = function LoginPage() {
                 placeholder="Escreva seu email"
                 required
               />
+
               <Input
                 id="password"
                 name="password"
@@ -38,10 +40,15 @@ const Login: NextPage = function LoginPage() {
                 placeholder="Escreva sua senha"
                 required
               />
-              <Button className={styles.submitButton} as="button" buttonType="submit">
+
+              <Button
+                className={styles.submitButton}
+                as="button"
+                buttonType="submit"
+              >
                 Entrar
               </Button>
-            </fieldset>
+            </div>
           </form>
         </Container>
       </main>

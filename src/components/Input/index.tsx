@@ -46,18 +46,18 @@ const Input: FC<InputProps> = function InputComponent({
   switch (as) {
     case "input":
       return (
-        <div className={styles.wrapper}>
+        <p className={styles.wrapper}>
           <label {...labelAttrs}>{label}</label>
           <input {...generalAttrs} type={inputType} />
-        </div>
+        </p>
       );
 
     case "textarea":
       return (
-        <div className={styles.wrapper}>
+        <p className={styles.wrapper}>
           <label {...labelAttrs}>{label}</label>
           <textarea {...generalAttrs} />
-        </div>
+        </p>
       );
   }
 };
