@@ -1,9 +1,5 @@
 @use "../../styles/partials/screen-breakpoints.scss" as sb;
 
-.footerContainer {
-  padding-block: var(--size-3);
-}
-
 .info {
   background-color: var(--accent-color-lightest);
 }
