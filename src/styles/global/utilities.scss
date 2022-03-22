@@ -1,3 +1,4 @@
+// Makes content visible only for assistive technologies
 .sr-only {
   position: absolute;
   width: 1px;
@@ -8,6 +9,7 @@
   clip-path: inset(50%);
 }
 
+// Prevents margin collapse
 .no-collapse {
   overflow-x: hidden;
 }
