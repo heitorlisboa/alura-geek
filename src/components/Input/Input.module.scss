@@ -6,11 +6,21 @@
 
 .label {
   color: var(--label-color);
-  font-size: var(--fs-smaller);
 
   position: absolute;
-  top: var(--size-2);
+  top: 50%;
+  transform: translateY(-50%);
   left: var(--input-padding-inline);
+
+  transition: all 200ms ease-out;
+  pointer-events: none;
+
+  &Focused {
+    font-size: var(--fs-smaller);
+
+    top: var(--size-2);
+    transform: unset;
+  }
 }
 
 .input,
