@@ -60,7 +60,7 @@ const ProductsCategory: FC<ProductsCategoryProps> =
                 <p>
                   <strong>{formatPrice(product.price)}</strong>
                 </p>
-                <Link href={`/products/${product.id}`} passHref>
+                <Link href={`/product/${product.id}`} passHref>
                   <a className={styles.productLink}>Ver produto</a>
                 </Link>
               </li>

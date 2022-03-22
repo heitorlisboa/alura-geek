@@ -34,7 +34,7 @@ const Home: NextPage = () => {
         {categoriesWithProducts.categories.map((category, index) => (
           <ProductsCategory
             key={index}
-            title={category.category}
+            title={category.name}
             categoryLinkHref={`/products/category/${category.pathname}`}
             products={category.products}
           />
