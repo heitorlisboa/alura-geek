@@ -12,7 +12,7 @@ const Error404: NextPage = function Error404Page() {
         <title>404: Página não encontrada</title>
       </Head>
 
-      <main className={styles.main}>
+      <main>
         <Container className={styles.container}>
           <h2 className={styles.title}>404</h2>
           <p className={styles.text}>

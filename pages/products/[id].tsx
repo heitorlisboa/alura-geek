@@ -6,7 +6,7 @@ import styles from "../../src/styles/pages/Product.module.scss";
 
 import Container from "../../src/components/Container";
 import ProductsCategory from "../../src/components/ProductsCategory";
-import { classNames, formatPrice } from "../../src/utils";
+import { formatPrice } from "../../src/utils";
 import {
   getProduct,
   getAllProducts,
@@ -66,7 +66,7 @@ const Product: NextPage<ProductProps> = function ProductPage({ product }) {
         <title>{product.name}</title>
       </Head>
 
-      <main {...classNames([styles.main, "no-collapse"])}>
+      <main>
         <Container className={styles.productContainer}>
           <article className={styles.product}>
             <Image

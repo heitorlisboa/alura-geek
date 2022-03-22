@@ -1,9 +1,5 @@
 @use "../partials/screen-breakpoints.scss" as sb;
 
-.main {
-  background-color: var(--lighter-gray);
-}
-
 .product {
   display: grid;
   gap: var(--size-3);

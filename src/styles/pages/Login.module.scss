@@ -1,8 +1,6 @@
 @use "../partials/screen-breakpoints.scss" as sb;
 
 .main {
-  background-color: var(--lighter-gray);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
