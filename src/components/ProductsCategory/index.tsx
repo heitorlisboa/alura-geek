@@ -13,8 +13,8 @@ import type { ProductType } from "../../types";
 
 type ProductsCategoryProps = {
   title: string;
-  categoryLinkHref: string;
   products: ProductType[];
+  categoryLinkHref?: string;
 };
 
 const ProductsCategory: FC<ProductsCategoryProps> =
@@ -31,12 +31,14 @@ const ProductsCategory: FC<ProductsCategoryProps> =
             <h3 className={styles.categoryTitle} id={categoryTitleId}>
               {title}
             </h3>
-            <Link href={categoryLinkHref} passHref>
-              <a className={styles.seeAllLink}>
-                Ver tudo
-                <ArrowRightSvg className={styles.linkArrow} />
-              </a>
-            </Link>
+            {categoryLinkHref && (
+              <Link href={categoryLinkHref} passHref>
+                <a className={styles.seeAllLink}>
+                  Ver tudo
+                  <ArrowRightSvg className={styles.linkArrow} />
+                </a>
+              </Link>
+            )}
           </header>
 
           <ul

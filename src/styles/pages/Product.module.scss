@@ -1,0 +1,59 @@
+@use "../partials/screen-breakpoints.scss" as sb;
+
+.main {
+  background-color: var(--lighter-gray);
+}
+
+.product {
+  display: grid;
+  gap: var(--size-3);
+
+  &Info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+  }
+
+  &Title {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: calc(sb.$bigger-than-tablet - 1px)) {
+  .productContainer {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  .product {
+    grid-template-rows: min(300px, 50vw) 1fr;
+
+    &Info {
+      margin-inline: var(--inline-spacing);
+    }
+  }
+}
+
+@media (min-width: sb.$bigger-than-tablet) {
+  .productContainer {
+    margin-top: var(--size-6);
+  }
+
+  .product {
+    grid-template-columns: 40% 1fr;
+    align-items: center;
+  }
+}
+
+@media (max-width: calc(sb.$bigger-than-laptop - 1px)) {
+  .productDescription {
+    font-size: var(--fs-small);
+  }
+}
+
+@media (min-width: sb.$bigger-than-laptop) {
+  .product {
+    grid-template-columns: 50% 1fr;
+  }
+}
