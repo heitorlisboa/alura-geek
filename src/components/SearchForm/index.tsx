@@ -18,7 +18,9 @@ const SearchForm: FC<SearchFormProps> = function SearchFormComponent({
       role="search"
       onSubmit={(e) => e.preventDefault()}
     >
-      <label htmlFor="search-product" className="sr-only"></label>
+      <label htmlFor="search-product" className="sr-only">
+        Buscar produto
+      </label>
       <input
         className={styles.searchBox}
         type="search"
