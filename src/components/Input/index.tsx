@@ -1,48 +1,78 @@
-import { useRef } from "react";
-import type { FC, HTMLInputTypeAttribute, FocusEvent } from "react";
+import { useRef, forwardRef, useCallback } from "react";
+import type {
+  HTMLProps,
+  HTMLInputTypeAttribute,
+  FocusEvent,
+  ForwardedRef,
+} from "react";
+import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./Input.module.scss";
 
 import { classNames } from "../../utils";
+
+type InputType = HTMLInputElement | HTMLTextAreaElement;
 
 type InputProps = {
   id: string;
   name: string;
   label: string;
   placeholder?: string;
+  errorMessage?: string;
   labelVisible?: boolean;
   required?: boolean;
   as?: "input" | "textarea";
   inputType?: HTMLInputTypeAttribute;
+  // React Hook Form props
+  onChange?: ChangeHandler;
+  onBlur?: ChangeHandler;
 };
 
-const Input: FC<InputProps> = function InputComponent({
-  id,
-  name,
-  label,
-  placeholder,
-  labelVisible = false,
-  required = false,
-  as = "input",
-  inputType = "text",
-}) {
+const Input = forwardRef<InputType, InputProps>(function InputComponent(
+  {
+    id,
+    name,
+    label,
+    placeholder,
+    errorMessage,
+    labelVisible = false,
+    required = false,
+    as = "input",
+    inputType = "text",
+    onChange,
+    onBlur,
+  },
+  // Ref is needed by React Hook Form
+  ref
+) {
   const labelRef = useRef<HTMLLabelElement>(null);
   const className = classNames(
-    [styles[as], labelVisible ? styles.withLabelVisible : undefined],
+    [
+      styles[as],
+      labelVisible ? styles.withLabelVisible : undefined,
+      errorMessage ? styles.withError : undefined,
+    ],
     false
   );
 
-  const generalAttrs = {
+  const generalAttrs: HTMLProps<InputType> = {
     id,
     className,
     name,
     placeholder,
     required,
+    onChange,
     onFocus: handleFocus,
-    onBlur: handleBlur,
+    onBlur: useCallback(
+      (event: FocusEvent<InputType>) => {
+        if (onBlur) onBlur(event);
+        handleBlur(event);
+      },
+      [onBlur]
+    ),
   };
 
-  const labelAttrs = {
+  const labelAttrs: HTMLProps<HTMLLabelElement> = {
     htmlFor: id,
     className: labelVisible ? styles.label : "sr-only",
     ref: labelRef,
@@ -52,30 +82,32 @@ const Input: FC<InputProps> = function InputComponent({
     labelRef.current?.classList.add(styles.labelFocused);
   }
 
-  function handleBlur(
-    event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
+  function handleBlur(event: FocusEvent<InputType>) {
     const elementIsEmpty = !event.target.value;
     if (elementIsEmpty) labelRef.current?.classList.remove(styles.labelFocused);
   }
 
-  switch (as) {
-    case "input":
-      return (
-        <p className={styles.wrapper}>
-          <label {...labelAttrs}>{label}</label>
-          <input {...generalAttrs} type={inputType} />
-        </p>
-      );
+  return (
+    <div>
+      <p className={styles.wrapper}>
+        <label {...labelAttrs}>{label}</label>
+        {as === "input" ? (
+          <input
+            {...generalAttrs}
+            type={inputType}
+            ref={ref as ForwardedRef<HTMLInputElement>}
+          />
+        ) : (
+          <textarea
+            {...generalAttrs}
+            ref={ref as ForwardedRef<HTMLTextAreaElement>}
+          />
+        )}
+      </p>
 
-    case "textarea":
-      return (
-        <p className={styles.wrapper}>
-          <label {...labelAttrs}>{label}</label>
-          <textarea {...generalAttrs} />
-        </p>
-      );
-  }
-};
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+    </div>
+  );
+});
 
 export default Input;

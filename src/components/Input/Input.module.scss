@@ -52,3 +52,13 @@
 .withLabelVisible {
   --padding-top: var(--size-4);
 }
+
+.withError {
+  border: 2px solid var(--warning);
+}
+
+.errorMessage {
+  color: var(--warning);
+
+  margin-top: var(--size-1);
+}
