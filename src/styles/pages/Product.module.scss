@@ -1,4 +1,4 @@
-@use "../partials/screen-breakpoints.scss" as sb;
+@use "../partials/custom-media.scss" as cm;
 
 .product {
   display: grid;
@@ -16,7 +16,7 @@
   }
 }
 
-@media (max-width: calc(sb.$bigger-than-tablet - 1px)) {
+@include cm.media(max, tablet) {
   .productContainer {
     width: 100%;
     margin-inline: 0;
@@ -31,7 +31,7 @@
   }
 }
 
-@media (min-width: sb.$bigger-than-tablet) {
+@include cm.media(min, tablet) {
   .productContainer {
     margin-top: var(--size-6);
   }
@@ -42,13 +42,13 @@
   }
 }
 
-@media (max-width: calc(sb.$bigger-than-laptop - 1px)) {
+@include cm.media(max, laptop) {
   .productDescription {
     font-size: var(--fs-small);
   }
 }
 
-@media (min-width: sb.$bigger-than-laptop) {
+@include cm.media(min, laptop) {
   .product {
     grid-template-columns: 50% 1fr;
   }

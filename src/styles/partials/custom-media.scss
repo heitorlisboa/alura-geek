@@ -1,0 +1,27 @@
+@use "sass:list";
+
+@mixin media($max-or-min, $device) {
+  $valid-devices: phone, tablet, laptop, desktop;
+  $corresponding-breakpoints: 450px, 768px, 1024px, 1440px;
+  $device-index: list.index($valid-devices, $device);
+
+  @if $max-or-min != max and $max-or-min != min {
+    @error "Property #{$max-or-min} must be max or min";
+  }
+
+  @if $device-index == null {
+    @error "#{$device} is not a valid device, " +
+      "use one the following: #{$valid-devices}";
+  }
+
+  $device-breakpoint: list.nth($corresponding-breakpoints, $device-index);
+  $device-breakpoint: if(
+    $max-or-min == max,
+    $device-breakpoint - 1px,
+    $device-breakpoint
+  );
+
+  @media (#{$max-or-min}-width: $device-breakpoint) {
+    @content;
+  }
+}

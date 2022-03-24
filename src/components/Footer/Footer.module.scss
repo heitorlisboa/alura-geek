@@ -1,4 +1,4 @@
-@use "../../styles/partials/screen-breakpoints.scss" as sb;
+@use "../../styles/partials/custom-media.scss" as cm;
 
 .info {
   background-color: var(--accent-color-lightest);
@@ -55,7 +55,7 @@
   padding-block: var(--size-4);
 }
 
-@media (min-width: sb.$bigger-than-tablet) {
+@include cm.media(min, tablet) {
   .infoContainer {
     column-gap: var(--size-7);
     grid-template-columns: auto 1fr;
@@ -80,7 +80,7 @@
   }
 }
 
-@media (min-width: sb.$bigger-than-laptop) {
+@include cm.media(min, laptop) {
   .infoContainer {
     grid-template-columns: auto auto 1fr;
     grid-template-rows: 1fr;

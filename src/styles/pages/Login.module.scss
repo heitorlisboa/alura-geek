@@ -1,4 +1,4 @@
-@use "../partials/screen-breakpoints.scss" as sb;
+@use "../partials/custom-media.scss" as cm;
 
 .main {
   display: flex;
@@ -32,7 +32,7 @@
   grid-auto-rows: 1fr;
 }
 
-@media (max-width: calc(sb.$bigger-than-tablet - 1px)) {
+@include cm.media(max, tablet) {
   .loginForm {
     max-width: 17.5rem;
   }

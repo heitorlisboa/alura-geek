@@ -1,4 +1,4 @@
-@use "../../styles/partials/screen-breakpoints.scss" as sb;
+@use "../../styles/partials/custom-media.scss" as cm;
 
 :root {
   /* COLORS */
@@ -36,7 +36,7 @@
   --inline-spacing: var(--size-5);
 }
 
-@media (max-width: sb.$bigger-than-phone) {
+@include cm.media(max, phone) {
   :root {
     --inline-spacing: var(--size-3);
   }
