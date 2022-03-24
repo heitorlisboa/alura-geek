@@ -9,6 +9,7 @@ import { changeInputFiles, mergeRefs } from "../../utils";
 type FileDropInputProps = {
   name: string;
   description: string;
+  className?: string;
   accept?: string;
   errorMessage?: string;
   icon?: ReactElement;
@@ -19,7 +20,16 @@ type FileDropInputProps = {
 
 const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
   function FileDropInputComponent(
-    { name, description, accept, errorMessage, icon, onChange, onBlur },
+    {
+      name,
+      description,
+      className,
+      accept,
+      errorMessage,
+      icon,
+      onChange,
+      onBlur,
+    },
     ref
   ) {
     const [fileNames, setFileNames] = useState<string[]>([]);
@@ -102,7 +112,7 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
     }
 
     return (
-      <div>
+      <div className={className}>
         <button
           className={styles.dropArea}
           type="button"

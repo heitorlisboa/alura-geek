@@ -5,13 +5,14 @@
   background-repeat: no-repeat;
 
   position: relative;
+  
   display: grid;
   place-content: center;
-  min-height: 300px;
+  min-height: 20rem;
   width: 100%;
 
   padding: var(--size-4);
-  border: 3px dashed var(--light-gray-text);
+  border: 2px dashed var(--light-gray-text);
 
   &.dragOver {
     border-style: solid;

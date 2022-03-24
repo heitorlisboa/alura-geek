@@ -1,0 +1,20 @@
+.container {
+  margin-block: var(--size-6);
+}
+
+.formTitle {
+  font-size: var(--fs-medium-title);
+
+  margin-bottom: var(--size-3);
+}
+
+.formFields {
+  display: grid;
+  gap: var(--size-3);
+}
+
+.fileInput {
+  width: min(40rem, 100%);
+
+  margin-inline: auto;
+}
