@@ -25,17 +25,17 @@ const Home: NextPage = () => {
             <p className={styles.heroParagraph}>
               <strong>Produtos selecionados com 33% de desconto</strong>
             </p>
-            <Button as="link" linkHref="/products/category/consoles">
+            <Button as="link" linkHref="#">
               Ver Consoles
             </Button>
           </Container>
         </section>
 
-        {categoriesWithProducts.categories.map((category, index) => (
+        {categoriesWithProducts.categories.map((category) => (
           <ProductsCategory
-            key={index}
+            key={category.name}
             title={category.name}
-            categoryLinkHref={`/products/category/${category.pathname}`}
+            categoryLinkHref="#"
             products={category.products}
           />
         ))}

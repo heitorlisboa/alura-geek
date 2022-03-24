@@ -45,8 +45,8 @@ const ProductsCategory: FC<ProductsCategoryProps> =
             className={styles.productList}
             aria-label={`Produtos da categoria ${title}`}
           >
-            {products.slice(0, numberOfProducts).map((product, index) => (
-              <li className={styles.product} key={index}>
+            {products.slice(0, numberOfProducts).map((product) => (
+              <li className={styles.product} key={product.id}>
                 <Image
                   src={product.image}
                   alt={`Foto de ${product.name}`}

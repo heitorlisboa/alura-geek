@@ -23,7 +23,7 @@
   }
 
   .product {
-    grid-template-rows: min(300px, 50vw) 1fr;
+    grid-template-rows: min(20rem, 50vw) 1fr;
 
     &Info {
       margin-inline: var(--inline-spacing);
