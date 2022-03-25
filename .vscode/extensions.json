@@ -1,3 +1,7 @@
 {
-  "recommendations": ["phoenisx.cssvar"]
+  "recommendations": [
+    "phoenisx.cssvar",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ]
 }
