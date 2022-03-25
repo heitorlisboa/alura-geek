@@ -88,8 +88,8 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
   }
 
   return (
-    <div>
-      <p className={styles.wrapper}>
+    <div className={styles.parentWrapper}>
+      <p className={styles.childWrapper}>
         <label {...labelAttrs}>{label}</label>
         {as === "input" ? (
           <input

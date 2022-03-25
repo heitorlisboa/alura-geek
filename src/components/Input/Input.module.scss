@@ -1,8 +1,11 @@
-.wrapper {
+.parentWrapper {
+  display: grid;
+}
+
+.childWrapper {
   --label-color: var(--light-gray-text);
   --input-padding-inline: var(--size-3);
   position: relative;
-  height: 100%;
 }
 
 .label {
