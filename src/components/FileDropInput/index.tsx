@@ -12,7 +12,7 @@ type FileDropInputProps = {
   className?: string;
   accept?: string;
   errorMessage?: string;
-  icon?: ReactElement;
+  Icon?: ReactElement;
   // React Hook Form props
   onChange?: ChangeHandler;
   onBlur?: ChangeHandler;
@@ -26,7 +26,7 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
       className,
       accept,
       errorMessage,
-      icon,
+      Icon,
       onChange,
       onBlur,
     },
@@ -127,7 +127,7 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
             className={styles.dropAreaDefaultContent}
             style={{ display: fileNames.length > 0 ? "none" : undefined }}
           >
-            {icon}
+            {Icon}
             <p>{description}</p>
           </div>
           {fileNames.length > 0 && (

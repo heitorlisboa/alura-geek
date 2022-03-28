@@ -52,7 +52,7 @@ const NewProduct: NextPage = function NewProductPage() {
                     ? getFormErrorMessage(errors.productImage.type)
                     : undefined
                 }
-                icon={<ImagePlaceholderSvg />}
+                Icon={<ImagePlaceholderSvg />}
                 {...register("productImage", {
                   required: true,
                   validate: {
