@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { prisma } from "../../../src/lib/prisma";
-import { validateProduct } from "../../../src/lib/validateProduct";
+import { productValidator } from "../../../src/lib/productValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "../../../src/lib/handlePrismaError";
 import type { ProductRequestToValidate } from "../../../src/types/products";
@@ -17,7 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   const productRequest: ProductRequestToValidate = req.body;
 
-  const valid = validateProduct(productRequest, true);
+  const valid = productValidator.validate(productRequest, true);
   if (!valid) {
     res.status(400).json({
       error: "Produto inválido",

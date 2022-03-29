@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { Product } from "@prisma/client";
 
 import { prisma } from "../../../src/lib/prisma";
-import { validateProduct } from "../../../src/lib/validateProduct";
+import { productValidator } from "../../../src/lib/productValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "../../../src/lib/handlePrismaError";
 import type { ProductRequestToValidate } from "../../../src/types/products";
@@ -59,7 +59,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query as Query;
   const productRequest: Partial<ProductRequestToValidate> = req.body;
 
-  const valid = validateProduct(productRequest);
+  const valid = productValidator.validate(productRequest);
   if (!valid) {
     res.status(400).json({
       error: "Produto inválido",
