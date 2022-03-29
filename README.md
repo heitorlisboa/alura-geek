@@ -17,7 +17,7 @@ Link do meu projeto: [http://heitorlisboa-alura-challenge-3.vercel.app/](http://
 
 - [x] Semana 1 &ndash; Concluída!
 - [x] Semana 2 &ndash; Concluída!
-- [ ] Semana 3 &ndash; Em breve...
+- [ ] Semana 3 &ndash; Em andamento!
 - [ ] Semana 4 &ndash; Em breve...
 
 ## 👨‍💻 Tecnologias utilizadas
@@ -26,5 +26,6 @@ Link do meu projeto: [http://heitorlisboa-alura-challenge-3.vercel.app/](http://
 - Next.js
 - Sass
 - CSS Modules
+- Prisma ORM
 
 🚧 **PROJETO EM CONSTRUÇÃO** 🚧
