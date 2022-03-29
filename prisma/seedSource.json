@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Caneca Stormtrooper 3D",
+    "price": 59.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502734/alura_geek/cristina-hernandez-6FDXGY9J6y4-unsplash_blcwyt.webp"
+  },
+  {
+    "name": "Lego Star Wars",
+    "price": 899.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502734/alura_geek/horology-hands-epRFE_hBNjo-unsplash_yc1kpb.webp"
+  },
+  {
+    "name": "Boneco Yoda de porcelana",
+    "price": 69.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502734/alura_geek/d-a-v-i-d-s-o-n-l-u-n-a-KeGToDVN0l4-unsplash_pma0lc.webp"
+  },
+  {
+    "name": "Action figure Stormtrooper",
+    "price": 229.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502734/alura_geek/ben-lei-4OHkK555s1A-unsplash_cedb4f.webp"
+  },
+  {
+    "name": "Action figure Baby Yoda",
+    "price": 119.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502734/alura_geek/jonathan-cooper-R8L1l9RN198-unsplash_tt7wyd.webp"
+  },
+  {
+    "name": "Action figure Kylo Ren",
+    "price": 229.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502734/alura_geek/michael-marais-1VV1MRafd7A-unsplash_ayzhhx.webp"
+  },
+  {
+    "name": "Controle Xbox One",
+    "price": 299.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502702/alura_geek/alex-motoc-0POwK6iAiRQ-unsplash_znqurr.webp"
+  },
+  {
+    "name": "Console PlayStation 5",
+    "price": 4999.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502701/alura_geek/martin-katler-caNzzoxls8Q-unsplash_vq6r0t.webp"
+  },
+  {
+    "name": "Console Nintento Entertainment System",
+    "price": 1099.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502702/alura_geek/jason-leung-ZV7lnfyQLmA-unsplash_kguymn.webp"
+  },
+  {
+    "name": "Controle Joy-Con Nintendo Switch",
+    "price": 349.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502702/alura_geek/ehimetalor-akhere-unuabona-wa5z9o9fgjw-unsplash_hpnswz.webp"
+  },
+  {
+    "name": "Console Xbox Series X",
+    "price": 5499.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502702/alura_geek/billy-freeman-Zjn4dT993-g-unsplash_acn4km.webp"
+  },
+  {
+    "name": "Console Nintendo Game Boy transparente com jogos",
+    "price": 599.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502702/alura_geek/dim-hou-k-xYhI3-gJM-unsplash_lwv906.webp"
+  },
+  {
+    "name": "Camiseta Atari",
+    "price": 54.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502721/alura_geek/red-dot-fMP-oCze3AY-unsplash_ezahff.webp"
+  },
+  {
+    "name": "Camiseta de Controle NES",
+    "price": 49.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502720/alura_geek/kelly-sikkema-bUgaIaZysH0-unsplash_qhwqby.webp"
+  },
+  {
+    "name": "Action figure Sonic",
+    "price": 149.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502720/alura_geek/hello-i-m-nik-sYVY_ZKwaxU-unsplash_visa9z.webp"
+  },
+  {
+    "name": "Rádio relógio vintage",
+    "price": 179.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502720/alura_geek/joshua-coleman-jMT6BrgBuXU-unsplash_zaqqou.webp"
+  },
+  {
+    "name": "Oculus Quest 2 VR (Realidade Virtual)",
+    "price": 2999.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502720/alura_geek/uriel-soberanes-MxVkWPiJALs-unsplash_hvxhy0.webp"
+  },
+  {
+    "name": "Plush Pikachu gigante",
+    "price": 349.9,
+    "imageUrl": "https://res.cloudinary.com/duybhij4b/image/upload/v1648502720/alura_geek/jon-tyson-r27umXAelDc-unsplash_ckaaxu.webp"
+  }
+]
