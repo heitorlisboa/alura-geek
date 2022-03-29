@@ -4,7 +4,7 @@ import { prisma } from "../../../src/lib/prisma";
 import { productValidator } from "../../../src/lib/productValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "../../../src/lib/handlePrismaError";
-import type { ProductRequestToValidate } from "../../../src/types/products";
+import type { ProductRequestToValidate } from "../../../src/types/product";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {

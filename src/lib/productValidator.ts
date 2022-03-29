@@ -2,7 +2,7 @@ import { Validator } from "./Validator";
 import type {
   ProductRequestToValidate,
   ValidProductRequest,
-} from "../types/products";
+} from "../types/product";
 
 const productValidator = new Validator<
   ProductRequestToValidate,
