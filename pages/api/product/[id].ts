@@ -4,7 +4,7 @@ import type { Product } from "@prisma/client";
 import { prisma } from "../../../src/lib/prisma";
 import { validateProduct } from "../../../src/lib/validateProduct";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
-import { handleProductError } from "../../../src/lib/handleProductError";
+import { handlePrismaError } from "../../../src/lib/handlePrismaError";
 import type { ProductRequestToValidate } from "../../../src/types/products";
 
 type Query = { id: string };
@@ -51,7 +51,7 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
       });
     }
   } catch (error) {
-    handleProductError(error, res);
+    handlePrismaError(error, res, "produto");
   }
 }
 
@@ -102,7 +102,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
     });
     res.status(200).json(product);
   } catch (error) {
-    handleProductError(error, res, "update");
+    handlePrismaError(error, res, "produto", "atualizar");
   }
 }
 
@@ -117,7 +117,7 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
     });
     res.status(200).json(product);
   } catch (error) {
-    handleProductError(error, res, "delete");
+    handlePrismaError(error, res, "produto", "excluir");
   }
 }
 

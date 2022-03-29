@@ -1,17 +1,16 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import type { NextApiResponse } from "next";
 
-function handleProductError(
+function handlePrismaError(
   error: unknown,
   res: NextApiResponse,
-  action?: "update" | "delete"
+  itemName: "produto" | "categoria",
+  action?: "atualizar" | "excluir"
 ) {
   if (error instanceof PrismaClientKnownRequestError) {
     if (action && error.code === "P2025") {
-      const keyword = action === "update" ? "alterar" : "excluir";
-
       res.status(404).json({
-        error: `O produto que você deseja ${keyword} não foi encontrado`,
+        error: `O(a) ${itemName} que você deseja ${action} não foi encontrado(a)`,
       });
       return;
     } else if (error.code.startsWith("P2")) {
@@ -27,4 +26,4 @@ function handleProductError(
     error: "Erro desconhecido",
   });
 }
-export { handleProductError };
+export { handlePrismaError };

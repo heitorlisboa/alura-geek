@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { prisma } from "../../src/lib/prisma";
 import { handleInvalidHttpMethod } from "../../src/lib/handleInvalidHttpMethod";
-import { handleProductError } from "../../src/lib/handleProductError";
+import { handlePrismaError } from "../../src/lib/handlePrismaError";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
@@ -18,7 +18,7 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json(products);
   } catch (error) {
-    handleProductError(error, res);
+    handlePrismaError(error, res, "produto");
   }
 }
 

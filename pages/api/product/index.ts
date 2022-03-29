@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../src/lib/prisma";
 import { validateProduct } from "../../../src/lib/validateProduct";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
-import { handleProductError } from "../../../src/lib/handleProductError";
+import { handlePrismaError } from "../../../src/lib/handlePrismaError";
 import type { ProductRequestToValidate } from "../../../src/types/products";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -54,7 +54,7 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(201).json(product);
   } catch (error) {
-    handleProductError(error, res);
+    handlePrismaError(error, res, "produto");
   }
 }
 
