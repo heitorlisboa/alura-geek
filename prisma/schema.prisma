@@ -9,7 +9,7 @@ datasource db {
 
 model Category {
   id       String    @id @default(uuid())
-  name     String
+  name     String    @unique
   products Product[]
 
   @@map("categories")
@@ -17,7 +17,7 @@ model Category {
 
 model Product {
   id          String   @id @default(uuid())
-  name        String
+  name        String   @unique
   price       Float
   description String
   imageUrl    String
@@ -25,6 +25,6 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   @@map("products")
 }
