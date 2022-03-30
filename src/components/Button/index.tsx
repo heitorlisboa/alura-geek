@@ -13,6 +13,7 @@ type ButtonProps = {
   as?: "button" | "link";
   buttonType?: ButtonType;
   linkHref?: string;
+  onClick?: () => void;
 };
 
 const Button: FC<ButtonProps> = function ButtonComponent({
@@ -22,13 +23,18 @@ const Button: FC<ButtonProps> = function ButtonComponent({
   as = "button",
   buttonType = "button",
   linkHref = "/",
+  onClick,
 }) {
   const classNameList = [styles.button, styles[variant], className];
 
   switch (as) {
     case "button":
       return (
-        <button {...classNames(classNameList)} type={buttonType}>
+        <button
+          {...classNames(classNameList)}
+          type={buttonType}
+          onClick={onClick}
+        >
           {children}
         </button>
       );
