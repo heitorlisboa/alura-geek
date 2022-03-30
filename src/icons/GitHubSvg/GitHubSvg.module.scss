@@ -1,0 +1,7 @@
+.svg {
+  $-min-size: 1.5rem;
+  fill: var(--accent-color);
+  
+  min-width: $-min-size;
+  min-height: $-min-size;
+}

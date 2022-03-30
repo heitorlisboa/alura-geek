@@ -1,24 +1,17 @@
 @use "../partials/custom-media.scss" as cm;
 
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  align-content: center;
   min-height: 60vh;
 }
 
-.loginForm {
-  max-width: 25rem;
-
-  margin-inline: auto;
-
-  input,
-  textarea {
-    height: 100%;
-  }
+.container {
+  display: grid;
+  justify-items: center;
 }
 
-.formTitle {
+.title {
   font-size: 1.25rem;
   font-weight: bold;
   text-align: center;
@@ -26,20 +19,8 @@
   margin-bottom: var(--size-3);
 }
 
-.formFields {
-  display: grid;
-  gap: var(--size-3);
-  grid-auto-rows: 1fr;
-}
-
-@include cm.media(max, tablet) {
-  .loginForm {
-    max-width: 17.5rem;
-  }
-
-  .submitButton {
-    width: 8rem;
-
-    margin-inline: auto;
-  }
+.loginButton {
+  display: flex;
+  gap: var(--size-2);
+  align-items: center;
 }

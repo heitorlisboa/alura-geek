@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
+import withAuth from "../../../src/middlewares/withAuth";
 import { prisma } from "../../../src/lib/prisma";
 import { productValidator } from "../../../src/lib/productValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
@@ -8,7 +9,7 @@ import type { ProductRequestToValidate } from "../../../src/types/product";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    await handlePost(req, res);
+    await withAuth(handlePost)(req, res);
   } else {
     handleInvalidHttpMethod(req, res);
   }

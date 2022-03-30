@@ -1,10 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { categoryValidator } from "../../../src/lib/categoryValidator";
 
+import withAuth from "../../../src/middlewares/withAuth";
+import { prisma } from "../../../src/lib/prisma";
+import { categoryValidator } from "../../../src/lib/categoryValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "../../../src/lib/handlePrismaError";
-import { prisma } from "../../../src/lib/prisma";
-import { CategoryRequestToValidate } from "../../../src/types/category";
+import type { CategoryRequestToValidate } from "../../../src/types/category";
 
 type Query = { id: string };
 
@@ -15,15 +16,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
 
     case "PUT":
-      await handlePutOrPatch(req, res);
+      await withAuth(handlePutOrPatch)(req, res);
       break;
 
     case "PATCH":
-      await handlePutOrPatch(req, res);
+      await withAuth(handlePutOrPatch)(req, res);
       break;
 
     case "DELETE":
-      await handleDelete(req, res);
+      await withAuth(handleDelete)(req, res);
       break;
 
     default:

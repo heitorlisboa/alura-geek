@@ -26,7 +26,7 @@
   right: 0;
 }
 
-.loginButton {
+.sessionButton {
   --padding-inline: var(--size-6);
 }
 
@@ -36,7 +36,7 @@
     gap: var(--size-2);
   }
 
-  .loginButton {
+  .sessionButton {
     --padding-inline: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
     margin-right: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
   }

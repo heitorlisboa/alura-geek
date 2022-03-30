@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { Product } from "@prisma/client";
 
+import withAuth from "../../../src/middlewares/withAuth";
 import { prisma } from "../../../src/lib/prisma";
 import { productValidator } from "../../../src/lib/productValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
@@ -16,15 +17,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
 
     case "PUT":
-      await handlePutOrPatch(req, res);
+      await withAuth(handlePutOrPatch)(req, res);
       break;
 
     case "PATCH":
-      await handlePutOrPatch(req, res);
+      await withAuth(handlePutOrPatch)(req, res);
       break;
 
     case "DELETE":
-      await handleDelete(req, res);
+      await withAuth(handleDelete)(req, res);
       break;
 
     default:
@@ -100,6 +101,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
         id,
       },
     });
+
     res.status(200).json(product);
   } catch (error) {
     handlePrismaError(error, res, "produto", "atualizar");
@@ -115,6 +117,7 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
         id,
       },
     });
+
     res.status(200).json(product);
   } catch (error) {
     handlePrismaError(error, res, "produto", "excluir");
