@@ -9,10 +9,10 @@ type PrimitiveType =
   | "undefined";
 
 class Validator<T extends object, P extends T> {
-  constructor(private types: Record<string, PrimitiveType>) {}
+  constructor(private types: Record<keyof T, PrimitiveType>) {}
 
   public validate(itemRequest: T, allRequired: true): itemRequest is P;
-  
+
   public validate(
     itemRequest: Partial<T>,
     allRequired?: false

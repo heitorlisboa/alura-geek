@@ -47,11 +47,7 @@ const NewProduct: NextPage = function NewProductPage() {
                 className={styles.fileInput}
                 description="Arraste ou clique para adicionar uma imagem para o produto"
                 accept="image/*"
-                errorMessage={
-                  errors.productImage
-                    ? getFormErrorMessage(errors.productImage.type)
-                    : undefined
-                }
+                errorMessage={getFormErrorMessage(errors.productImage)}
                 Icon={<ImagePlaceholderSvg />}
                 {...register("productImage", {
                   required: true,
@@ -69,11 +65,7 @@ const NewProduct: NextPage = function NewProductPage() {
                 label="Nome do produto"
                 inputType="text"
                 labelVisible
-                errorMessage={
-                  errors.productName
-                    ? getFormErrorMessage(errors.productName.type)
-                    : undefined
-                }
+                errorMessage={getFormErrorMessage(errors.productName)}
                 {...register("productName", { required: true })}
               />
 
@@ -82,11 +74,7 @@ const NewProduct: NextPage = function NewProductPage() {
                 label="Preço do produto (em reais)"
                 inputType="number"
                 labelVisible
-                errorMessage={
-                  errors.productPrice
-                    ? getFormErrorMessage(errors.productPrice.type)
-                    : undefined
-                }
+                errorMessage={getFormErrorMessage(errors.productPrice)}
                 {...register("productPrice", { required: true })}
               />
 
@@ -95,11 +83,7 @@ const NewProduct: NextPage = function NewProductPage() {
                 id="product-description"
                 label="Descrição do produto"
                 placeholder="Descrição do produto"
-                errorMessage={
-                  errors.productDescription
-                    ? getFormErrorMessage(errors.productDescription.type)
-                    : undefined
-                }
+                errorMessage={getFormErrorMessage(errors.productDescription)}
                 {...register("productDescription", { required: true })}
               />
 

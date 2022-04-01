@@ -95,14 +95,15 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
     }
 
     function showImage(file: File) {
-      const reader = new FileReader();
-      reader.onload = function () {
-        const fileUrl = reader.result;
-        const dropAreaElement = dropAreaRef.current;
-        if (dropAreaElement)
+      const dropAreaElement = dropAreaRef.current;
+      if (dropAreaElement) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const fileUrl = reader.result;
           dropAreaElement.style.backgroundImage = `url(${fileUrl})`;
-      };
-      reader.readAsDataURL(file);
+        };
+        reader.readAsDataURL(file);
+      }
     }
 
     function hideImage() {

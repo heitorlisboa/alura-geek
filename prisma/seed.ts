@@ -32,11 +32,9 @@ async function main() {
     };
   });
 
-  const products = await prisma.product.createMany({
+  await prisma.product.createMany({
     data: productsToCreate,
   });
-
-  console.log(products);
 }
 
 main()

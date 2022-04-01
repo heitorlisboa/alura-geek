@@ -4,13 +4,12 @@ import type { NextApiResponse } from "next";
 function handlePrismaError(
   error: unknown,
   res: NextApiResponse,
-  itemName: "produto" | "categoria",
-  action?: "atualizar" | "excluir"
+  itemName: "Produto" | "Categoria"
 ) {
   if (error instanceof PrismaClientKnownRequestError) {
-    if (action && error.code === "P2025") {
+    if (error.code === "P2025") {
       res.status(404).json({
-        error: `O(a) ${itemName} que você deseja ${action} não foi encontrado(a)`,
+        error: `${itemName} não encontrado(a)`,
       });
       return;
     } else if (error.code.startsWith("P2")) {
@@ -23,7 +22,7 @@ function handlePrismaError(
   }
 
   res.status(500).json({
-    error: "Erro desconhecido",
+    error: `Erro desconhecido ao adicionar/manipular ${itemName.toLowerCase()}`,
   });
 }
 export { handlePrismaError };

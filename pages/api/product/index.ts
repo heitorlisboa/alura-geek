@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import withAuth from "../../../src/middlewares/withAuth";
+import apiRouteWithAuth from "../../../src/middlewares/apiRouteWithAuth";
 import { prisma } from "../../../src/lib/prisma";
 import { productValidator } from "../../../src/lib/productValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
@@ -9,7 +9,7 @@ import type { ProductRequestToValidate } from "../../../src/types/product";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    await withAuth(handlePost)(req, res);
+    await apiRouteWithAuth(handlePost)(req, res);
   } else {
     handleInvalidHttpMethod(req, res);
   }
@@ -55,7 +55,7 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(201).json(product);
   } catch (error) {
-    handlePrismaError(error, res, "produto");
+    handlePrismaError(error, res, "Produto");
   }
 }
 

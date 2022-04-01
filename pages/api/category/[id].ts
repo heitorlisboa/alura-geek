@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import withAuth from "../../../src/middlewares/withAuth";
+import apiRouteWithAuth from "../../../src/middlewares/apiRouteWithAuth";
 import { prisma } from "../../../src/lib/prisma";
 import { categoryValidator } from "../../../src/lib/categoryValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
@@ -16,15 +16,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
 
     case "PUT":
-      await withAuth(handlePutOrPatch)(req, res);
+      await apiRouteWithAuth(handlePutOrPatch)(req, res);
       break;
 
     case "PATCH":
-      await withAuth(handlePutOrPatch)(req, res);
+      await apiRouteWithAuth(handlePutOrPatch)(req, res);
       break;
 
     case "DELETE":
-      await withAuth(handleDelete)(req, res);
+      await apiRouteWithAuth(handleDelete)(req, res);
       break;
 
     default:
@@ -51,7 +51,7 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
       });
     }
   } catch (error) {
-    handlePrismaError(error, res, "categoria");
+    handlePrismaError(error, res, "Categoria");
   }
 }
 
@@ -81,7 +81,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json(category);
   } catch (error) {
-    handlePrismaError(error, res, "categoria", "atualizar");
+    handlePrismaError(error, res, "Categoria");
   }
 }
 
@@ -97,7 +97,7 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json(category);
   } catch (error) {
-    handlePrismaError(error, res, "categoria", "excluir");
+    handlePrismaError(error, res, "Categoria");
   }
 }
 

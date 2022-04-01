@@ -1,11 +1,9 @@
 import { getSession } from "next-auth/react";
 import type { NextApiHandler } from "next";
 
-function withAuth(handler: NextApiHandler): NextApiHandler {
+function apiRouteWithAuth(handler: NextApiHandler): NextApiHandler {
   return async function (req, res) {
     const session = await getSession({ req });
-
-    console.log(session)
 
     if (!session) {
       res.status(401).json({
@@ -18,4 +16,4 @@ function withAuth(handler: NextApiHandler): NextApiHandler {
   };
 }
 
-export default withAuth;
+export default apiRouteWithAuth;

@@ -1,5 +1,11 @@
-function getFormErrorMessage(errorType: string) {
-  switch (errorType) {
+import type { FieldError } from "react-hook-form";
+
+function getFormErrorMessage(fieldError: FieldError | undefined) {
+  if (!fieldError) {
+    return undefined;
+  }
+
+  switch (fieldError.type) {
     case "required":
       return "Campo obrigatório";
 
@@ -13,7 +19,7 @@ function getFormErrorMessage(errorType: string) {
       return "São permitidos apenas arquivos com menos de 5 megabytes";
 
     default:
-      return `Erro do tipo ${errorType}`;
+      return `Erro do tipo ${fieldError.type}`;
   }
 }
 
