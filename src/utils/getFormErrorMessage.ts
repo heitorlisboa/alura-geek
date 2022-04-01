@@ -18,6 +18,9 @@ function getFormErrorMessage(fieldError: FieldError | undefined) {
     case "lessThan5Mb":
       return "São permitidos apenas arquivos com menos de 5 megabytes";
 
+    case "maxLength":
+      return fieldError.message || "O máximo de caracteres foi ultrapassado";
+
     default:
       return `Erro do tipo ${fieldError.type}`;
   }

@@ -1,12 +1,31 @@
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 import styles from "./Footer.module.scss";
 
 import Container from "../Container";
 import Input from "../Input";
 import Button from "../Button";
+import { getFormErrorMessage } from "../../utils";
+
+type ContactFields = {
+  name: string;
+  message: string;
+};
 
 const Footer = function FooterComponent() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ContactFields>();
+
+  function handleContactMessage(data: ContactFields) {
+    // TODO: Improve sent message notification
+    alert("Mensagem enviada com sucesso");
+    console.log(data);
+  }
+
   return (
     <footer>
       <section className={styles.info} aria-label="Informações e contato">
@@ -38,27 +57,39 @@ const Footer = function FooterComponent() {
 
           <form
             className={styles.contactForm}
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit(handleContactMessage)}
           >
             <h2 className={styles.formTitle}>Fale conosco</h2>
 
             <div className={styles.formFields}>
               <Input
                 id="name"
-                name="name"
                 label="Nome"
                 inputType="text"
                 labelVisible
-                required
+                errorMessage={getFormErrorMessage(errors.name)}
+                {...register("name", {
+                  required: true,
+                  maxLength: {
+                    value: 40,
+                    message: "Máximo de 40 caracteres",
+                  },
+                })}
               />
 
               <Input
                 as="textarea"
                 id="message"
-                name="message"
                 label="Mensagem"
                 placeholder="Escreva sua mensagem"
-                required
+                errorMessage={getFormErrorMessage(errors.message)}
+                {...register("message", {
+                  required: true,
+                  maxLength: {
+                    value: 120,
+                    message: "Máximo de 120 caracteres",
+                  },
+                })}
               />
 
               <Button

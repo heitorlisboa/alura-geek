@@ -1,8 +1,9 @@
+import Router from "next/router";
 import Head from "next/head";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import type { GetServerSideProps, NextPage } from "next";
-import type { Category } from "@prisma/client";
+import type { Category, Product } from "@prisma/client";
 
 import styles from "../../../src/styles/pages/admin/product/New.module.scss";
 
@@ -39,20 +40,32 @@ const NewProduct: NextPage<NewProductProps> = function NewProductPage({
   async function handleNewProduct(data: ProductFields) {
     const reader = new FileReader();
 
-    reader.onload = function () {
+    reader.onload = async function () {
       const base64EncodedImage = reader.result;
 
-      axios.post("/api/product", {
-        name: data.productName,
-        price: parseFloat(data.productPrice),
-        description: data.productDescription,
-        base64Image: base64EncodedImage,
-        categoryName: data.productCategory,
-      } as ValidProductRequest);
+      try {
+        const { data: product }: { data: Product } = await axios.post(
+          "/api/product",
+          {
+            name: data.productName,
+            price: parseFloat(data.productPrice),
+            description: data.productDescription,
+            base64Image: base64EncodedImage,
+            categoryName: data.productCategory,
+          } as ValidProductRequest
+        );
+
+        Router.push(`/product/${product.id}`);
+      } catch (error) {
+        // TODO: Improve error notification
+        alert("Erro ao adicionar produto");
+      }
     };
 
-    // TODO: Add error handling
-    reader.onerror = function () {};
+    // TODO: Improve error notification
+    reader.onerror = function () {
+      alert("Erro ao processar imagem");
+    };
 
     const imageBlob = Array.from(data.productImage)[0];
 
@@ -107,7 +120,13 @@ const NewProduct: NextPage<NewProductProps> = function NewProductPage({
                 inputType="text"
                 labelVisible
                 errorMessage={getFormErrorMessage(errors.productName)}
-                {...register("productName", { required: true })}
+                {...register("productName", {
+                  required: true,
+                  maxLength: {
+                    value: 20,
+                    message: "Máximo de 20 caracteres",
+                  },
+                })}
               />
 
               <Input
@@ -125,7 +144,13 @@ const NewProduct: NextPage<NewProductProps> = function NewProductPage({
                 label="Descrição do produto"
                 placeholder="Descrição do produto"
                 errorMessage={getFormErrorMessage(errors.productDescription)}
-                {...register("productDescription", { required: true })}
+                {...register("productDescription", {
+                  required: true,
+                  maxLength: {
+                    value: 150,
+                    message: "Máximo de 150 caracteres",
+                  },
+                })}
               />
 
               <Button as="button" buttonType="submit">
