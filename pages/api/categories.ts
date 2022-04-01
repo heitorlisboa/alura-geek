@@ -18,7 +18,7 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json(categories);
   } catch (error) {
-    handlePrismaError(error, res, "categoria");
+    handlePrismaError(error, res, "Categoria");
   }
 }
 

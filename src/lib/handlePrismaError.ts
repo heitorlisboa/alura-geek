@@ -22,7 +22,7 @@ function handlePrismaError(
   }
 
   res.status(500).json({
-    error: `Erro desconhecido ao adicionar/manipular ${itemName.toLowerCase()}`,
+    error: `Erro desconhecido ao realização ação com ${itemName.toLowerCase()}`,
   });
 }
 export { handlePrismaError };
