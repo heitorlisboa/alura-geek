@@ -55,4 +55,12 @@
   &Title {
     font-size: var(--fs-small);
   }
+
+  &Id {
+    font-size: var(--fs-smaller);
+
+    &::before {
+      content: "#";
+    }
+  }
 }

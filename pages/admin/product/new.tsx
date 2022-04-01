@@ -140,11 +140,13 @@ const NewProduct: NextPage<NewProductProps> = function NewProductPage({
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await axios.get("http://localhost:3000/api/categories");
+  const { data: categories } = await axios.get(
+    "http://localhost:3000/api/categories"
+  );
 
   return {
     props: {
-      categories: data,
+      categories,
     },
   };
 };
