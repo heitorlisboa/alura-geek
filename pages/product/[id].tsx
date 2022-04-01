@@ -1,65 +1,26 @@
 import Head from "next/head";
 import Image from "next/image";
+import axios from "axios";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { Category, Product } from "@prisma/client";
 
 import styles from "../../src/styles/pages/Product.module.scss";
 
 import Container from "../../src/components/Container";
 import ProductsCategory from "../../src/components/ProductsCategory";
 import { formatPrice } from "../../src/utils";
-import {
-  getProduct,
-  getAllProducts,
-  getCategoryByProduct,
-} from "../../src/tmp";
-import type { ProductType } from "../../src/types";
 
-import categoriesWithProducts from "../../src/tmp/products.json";
-
-export const getStaticPaths: GetStaticPaths = () => {
-  const paths = getAllProducts(categoriesWithProducts.categories).map(
-    (product) => ({
-      params: {
-        id: product.id.toString(),
-      },
-    })
-  );
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps<any, { id: string }> = (
-  context
-) => {
-  if (context.params === undefined) return { props: {} };
-
-  const { id } = context.params;
-
-  const product = getProduct(
-    categoriesWithProducts.categories,
-    parseInt(id as string)
-  );
-
-  return {
-    props: {
-      product: product,
-    },
-  };
-};
+type CategoryWithProducts = Category & { products: Product[] };
 
 type ProductProps = {
-  product: ProductType;
+  product: Product;
+  category: CategoryWithProducts;
 };
 
-const Product: NextPage<ProductProps> = function ProductPage({ product }) {
-  const categorySameAsProduct = getCategoryByProduct(
-    categoriesWithProducts.categories,
-    product.id
-  );
-
+const Product: NextPage<ProductProps> = function ProductPage({
+  product,
+  category,
+}) {
   return (
     <>
       <Head>
@@ -70,7 +31,7 @@ const Product: NextPage<ProductProps> = function ProductPage({ product }) {
         <Container className={styles.productContainer}>
           <article className={styles.product}>
             <Image
-              src={product.image}
+              src={product.imageUrl}
               alt={product.name}
               width={600}
               height={400}
@@ -91,11 +52,50 @@ const Product: NextPage<ProductProps> = function ProductPage({ product }) {
 
         <ProductsCategory
           title="Produtos similares"
-          products={categorySameAsProduct.products}
+          products={category.products}
         />
       </main>
     </>
   );
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data: products } = await axios.get("http://localhost:3000/api/products");
+
+  const paths = products.map((product: Product) => ({
+    params: {
+      id: product.id,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps<any, { id: string }> = async (
+  context
+) => {
+  if (context.params === undefined) return { props: {} };
+
+  const { id } = context.params;
+
+  const { data: product }: { data: Product } = await axios.get(
+    `http://localhost:3000/api/product/${id}`
+  );
+
+  const { data: category } = await axios.get(
+    `http://localhost:3000/api/category/${product.categoryId}`
+  );
+
+  return {
+    props: {
+      product,
+      category,
+    },
+    revalidate: 60 * 60, // 1 hour
+  };
 };
 
 export default Product;

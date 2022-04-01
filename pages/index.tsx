@@ -1,5 +1,7 @@
 import Head from "next/head";
-import type { NextPage } from "next";
+import axios from "axios";
+import type { GetStaticProps, NextPage } from "next";
+import type { Category, Product } from "@prisma/client";
 
 import styles from "../src/styles/pages/Home.module.scss";
 
@@ -7,9 +9,12 @@ import Container from "../src/components/Container";
 import Button from "../src/components/Button";
 import ProductsCategory from "../src/components/ProductsCategory";
 
-import categoriesWithProducts from "../src/tmp/products.json";
+type HomeProps = {
+  products: Product[];
+  categories: Category[];
+};
 
-const Home: NextPage = () => {
+const Home: NextPage<HomeProps> = function HomePage({ products, categories }) {
   return (
     <>
       <Head>
@@ -31,17 +36,36 @@ const Home: NextPage = () => {
           </Container>
         </section>
 
-        {categoriesWithProducts.categories.map((category) => (
+        {categories.map((category) => (
           <ProductsCategory
-            key={category.name}
+            key={category.id}
             title={category.name}
             categoryLinkHref="#"
-            products={category.products}
+            products={products.filter(
+              (product) => product.categoryId === category.id
+            )}
           />
         ))}
       </main>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data: products } = await axios.get(
+    "http://localhost:3000/api/products"
+  );
+  const { data: categories } = await axios.get(
+    "http://localhost:3000/api/categories"
+  );
+
+  return {
+    props: {
+      products,
+      categories,
+    },
+    revalidate: 60 * 60, // 1 hour
+  };
 };
 
 export default Home;

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import type { FC } from "react";
+import type { Product } from "@prisma/client";
 
 import styles from "./ProductsCategory.module.scss";
 
@@ -9,11 +10,10 @@ import Container from "../Container";
 import ArrowRightSvg from "../../icons/ArrowRightSvg";
 import { useWindowSize } from "../../hooks/WindowSize";
 import { formatPrice } from "../../utils";
-import type { ProductType } from "../../types";
 
 type ProductsCategoryProps = {
   title: string;
-  products: ProductType[];
+  products: Product[];
   categoryLinkHref?: string;
 };
 
@@ -48,7 +48,7 @@ const ProductsCategory: FC<ProductsCategoryProps> =
             {products.slice(0, numberOfProducts).map((product) => (
               <li className={styles.product} key={product.id}>
                 <Image
-                  src={product.image}
+                  src={product.imageUrl}
                   alt={`Foto de ${product.name}`}
                   width={100}
                   height={100}

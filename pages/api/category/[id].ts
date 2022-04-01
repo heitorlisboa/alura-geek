@@ -41,6 +41,9 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
       where: {
         id,
       },
+      include: {
+        products: true,
+      },
     });
 
     if (category) {
