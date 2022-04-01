@@ -57,8 +57,8 @@
   --padding-top: var(--size-4);
 }
 
-.withError {
-  border: 2px solid var(--warning);
+.withError:not(:focus-visible) {
+  outline: 2px solid var(--warning);
 }
 
 .errorMessage {
