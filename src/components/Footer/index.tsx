@@ -35,22 +35,34 @@ const Footer = function FooterComponent() {
           <nav className={styles.nav}>
             <ul className={styles.navList}>
               <li>
-                <Link href="/">Quem somos nós</Link>
+                <Link href="#" scroll={false}>
+                  Quem somos nós
+                </Link>
               </li>
               <li>
-                <Link href="/">Política de privacidade</Link>
+                <Link href="#" scroll={false}>
+                  Política de privacidade
+                </Link>
               </li>
               <li>
-                <Link href="/">Programa fidelidade</Link>
+                <Link href="#" scroll={false}>
+                  Programa fidelidade
+                </Link>
               </li>
               <li>
-                <Link href="/">Nossas lojas</Link>
+                <Link href="#" scroll={false}>
+                  Nossas lojas
+                </Link>
               </li>
               <li>
-                <Link href="/">Quero ser franqueado</Link>
+                <Link href="#" scroll={false}>
+                  Quero ser franqueado
+                </Link>
               </li>
               <li>
-                <Link href="/">Anuncie aqui</Link>
+                <Link href="#" scroll={false}>
+                  Anuncie aqui
+                </Link>
               </li>
             </ul>
           </nav>
