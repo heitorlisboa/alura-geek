@@ -1,0 +1,43 @@
+.childWrapper {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: var(--size-3);
+    top: 50%;
+    transform: translateY(-25%);
+
+    border: 0.4rem solid var(--dark-gray-text);
+    border-inline-color: transparent;
+    border-bottom-color: transparent;
+
+    pointer-events: none;
+  }
+}
+
+.label {
+  display: none;
+  position: absolute;
+}
+
+.select {
+  // Removes default `<select>` styling
+  appearance: none;
+
+  width: 100%;
+
+  padding: var(--size-2) var(--size-3);
+  border-radius: var(--size-1);
+  box-shadow: 0 1px 0 0 var(--light-gray);
+}
+
+.withError:not(:focus-visible) {
+  outline: 2px solid var(--warning);
+}
+
+.errorMessage {
+  color: var(--warning);
+
+  margin-top: var(--size-1);
+}

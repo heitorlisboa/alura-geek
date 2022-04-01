@@ -11,7 +11,7 @@ const productValidator = new Validator<
   name: "string",
   price: "number",
   description: "string",
-  imageUrl: "string",
+  base64Image: "string",
   categoryName: "string",
 });
 

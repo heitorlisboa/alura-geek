@@ -1,35 +1,62 @@
 import Head from "next/head";
+import axios from "axios";
 import { useForm } from "react-hook-form";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
+import type { Category } from "@prisma/client";
 
 import styles from "../../../src/styles/pages/admin/product/New.module.scss";
 
 import Container from "../../../src/components/Container";
 import FileDropInput from "../../../src/components/FileDropInput";
 import ImagePlaceholderSvg from "../../../src/icons/ImagePlaceholderSvg";
+import Select from "../../../src/components/Select";
 import Input from "../../../src/components/Input";
 import Button from "../../../src/components/Button";
 import { bytesToMegaBytes, getFormErrorMessage } from "../../../src/utils";
+import type { ValidProductRequest } from "../../../src/types/product";
 
 type ProductFields = {
   productImage: FileList;
   productName: string;
   productPrice: string;
   productDescription: string;
+  productCategory: string;
 };
 
-const NewProduct: NextPage = function NewProductPage() {
+type NewProductProps = {
+  categories: Category[];
+};
+
+const NewProduct: NextPage<NewProductProps> = function NewProductPage({
+  categories,
+}) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ProductFields>();
 
-  function handleNewProduct(data: ProductFields) {
-    console.log(data);
-    alert(
-      "Submit bem sucedido! Confira o console para ver as informações do formulário"
-    );
+  async function handleNewProduct(data: ProductFields) {
+    const reader = new FileReader();
+
+    reader.onload = function () {
+      const base64EncodedImage = reader.result;
+
+      axios.post("/api/product", {
+        name: data.productName,
+        price: parseFloat(data.productPrice),
+        description: data.productDescription,
+        base64Image: base64EncodedImage,
+        categoryName: data.productCategory,
+      } as ValidProductRequest);
+    };
+
+    // TODO: Add error handling
+    reader.onerror = function () {};
+
+    const imageBlob = Array.from(data.productImage)[0];
+
+    reader.readAsDataURL(imageBlob);
   }
 
   return (
@@ -59,6 +86,20 @@ const NewProduct: NextPage = function NewProductPage() {
                   },
                 })}
               />
+
+              <Select
+                id="product-category"
+                label="Categoria do produto"
+                errorMessage={getFormErrorMessage(errors.productCategory)}
+                {...register("productCategory", { required: true })}
+              >
+                <option value="">Selecione uma categoria</option>
+                {categories.map(({ id, name }) => (
+                  <option key={id} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </Select>
 
               <Input
                 id="product-name"
@@ -96,6 +137,16 @@ const NewProduct: NextPage = function NewProductPage() {
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await axios.get("http://localhost:3000/api/categories");
+
+  return {
+    props: {
+      categories: data,
+    },
+  };
 };
 
 export default NewProduct;

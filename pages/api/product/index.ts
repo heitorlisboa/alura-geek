@@ -2,9 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import apiRouteWithAuth from "../../../src/middlewares/apiRouteWithAuth";
 import { prisma } from "../../../src/lib/prisma";
+import { cloudinary } from "../../../src/lib/cloudinary";
 import { productValidator } from "../../../src/lib/productValidator";
 import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "../../../src/lib/handlePrismaError";
+import { handleCloudinaryError } from "../../../src/lib/handleCloudinaryError";
 import type { ProductRequestToValidate } from "../../../src/types/product";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -26,7 +28,8 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const { name, price, description, imageUrl, categoryName } = productRequest;
+  const { name, price, description, base64Image, categoryName } =
+    productRequest;
 
   const category = await prisma.category.findUnique({
     where: {
@@ -43,19 +46,27 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const product = await prisma.product.create({
-      data: {
-        name: name,
-        price: price,
-        description: description,
-        imageUrl: imageUrl,
-        categoryId: category.id,
-      },
+    const imageUploadResponse = await cloudinary.uploader.upload(base64Image, {
+      upload_preset: "alura_geek",
     });
 
-    res.status(201).json(product);
+    try {
+      const product = await prisma.product.create({
+        data: {
+          name: name,
+          price: price,
+          description: description,
+          imageUrl: imageUploadResponse.url,
+          categoryId: category.id,
+        },
+      });
+
+      res.status(201).json(product);
+    } catch (error) {
+      handlePrismaError(error, res, "Produto");
+    }
   } catch (error) {
-    handlePrismaError(error, res, "Produto");
+    handleCloudinaryError(res);
   }
 }
 

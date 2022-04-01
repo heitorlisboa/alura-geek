@@ -9,8 +9,8 @@ export type ProductType = CategoryWithProductsType["products"][0];
 
 export type ValidProductRequest = Omit<
   Product,
-  "id" | "categoryId" | "createdAt" | "updatedAt"
-> & { categoryName: string };
+  "id" | "imageUrl" | "categoryId" | "createdAt" | "updatedAt"
+> & { base64Image: string; categoryName: string };
 
 export type ProductRequestToValidate = Record<
   keyof ValidProductRequest,
