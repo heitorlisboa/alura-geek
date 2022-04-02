@@ -1,9 +1,9 @@
 import type { FC } from "react";
 
-import SearchSvg from "../../icons/SearchSvg";
-import { classNames } from "../../utils";
-
 import styles from "./SearchForm.module.scss";
+
+import SearchSvg from "@icons/SearchSvg";
+import { classNames } from "@src/utils";
 
 type SearchFormProps = {
   className?: string;

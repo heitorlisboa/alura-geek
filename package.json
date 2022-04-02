@@ -28,6 +28,7 @@
     "@types/react": "17.0.40",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
+    "eslint-plugin-import-helpers": "^1.2.1",
     "prisma": "^3.11.1",
     "sass": "^1.49.9",
     "ts-node": "^10.7.0",

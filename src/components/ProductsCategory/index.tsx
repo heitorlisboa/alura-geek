@@ -6,10 +6,10 @@ import type { Product } from "@prisma/client";
 
 import styles from "./ProductsCategory.module.scss";
 
-import Container from "../Container";
-import ArrowRightSvg from "../../icons/ArrowRightSvg";
-import { useWindowSize } from "../../hooks/WindowSize";
-import { formatPrice } from "../../utils";
+import Container from "@components/Container";
+import ArrowRightSvg from "@icons/ArrowRightSvg";
+import { useWindowSize } from "@src/hooks/WindowSize";
+import { formatPrice } from "@src/utils";
 
 type ProductsCategoryProps = {
   title: string;

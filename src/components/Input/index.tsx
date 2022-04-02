@@ -9,7 +9,7 @@ import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./Input.module.scss";
 
-import { classNames } from "../../utils";
+import { classNames } from "@src/utils";
 
 type InputType = HTMLInputElement | HTMLTextAreaElement;
 

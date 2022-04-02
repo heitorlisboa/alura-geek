@@ -1,8 +1,9 @@
-import { Validator } from "./Validator";
 import type {
   CategoryRequestToValidate,
   ValidCategoryRequest,
-} from "../types/category";
+} from "@src/types/category";
+
+import { Validator } from "./Validator";
 
 const categoryValidator = new Validator<
   CategoryRequestToValidate,

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { FC, ButtonHTMLAttributes } from "react";
 
-import { classNames } from "../../utils";
-
 import styles from "./Button.module.scss";
+
+import { classNames } from "@src/utils";
 
 type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>["type"];
 

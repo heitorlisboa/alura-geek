@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 
 import styles from "./Footer.module.scss";
 
-import Container from "../Container";
-import Input from "../Input";
-import Button from "../Button";
-import { getFormErrorMessage } from "../../utils";
+import Container from "@components/Container";
+import Input from "@components/Input";
+import Button from "@components/Button";
+import { getFormErrorMessage } from "@src/utils";
 
 type ContactFields = {
   name: string;

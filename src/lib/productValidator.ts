@@ -1,8 +1,9 @@
-import { Validator } from "./Validator";
 import type {
   ProductRequestToValidate,
   ValidProductRequest,
-} from "../types/product";
+} from "@src/types/product";
+
+import { Validator } from "./Validator";
 
 const productValidator = new Validator<
   ProductRequestToValidate,

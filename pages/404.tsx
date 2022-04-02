@@ -1,9 +1,9 @@
 import Head from "next/head";
 import type { NextPage } from "next";
 
-import styles from "../src/styles/pages/404.module.scss";
+import styles from "@page-styles/404.module.scss";
 
-import Container from "../src/components/Container";
+import Container from "@components/Container";
 
 const Error404: NextPage = function Error404Page() {
   return (

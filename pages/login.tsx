@@ -2,28 +2,11 @@ import Head from "next/head";
 import { getSession, signIn } from "next-auth/react";
 import type { GetServerSideProps, NextPage } from "next";
 
-import styles from "../src/styles/pages/Login.module.scss";
+import styles from "@page-styles/Login.module.scss";
 
-import Container from "../src/components/Container";
-import Button from "../src/components/Button";
-import GitHubSvg from "../src/icons/GitHubSvg";
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/admin/products",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};
+import Container from "@components/Container";
+import Button from "@components/Button";
+import GitHubSvg from "@icons/GitHubSvg";
 
 const Login: NextPage = function LoginPage() {
   function handleSignIn() {
@@ -54,6 +37,23 @@ const Login: NextPage = function LoginPage() {
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/admin/products",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default Login;

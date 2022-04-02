@@ -4,13 +4,13 @@ import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Product } from "@prisma/client";
 
-import styles from "../../src/styles/pages/admin/Products.module.scss";
+import styles from "@page-styles/admin/Products.module.scss";
 
-import Container from "../../src/components/Container";
-import Button from "../../src/components/Button";
-import TrashSvg from "../../src/icons/TrashSvg";
-import PencilSvg from "../../src/icons/PencilSvg";
-import { formatPrice } from "../../src/utils";
+import Container from "@components/Container";
+import Button from "@components/Button";
+import TrashSvg from "@icons/TrashSvg";
+import PencilSvg from "@icons/PencilSvg";
+import { formatPrice } from "@src/utils";
 
 type ManageProductsProps = {
   products: Product[];

@@ -4,11 +4,11 @@ import axios from "axios";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import type { Category, Product } from "@prisma/client";
 
-import styles from "../../src/styles/pages/Product.module.scss";
+import styles from "@page-styles/Product.module.scss";
 
-import Container from "../../src/components/Container";
-import ProductsCategory from "../../src/components/ProductsCategory";
-import { formatPrice } from "../../src/utils";
+import Container from "@components/Container";
+import ProductsCategory from "@components/ProductsCategory";
+import { formatPrice } from "@src/utils";
 
 type CategoryWithProducts = Category & { products: Product[] };
 
@@ -60,7 +60,9 @@ const Product: NextPage<ProductProps> = function ProductPage({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: products } = await axios.get("http://localhost:3000/api/products");
+  const { data: products } = await axios.get(
+    "http://localhost:3000/api/products"
+  );
 
   const paths = products.map((product: Product) => ({
     params: {

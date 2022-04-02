@@ -3,11 +3,11 @@ import axios from "axios";
 import type { GetStaticProps, NextPage } from "next";
 import type { Category, Product } from "@prisma/client";
 
-import styles from "../src/styles/pages/Home.module.scss";
+import styles from "@page-styles/Home.module.scss";
 
-import Container from "../src/components/Container";
-import Button from "../src/components/Button";
-import ProductsCategory from "../src/components/ProductsCategory";
+import Container from "@components/Container";
+import Button from "@components/Button";
+import ProductsCategory from "@components/ProductsCategory";
 
 type HomeProps = {
   products: Product[];

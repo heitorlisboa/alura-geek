@@ -1,17 +1,17 @@
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 import type { FC } from "react";
 
-import Container from "../Container";
-import Button from "../Button";
-import SearchForm from "../SearchForm";
-import SearchSvg from "../../icons/SearchSvg";
-import CloseSvg from "../../icons/CloseSvg";
-import { useWindowSize } from "../../hooks/WindowSize";
-import { classNames } from "../../utils";
-
 import styles from "./Header.module.scss";
+
+import Container from "@components/Container";
+import Button from "@components/Button";
+import SearchForm from "@components/SearchForm";
+import SearchSvg from "@icons/SearchSvg";
+import CloseSvg from "@icons/CloseSvg";
+import { useWindowSize } from "@src/hooks/WindowSize";
+import { classNames } from "@src/utils";
 
 const Header: FC = function HeaderComponent() {
   // Responsive layout

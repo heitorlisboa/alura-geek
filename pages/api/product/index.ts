@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import apiRouteWithAuth from "../../../src/middlewares/apiRouteWithAuth";
-import { prisma } from "../../../src/lib/prisma";
-import { cloudinary } from "../../../src/lib/cloudinary";
-import { productValidator } from "../../../src/lib/productValidator";
-import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
-import { handlePrismaError } from "../../../src/lib/handlePrismaError";
-import { handleCloudinaryError } from "../../../src/lib/handleCloudinaryError";
-import type { ProductRequestToValidate } from "../../../src/types/product";
+import apiRouteWithAuth from "@src/middlewares/apiRouteWithAuth";
+import { prisma } from "@src/lib/prisma";
+import { cloudinary } from "@src/lib/cloudinary";
+import { productValidator } from "@src/lib/productValidator";
+import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
+import { handlePrismaError } from "@src/lib/handlePrismaError";
+import { handleCloudinaryError } from "@src/lib/handleCloudinaryError";
+import type { ProductRequestToValidate } from "@src/types/product";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {

@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 import styles from "./SearchSvg.module.scss";
 
-import { classNames } from "../../utils";
+import { classNames } from "@src/utils";
 
 type SearchSvgProps = {
   className?: string;

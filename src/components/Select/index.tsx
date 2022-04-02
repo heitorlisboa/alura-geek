@@ -3,7 +3,8 @@ import type { ChangeEvent, PropsWithChildren } from "react";
 import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./Select.module.scss";
-import { classNames } from "../../utils";
+
+import { classNames } from "@src/utils";
 
 type SelectProps = PropsWithChildren<{
   id: string;

@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { Product } from "@prisma/client";
 
-import apiRouteWithAuth from "../../../src/middlewares/apiRouteWithAuth";
-import { prisma } from "../../../src/lib/prisma";
-import { productValidator } from "../../../src/lib/productValidator";
-import { handleInvalidHttpMethod } from "../../../src/lib/handleInvalidHttpMethod";
-import { handlePrismaError } from "../../../src/lib/handlePrismaError";
-import type { ProductRequestToValidate } from "../../../src/types/product";
+import apiRouteWithAuth from "@src/middlewares/apiRouteWithAuth";
+import { prisma } from "@src/lib/prisma";
+import { productValidator } from "@src/lib/productValidator";
+import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
+import { handlePrismaError } from "@src/lib/handlePrismaError";
+import type { ProductRequestToValidate } from "@src/types/product";
 
 type Query = { id: string };
 

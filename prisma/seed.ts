@@ -1,4 +1,5 @@
 import { PrismaClient, type Product } from "@prisma/client";
+
 import seedSource from "./seedSource.json";
 
 const prisma = new PrismaClient();

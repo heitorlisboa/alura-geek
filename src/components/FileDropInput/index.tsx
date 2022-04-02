@@ -4,7 +4,7 @@ import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./FileDropInput.module.scss";
 
-import { changeInputFiles, mergeRefs } from "../../utils";
+import { changeInputFiles, mergeRefs } from "@src/utils";
 
 type FileDropInputProps = {
   name: string;

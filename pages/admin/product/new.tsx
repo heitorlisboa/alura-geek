@@ -5,16 +5,16 @@ import { useForm } from "react-hook-form";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Category, Product } from "@prisma/client";
 
-import styles from "../../../src/styles/pages/admin/product/New.module.scss";
+import styles from "@page-styles/admin/product/New.module.scss";
 
-import Container from "../../../src/components/Container";
-import FileDropInput from "../../../src/components/FileDropInput";
-import ImagePlaceholderSvg from "../../../src/icons/ImagePlaceholderSvg";
-import Select from "../../../src/components/Select";
-import Input from "../../../src/components/Input";
-import Button from "../../../src/components/Button";
-import { bytesToMegaBytes, getFormErrorMessage } from "../../../src/utils";
-import type { ValidProductRequest } from "../../../src/types/product";
+import Container from "@components/Container";
+import FileDropInput from "@components/FileDropInput";
+import ImagePlaceholderSvg from "@icons/ImagePlaceholderSvg";
+import Select from "@components/Select";
+import Input from "@components/Input";
+import Button from "@components/Button";
+import { bytesToMegaBytes, getFormErrorMessage } from "@src/utils";
+import type { ValidProductRequest } from "@src/types/product";
 
 type ProductFields = {
   productImage: FileList;

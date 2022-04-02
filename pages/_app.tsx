@@ -2,10 +2,10 @@ import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 
-import "../src/styles/global/index.scss";
+import "@src/styles/global/index.scss";
 
-import Header from "../src/components/Header";
-import Footer from "../src/components/Footer";
+import Header from "@components/Header";
+import Footer from "@components/Footer";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
