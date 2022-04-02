@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import React from "react";
 import type { FC } from "react";
 import type { Product } from "@prisma/client";
@@ -8,6 +7,7 @@ import styles from "./ProductsCategory.module.scss";
 
 import Container from "@components/Container";
 import ArrowRightSvg from "@icons/ArrowRightSvg";
+import WrappedImage from "@components/WrappedImage";
 import { useWindowSize } from "@src/hooks/WindowSize";
 import { formatPrice } from "@src/utils";
 
@@ -47,7 +47,7 @@ const ProductsCategory: FC<ProductsCategoryProps> =
           >
             {products.slice(0, numberOfProducts).map((product) => (
               <li className={styles.product} key={product.id}>
-                <Image
+                <WrappedImage
                   src={product.imageUrl}
                   alt={`Foto de ${product.name}`}
                   width={100}
