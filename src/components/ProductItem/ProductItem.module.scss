@@ -1,0 +1,9 @@
+.product {
+  display: grid;
+  gap: var(--size-2);
+
+  &Title {
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+}

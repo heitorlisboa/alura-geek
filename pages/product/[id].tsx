@@ -2,18 +2,17 @@ import Head from "next/head";
 import Image from "next/image";
 import axios from "axios";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import type { Category, Product } from "@prisma/client";
+import type { Product as ProductType } from "@prisma/client";
 
 import styles from "@page-styles/Product.module.scss";
 
 import Container from "@components/Container";
 import ProductsCategory from "@components/ProductsCategory";
 import { formatPrice } from "@src/utils";
-
-type CategoryWithProducts = Category & { products: Product[] };
+import type { CategoryWithProducts } from "@src/types/category";
 
 type ProductProps = {
-  product: Product;
+  product: ProductType;
   category: CategoryWithProducts;
 };
 
@@ -60,11 +59,11 @@ const Product: NextPage<ProductProps> = function ProductPage({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: products } = await axios.get(
+  const { data: products }: { data: ProductType[] } = await axios.get(
     "http://localhost:3000/api/products"
   );
 
-  const paths = products.map((product: Product) => ({
+  const paths = products.map((product) => ({
     params: {
       id: product.id,
     },
@@ -79,11 +78,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, { id: string }> = async (
   context
 ) => {
-  if (context.params === undefined) return { props: {} };
+  if (!context.params) return { props: {} };
 
   const { id } = context.params;
 
-  const { data: product }: { data: Product } = await axios.get(
+  const { data: product }: { data: ProductType } = await axios.get(
     `http://localhost:3000/api/product/${id}`
   );
 

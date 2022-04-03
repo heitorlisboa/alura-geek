@@ -1,0 +1,10 @@
+.link {
+  --default-color: var(--accent-color);
+  --hover-color: var(--accent-color-light);
+  color: var(--default-color);
+  font-weight: bold;
+
+  &:hover {
+    color: var(--hover-color);
+  }
+}

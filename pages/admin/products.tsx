@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Product } from "@prisma/client";
@@ -7,7 +8,6 @@ import styles from "@page-styles/admin/Products.module.scss";
 
 import Container from "@components/Container";
 import Button from "@components/Button";
-import WrappedImage from "@components/WrappedImage";
 import TrashSvg from "@icons/TrashSvg";
 import PencilSvg from "@icons/PencilSvg";
 import { formatPrice } from "@src/utils";
@@ -35,7 +35,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
             <ul className={styles.productList}>
               {products.map((product) => (
                 <li className={styles.product} key={product.id}>
-                  <WrappedImage
+                  <Image
                     src={product.imageUrl}
                     alt={`Foto de ${product.name}`}
                     width={100}

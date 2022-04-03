@@ -19,7 +19,10 @@
 .productList {
   display: grid;
   gap: var(--size-3);
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--product-min-size), 1fr)
+  );
   grid-template-rows: auto;
   justify-content: space-between;
 }
@@ -27,9 +30,8 @@
 .product {
   position: relative;
 
-  display: flex;
+  display: grid;
   gap: var(--size-2);
-  flex-direction: column;
 
   &Icons {
     position: absolute;
