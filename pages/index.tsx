@@ -30,7 +30,13 @@ const Home: NextPage<HomeProps> = function HomePage({ products, categories }) {
             <p className={styles.heroParagraph}>
               <strong>Produtos selecionados com 33% de desconto</strong>
             </p>
-            <Button as="link" linkHref="#">
+            <Button
+              as="link"
+              linkHref={
+                "/category/" +
+                categories.find(({ name }) => name === "Consoles")?.id
+              }
+            >
               Ver Consoles
             </Button>
           </Container>
@@ -40,7 +46,7 @@ const Home: NextPage<HomeProps> = function HomePage({ products, categories }) {
           <ProductsCategory
             key={category.id}
             title={category.name}
-            categoryLinkHref="#"
+            categoryLinkHref={`/category/${category.id}`}
             products={products.filter(
               (product) => product.categoryId === category.id
             )}
