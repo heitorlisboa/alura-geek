@@ -1,4 +1,4 @@
-import { useRef, forwardRef, useCallback } from "react";
+import { useRef, forwardRef, useCallback, useLayoutEffect } from "react";
 import type {
   HTMLProps,
   HTMLInputTypeAttribute,
@@ -9,7 +9,8 @@ import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./Input.module.scss";
 
-import { classNames } from "@src/utils";
+import { classNames, mergeRefs } from "@src/utils";
+import { AnyMutableRef } from "@src/types/misc";
 
 type InputType = HTMLInputElement | HTMLTextAreaElement;
 
@@ -46,6 +47,8 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
   ref
 ) {
   const labelRef = useRef<HTMLLabelElement>(null);
+  const inputRef = useRef<InputType>(null);
+  const inputMergedRefs = mergeRefs(inputRef, ref);
   const className = classNames(
     [
       styles[as],
@@ -78,7 +81,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     ref: labelRef,
   };
 
-  function handleFocus(event: FocusEvent) {
+  function handleFocus() {
     labelRef.current?.classList.add(styles.labelFocused);
   }
 
@@ -86,6 +89,11 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     const elementIsEmpty = !event.target.value;
     if (elementIsEmpty) labelRef.current?.classList.remove(styles.labelFocused);
   }
+
+  useLayoutEffect(() => {
+    const elementHasValue = inputRef.current?.value;
+    if (elementHasValue) handleFocus();
+  }, []);
 
   return (
     <div className={styles.parentWrapper}>
@@ -95,12 +103,12 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
           <input
             {...generalAttrs}
             type={inputType}
-            ref={ref as ForwardedRef<HTMLInputElement>}
+            ref={inputMergedRefs as AnyMutableRef<HTMLInputElement>}
           />
         ) : (
           <textarea
             {...generalAttrs}
-            ref={ref as ForwardedRef<HTMLTextAreaElement>}
+            ref={inputMergedRefs as AnyMutableRef<HTMLTextAreaElement>}
           />
         )}
       </p>
