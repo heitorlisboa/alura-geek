@@ -5,6 +5,7 @@ import type { Category } from "@prisma/client";
 
 import Container from "@components/Container";
 import ProductForm from "@components/ProductForm";
+import { getBaseUrl } from "@src/utils";
 
 type NewProductProps = {
   categories: Category[];
@@ -28,8 +29,8 @@ const NewProduct: NextPage<NewProductProps> = function NewProductPage({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const baseUrl = process.env.VERCEL_URL || "http://localhost:3000";
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const baseUrl = getBaseUrl(context.req.headers);
 
   const { data: categories } = await axios.get(`${baseUrl}/api/categories`);
 

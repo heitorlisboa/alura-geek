@@ -7,3 +7,4 @@ export { bytesToMegaBytes } from "./bytesToMegaBytes";
 export { createFileList } from "./createFileList";
 export { imgUrlToFileList } from "./imgUrlToFileList";
 export { imgFileToBase64 } from "./imgFileToBase64";
+export { getBaseUrl } from "./getBaseUrl";

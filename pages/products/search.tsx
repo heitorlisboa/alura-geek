@@ -7,6 +7,7 @@ import styles from "@page-styles/SearchProducts.module.scss";
 
 import Container from "@src/components/Container";
 import ProductItem from "@src/components/ProductItem";
+import { getBaseUrl } from "@src/utils";
 
 type SearchProductsProps = {
   query: string;
@@ -47,8 +48,7 @@ const SearchProducts: NextPage<SearchProductsProps> =
   };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const baseUrl = process.env.VERCEL_URL || "http://localhost:3000";
-
+  const baseUrl = getBaseUrl(context.req.headers);
   const { q } = context.query;
 
   if (typeof q !== "string") return { notFound: true };

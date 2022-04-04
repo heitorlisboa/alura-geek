@@ -12,7 +12,7 @@ import Container from "@components/Container";
 import Button from "@components/Button";
 import TrashSvg from "@icons/TrashSvg";
 import PencilSvg from "@icons/PencilSvg";
-import { formatPrice } from "@src/utils";
+import { formatPrice, getBaseUrl } from "@src/utils";
 
 type ManageProductsProps = {
   products: Product[];
@@ -96,8 +96,8 @@ const ManageProducts: NextPage<ManageProductsProps> =
     );
   };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const baseUrl = process.env.VERCEL_URL || "http://localhost:3000";
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const baseUrl = getBaseUrl(context.req.headers);
 
   const { data: products } = await axios.get(`${baseUrl}/api/products`);
 

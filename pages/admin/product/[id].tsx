@@ -6,7 +6,7 @@ import type { Category, Product } from "@prisma/client";
 
 import Container from "@components/Container";
 import ProductForm from "@components/ProductForm";
-import { imgUrlToFileList } from "@src/utils";
+import { getBaseUrl, imgUrlToFileList } from "@src/utils";
 
 type EditProductProps = {
   product: Product;
@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async (context) => {
   if (!context.params) return { notFound: true };
 
-  const baseUrl = process.env.VERCEL_URL || "http://localhost:3000";
+  const baseUrl = getBaseUrl(context.req.headers);
 
   const { id } = context.params;
 
