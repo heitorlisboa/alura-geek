@@ -11,6 +11,7 @@ type SelectProps = PropsWithChildren<{
   name: string;
   label: string;
   errorMessage?: string;
+  labelVisible?: boolean;
   required?: boolean;
   // React Hook Form props
   onChange?: ChangeHandler;
@@ -25,15 +26,19 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       name,
       label,
       errorMessage,
+      labelVisible = false,
       required = false,
       onChange,
       onBlur,
     },
     ref
   ) {
-
     const className = classNames(
-      [styles.select, errorMessage ? styles.withError : undefined],
+      [
+        styles.select,
+        errorMessage ? styles.withError : undefined,
+        labelVisible ? styles.withLabelVisible : undefined,
+      ],
       false
     );
 
@@ -41,7 +46,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       <>
         <div className={styles.parentWrapper}>
           <p className={styles.childWrapper}>
-            <label htmlFor={id} className={styles.label}>
+            <label
+              htmlFor={id}
+              className={labelVisible ? styles.label : "sr-only"}
+            >
               {label}
             </label>
             <select

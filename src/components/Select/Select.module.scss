@@ -1,4 +1,5 @@
 .childWrapper {
+  --select-padding-inline: var(--size-3);
   position: relative;
 
   &::after {
@@ -17,8 +18,14 @@
 }
 
 .label {
-  display: none;
+  color: var(--light-gray-text);
+  font-size: var(--fs-smaller);
+
   position: absolute;
+  top: var(--size-2);
+  left: var(--select-padding-inline);
+
+  pointer-events: none;
 }
 
 .select {
@@ -27,9 +34,13 @@
 
   width: 100%;
 
-  padding: var(--size-2) var(--size-3);
+  padding: var(--size-2) var(--select-padding-inline);
   border-radius: var(--size-1);
   box-shadow: 0 1px 0 0 var(--light-gray);
+}
+
+.withLabelVisible {
+  padding-top: var(--size-4);
 }
 
 .withError:not(:focus-visible) {

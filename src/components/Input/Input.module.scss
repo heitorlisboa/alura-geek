@@ -8,23 +8,31 @@
   position: relative;
 }
 
-.label {
+.labelInput,
+.labelTextArea {
   color: var(--label-color);
 
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   left: var(--input-padding-inline);
 
   transition: all 200ms ease-out;
   pointer-events: none;
+}
 
-  &Focused {
-    font-size: var(--fs-smaller);
+.labelInput {
+  top: 50%;
+  transform: translateY(-50%);
+}
 
-    top: var(--size-2);
-    transform: unset;
-  }
+.labelTextArea {
+  top: var(--size-3);
+}
+
+.labelFocused {
+  font-size: var(--fs-smaller);
+
+  top: var(--size-2);
+  transform: unset;
 }
 
 .input,

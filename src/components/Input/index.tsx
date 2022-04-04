@@ -75,7 +75,11 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
 
   const labelAttrs: HTMLProps<HTMLLabelElement> = {
     htmlFor: id,
-    className: labelVisible ? styles.label : "sr-only",
+    className: labelVisible
+      ? as === "input"
+        ? styles.labelInput
+        : styles.labelTextArea
+      : "sr-only",
     ref: labelRef,
   };
 

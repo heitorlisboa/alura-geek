@@ -128,6 +128,7 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
           id="product-category"
           label="Categoria do produto"
           errorMessage={getFormErrorMessage(errors.productCategory)}
+          labelVisible
           {...register("productCategory", { required: true })}
         >
           <option value="">Selecione uma categoria</option>
@@ -167,8 +168,8 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
           as="textarea"
           id="product-description"
           label="Descrição do produto"
-          placeholder="Descrição do produto"
           errorMessage={getFormErrorMessage(errors.productDescription)}
+          labelVisible
           {...register("productDescription", {
             required: true,
             maxLength: {
