@@ -21,6 +21,8 @@ type ManageProductsProps = {
 
 const ManageProducts: NextPage<ManageProductsProps> =
   function ManageProductsPage({ products: initialProducts, baseUrl }) {
+    const pageTitleId = "admin-all-products-title";
+
     const [products, setProducts] = useState(initialProducts);
 
     function handleDelete(productId: string) {
@@ -50,12 +52,14 @@ const ManageProducts: NextPage<ManageProductsProps> =
         <main>
           <Container className={styles.container}>
             <header className={styles.header}>
-              <h2 className={styles.title}>Todos os produtos</h2>
+              <h2 id={pageTitleId} className={styles.title}>
+                Todos os produtos
+              </h2>
               <Button as="link" linkHref="/admin/product/new">
                 Adicionar produto
               </Button>
             </header>
-            <ul className={styles.productList}>
+            <ul className={styles.productList} aria-labelledby={pageTitleId}>
               {products.map((product) => (
                 <li className={styles.product} key={product.id}>
                   <Image
