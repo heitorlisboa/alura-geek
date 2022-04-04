@@ -101,9 +101,18 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
     where: {
       id: product.categoryId,
     },
+    include: {
+      products: true,
+    },
   });
 
   if (!category) return { notFound: true };
+
+  category.products = category.products.map((product) => ({
+    ...product,
+    createdAt: product.createdAt.toISOString(),
+    updatedAt: product.updatedAt.toISOString(),
+  })) as any;
 
   return {
     props: {

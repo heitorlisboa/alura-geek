@@ -42,15 +42,9 @@ const ProductsCategory: FC<ProductsCategoryProps> =
             className={styles.productList}
             aria-label={`Produtos da categoria ${title}`}
           >
-            {/* For an unknown reason, during SSG, `products` is undefined, even
-            though if you try to log its value on the `getStaticProps` function
-            it will be an object */}
-            {products &&
-              products
-                .slice(0, numberOfProducts)
-                .map((product) => (
-                  <ProductItem key={product.id} product={product} />
-                ))}
+            {products.slice(0, numberOfProducts).map((product) => (
+              <ProductItem key={product.id} product={product} />
+            ))}
           </ul>
         </Container>
       </section>
