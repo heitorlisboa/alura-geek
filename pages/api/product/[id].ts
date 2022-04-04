@@ -3,9 +3,12 @@ import type { Product } from "@prisma/client";
 
 import apiRouteWithAuth from "@src/middlewares/apiRouteWithAuth";
 import { prisma } from "@src/lib/prisma";
+import { cloudinary } from "@src/lib/cloudinary";
 import { productValidator } from "@src/lib/productValidator";
+import { getPublicIdFromUrl } from "@src/lib/getPublicIdFromUrl";
 import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@src/lib/handlePrismaError";
+import { handleCloudinaryError } from "@src/lib/handleCloudinaryError";
 import type { ProductRequestToValidate } from "@src/types/product";
 
 type Query = { id: string };
@@ -68,13 +71,13 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const { name, price, description, imageUrl, categoryName } = productRequest;
+  const { name, price, description, base64Image, categoryName } =
+    productRequest;
 
   const productWithChanges: Partial<Product> = {
     name,
     price,
     description,
-    imageUrl,
   };
 
   if (categoryName) {
@@ -94,17 +97,59 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
     productWithChanges.categoryId = category.id;
   }
 
-  try {
-    const product = await prisma.product.update({
-      data: productWithChanges,
-      where: {
-        id,
-      },
-    });
+  const productFound = await prisma.product.findUnique({
+    where: {
+      id,
+    },
+  });
 
-    res.status(200).json(product);
+  if (!productFound) {
+    res.status(400).json({
+      error: "Produto não encontrado(a)",
+    });
+    return;
+  }
+
+  try {
+    if (base64Image) {
+      const imageUploadResponse = await cloudinary.uploader.upload(
+        base64Image,
+        { upload_preset: "alura_geek" }
+      );
+
+      productWithChanges.imageUrl = imageUploadResponse.url;
+    }
+
+    try {
+      const product = await prisma.product.update({
+        data: productWithChanges,
+        where: {
+          id,
+        },
+      });
+
+      if (base64Image) {
+        try {
+          const imagePublicId = getPublicIdFromUrl(productFound.imageUrl);
+          cloudinary.uploader.destroy(imagePublicId, {
+            resource_type: "image",
+          });
+        } catch (error) {
+          res.status(200).json({
+            ...product,
+            error:
+              "Produto atualizado, porém sua imagem antiga não pôde ser excluída",
+          });
+          return;
+        }
+      }
+
+      res.status(200).json(product);
+    } catch (error) {
+      handlePrismaError(error, res, "Produto");
+    }
   } catch (error) {
-    handlePrismaError(error, res, "Produto");
+    handleCloudinaryError(res);
   }
 }
 
@@ -118,10 +163,29 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
+    try {
+      const imagePublicId = getPublicIdFromUrl(product.imageUrl);
+      cloudinary.uploader.destroy(imagePublicId, { resource_type: "image" });
+    } catch (error) {
+      res.status(200).json({
+        ...product,
+        error: "Produto deletado, porém sua imagem não pôde ser excluída",
+      });
+      return;
+    }
+
     res.status(200).json(product);
   } catch (error) {
     handlePrismaError(error, res, "Produto");
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "6mb",
+    },
+  },
+};
 
 export default handler;

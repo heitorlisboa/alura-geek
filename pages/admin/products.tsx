@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Product } from "@prisma/client";
@@ -48,9 +49,11 @@ const ManageProducts: NextPage<ManageProductsProps> =
                     <button>
                       <TrashSvg />
                     </button>
-                    <button>
-                      <PencilSvg />
-                    </button>
+                    <Link href={`/admin/product/${product.id}`}>
+                      <a>
+                        <PencilSvg />
+                      </a>
+                    </Link>
                   </div>
 
                   <h3 className={styles.productTitle}>{product.name}</h3>
