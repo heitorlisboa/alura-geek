@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { useState } from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Product } from "@prisma/client";
 
@@ -18,7 +19,27 @@ type ManageProductsProps = {
 };
 
 const ManageProducts: NextPage<ManageProductsProps> =
-  function ManageProductsPage({ products }) {
+  function ManageProductsPage({ products: initialProducts }) {
+    const [products, setProducts] = useState(initialProducts);
+
+    function handleDelete(productId: string) {
+      // TODO: Improve confirmation pop-up
+      const confirmed = window.confirm(
+        "Tem certeza que quer excluir esse produto?"
+      );
+
+      if (confirmed) {
+        axios
+          .delete(`http://localhost:3000/api/product/${productId}`)
+          .then(({ data: deletedProduct }: { data: Product }) => {
+            // TODO: Add success notification
+            setProducts((prevState) =>
+              prevState.filter((product) => product.id !== deletedProduct.id)
+            );
+          });
+      }
+    }
+
     return (
       <>
         <Head>
@@ -46,7 +67,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
                   />
 
                   <div className={styles.productIcons}>
-                    <button>
+                    <button onClick={handleDelete.bind(null, product.id)}>
                       <TrashSvg />
                     </button>
                     <Link href={`/admin/product/${product.id}`}>
