@@ -6,6 +6,7 @@ import type { FC } from "react";
 import styles from "./Header.module.scss";
 
 import Container from "@components/Container";
+import DropdownMenu from "@components/DropdownMenu";
 import Button from "@components/Button";
 import SearchForm from "@components/SearchForm";
 import SearchSvg from "@icons/SearchSvg";
@@ -58,14 +59,17 @@ const Header: FC = function HeaderComponent() {
         </div>
 
         {isAuthenticated ? (
-          <Button
-            className={styles.sessionButton}
-            as="button"
-            variant="outlined"
-            onClick={handleSignOut}
+          <DropdownMenu
+            className={styles.adminMenu}
+            menuTitle="Menu administrador"
           >
-            Logout
-          </Button>
+            <Button as="link" variant="outlined" linkHref="/admin/products">
+              Gerenciar produtos
+            </Button>
+            <Button as="button" variant="outlined" onClick={handleSignOut}>
+              Logout
+            </Button>
+          </DropdownMenu>
         ) : (
           <Button
             className={styles.sessionButton}

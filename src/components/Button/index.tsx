@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { FC, ButtonHTMLAttributes } from "react";
+import type { FC, ButtonHTMLAttributes, AriaAttributes } from "react";
 
 import styles from "./Button.module.scss";
 
@@ -14,7 +14,7 @@ type ButtonProps = {
   buttonType?: ButtonType;
   linkHref?: string;
   onClick?: () => void;
-};
+} & AriaAttributes;
 
 const Button: FC<ButtonProps> = function ButtonComponent({
   children,
@@ -24,6 +24,7 @@ const Button: FC<ButtonProps> = function ButtonComponent({
   buttonType = "button",
   linkHref = "/",
   onClick,
+  ...ariaAttrs
 }) {
   const classNameList = [styles.button, styles[variant], className];
 
@@ -33,6 +34,7 @@ const Button: FC<ButtonProps> = function ButtonComponent({
         <button
           {...classNames(classNameList)}
           type={buttonType}
+          {...ariaAttrs}
           onClick={onClick}
         >
           {children}
