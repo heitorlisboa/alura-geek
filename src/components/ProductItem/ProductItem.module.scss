@@ -1,5 +1,6 @@
 .product {
   display: grid;
+  align-content: flex-start;
   gap: var(--size-2);
 
   &Title {
