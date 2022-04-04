@@ -11,7 +11,6 @@ type SelectProps = PropsWithChildren<{
   name: string;
   label: string;
   errorMessage?: string;
-  startingValue?: string;
   required?: boolean;
   // React Hook Form props
   onChange?: ChangeHandler;
@@ -26,20 +25,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       name,
       label,
       errorMessage,
-      startingValue = "",
       required = false,
       onChange,
       onBlur,
     },
     ref
   ) {
-    const [selectedOption, setSelectedOption] = useState(startingValue);
-
-    function handleChange(event: ChangeEvent<HTMLSelectElement>) {
-      setSelectedOption(event.target.value);
-
-      if (onChange) onChange(event);
-    }
 
     const className = classNames(
       [styles.select, errorMessage ? styles.withError : undefined],
@@ -57,10 +48,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
               id={id}
               className={className}
               name={name}
-              value={selectedOption}
               required={required}
               ref={ref}
-              onChange={handleChange}
+              onChange={onChange}
               onBlur={onBlur}
             >
               {children}

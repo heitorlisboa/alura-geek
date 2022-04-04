@@ -1,10 +1,5 @@
 import { useRef, forwardRef, useCallback, useLayoutEffect } from "react";
-import type {
-  HTMLProps,
-  HTMLInputTypeAttribute,
-  FocusEvent,
-  ForwardedRef,
-} from "react";
+import type { HTMLProps, HTMLInputTypeAttribute, FocusEvent } from "react";
 import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./Input.module.scss";
@@ -24,6 +19,7 @@ type InputProps = {
   required?: boolean;
   as?: "input" | "textarea";
   inputType?: HTMLInputTypeAttribute;
+  step?: number;
   // React Hook Form props
   onChange?: ChangeHandler;
   onBlur?: ChangeHandler;
@@ -40,6 +36,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     required = false,
     as = "input",
     inputType = "text",
+    step = 1,
     onChange,
     onBlur,
   },
@@ -64,6 +61,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     name,
     placeholder,
     required,
+    step,
     onChange,
     onFocus: handleFocus,
     onBlur: useCallback(
