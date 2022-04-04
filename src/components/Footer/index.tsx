@@ -30,7 +30,15 @@ const Footer = function FooterComponent() {
     <footer>
       <section className={styles.info} aria-label="Informações e contato">
         <Container className={styles.infoContainer}>
-          <img src="/svg/logo.svg" alt="Logo" />
+          <Link href="/" passHref>
+            <a aria-label="Ir para página inicial">
+              <span className="sr-only">AluraGeek</span>
+              <img
+                src="/svg/logo.svg"
+                alt="Logo AluraGeek"
+              />
+            </a>
+          </Link>
 
           <nav className={styles.nav}>
             <ul className={styles.navList}>
