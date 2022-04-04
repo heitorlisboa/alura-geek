@@ -1,3 +1,7 @@
+:focus-visible {
+  outline: 2px solid var(--contrast-color);
+}
+
 html,
 body {
   color: var(--dark-gray-text);
@@ -16,7 +20,7 @@ h6 {
 
 main {
   background-color: var(--lighter-gray);
-  
+
   // Preveinting margin collapse
   overflow-x: hidden;
 }

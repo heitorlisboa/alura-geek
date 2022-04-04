@@ -49,7 +49,7 @@
     display: none;
 
     &.active {
-      background-color: white;
+      background-color: var(--primary-color);
 
       position: absolute;
       inset: 0;

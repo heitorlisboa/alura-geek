@@ -25,13 +25,17 @@
 }
 
 .labelTextArea {
+  background-color: var(--primary-color);
+
   top: var(--size-3);
+  right: var(--input-padding-inline);
 }
 
 .labelFocused {
   font-size: var(--fs-smaller);
 
-  top: var(--size-2);
+  top: 0;
+  padding-top: var(--size-2);
   transform: unset;
 }
 
