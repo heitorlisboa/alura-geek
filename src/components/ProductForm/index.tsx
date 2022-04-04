@@ -16,6 +16,7 @@ import {
   bytesToMegaBytes,
   changeInputFiles,
   getFormErrorMessage,
+  imgFileToBase64,
   mergeRefs,
 } from "@src/utils";
 import type { ValidProductRequest } from "@src/types/product";
@@ -62,23 +63,22 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
   };
 
   async function handleProductSubmit(data: FormFields) {
-    const reader = new FileReader();
+    const imageBlob = Array.from(data.productImage)[0];
 
-    reader.onload = async function () {
-      const base64EncodedImage = reader.result as string;
-
+    async function callback(base64EncodedImage: string | ArrayBuffer | null) {
       try {
         const apiRoute = "/api/product";
         const reqBody: ValidProductRequest = {
           name: data.productName,
           price: parseFloat(data.productPrice),
           description: data.productDescription,
-          base64Image: base64EncodedImage,
+          base64Image: base64EncodedImage as string,
           categoryName: data.productCategory,
         };
 
         const productId = Router.query.id as string;
 
+        // TODO: Add loading animation while processing the request
         const { data: product }: { data: Product } =
           action === "create"
             ? await axios.post(apiRoute, reqBody)
@@ -86,19 +86,18 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
 
         Router.push(`/product/${product.id}`);
       } catch (error) {
+        // TODO: Remove the loading animation if the request fails
         // TODO: Improve error notification
         alert("Erro ao adicionar produto");
       }
-    };
+    }
 
-    // TODO: Improve error notification
-    reader.onerror = function () {
+    function handleReadError() {
+      // TODO: Improve error notification
       alert("Erro ao processar imagem");
-    };
+    }
 
-    const imageBlob = Array.from(data.productImage)[0];
-
-    reader.readAsDataURL(imageBlob);
+    imgFileToBase64(imageBlob, callback, handleReadError);
   }
 
   useEffect(() => {

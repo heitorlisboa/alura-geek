@@ -70,4 +70,12 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "6mb",
+    },
+  },
+};
+
 export default handler;

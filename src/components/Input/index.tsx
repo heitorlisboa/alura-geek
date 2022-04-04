@@ -1,4 +1,4 @@
-import { useRef, forwardRef, useCallback, useLayoutEffect } from "react";
+import { useRef, forwardRef, useCallback, useEffect } from "react";
 import type { HTMLProps, HTMLInputTypeAttribute, FocusEvent } from "react";
 import type { ChangeHandler } from "react-hook-form";
 
@@ -88,7 +88,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     if (elementIsEmpty) labelRef.current?.classList.remove(styles.labelFocused);
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const elementHasValue = inputRef.current?.value;
     if (elementHasValue) handleFocus();
   }, []);

@@ -46,6 +46,8 @@
 }
 
 .textarea {
+  height: 10rem;
+
   --padding-top: var(--size-3);
   padding-block: var(--padding-top) var(--size-3);
   padding-inline: var(--input-padding-inline);

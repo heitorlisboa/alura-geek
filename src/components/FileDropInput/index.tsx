@@ -4,7 +4,7 @@ import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./FileDropInput.module.scss";
 
-import { changeInputFiles, mergeRefs } from "@src/utils";
+import { changeInputFiles, imgFileToBase64, mergeRefs } from "@src/utils";
 
 type FileDropInputProps = {
   name: string;
@@ -38,7 +38,6 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
 
     function handleClick() {
       const fileInputElement = fileInputRef.current;
-
       if (fileInputElement) fileInputElement.click();
     }
 
@@ -97,12 +96,9 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
     function showImage(file: File) {
       const dropAreaElement = dropAreaRef.current;
       if (dropAreaElement) {
-        const reader = new FileReader();
-        reader.onload = function () {
-          const fileUrl = reader.result;
-          dropAreaElement.style.backgroundImage = `url(${fileUrl})`;
-        };
-        reader.readAsDataURL(file);
+        imgFileToBase64(file, (base64EncodedImage) => {
+          dropAreaElement.style.backgroundImage = `url(${base64EncodedImage})`;
+        });
       }
     }
 
