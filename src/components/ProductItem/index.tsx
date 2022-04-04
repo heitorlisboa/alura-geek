@@ -29,7 +29,9 @@ const ProductItem: FC<ProductItemProps> = function ProductItemComponent({
       <p>
         <strong>{formatPrice(price)}</strong>
       </p>
-      <BrandLink href={`/product/${id}`}>Ver produto</BrandLink>
+      <p>
+        <BrandLink href={`/product/${id}`}>Ver produto</BrandLink>
+      </p>
     </li>
   );
 };

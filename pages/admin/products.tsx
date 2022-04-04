@@ -13,6 +13,7 @@ import Button from "@components/Button";
 import TrashSvg from "@icons/TrashSvg";
 import PencilSvg from "@icons/PencilSvg";
 import { formatPrice, getBaseUrl } from "@src/utils";
+import BrandLink from "@src/components/BrandLink";
 
 type ManageProductsProps = {
   products: Product[];
@@ -87,6 +88,11 @@ const ManageProducts: NextPage<ManageProductsProps> =
                     <strong>{formatPrice(product.price)}</strong>
                   </p>
                   <p className={styles.productId}>{product.id}</p>
+                  <p>
+                    <BrandLink href={`/product/${product.id}`}>
+                      Ver produto
+                    </BrandLink>
+                  </p>
                 </li>
               ))}
             </ul>
