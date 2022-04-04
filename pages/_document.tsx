@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 function Document() {
   return (
-    <Html>
+    <Html lang="pt-br">
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

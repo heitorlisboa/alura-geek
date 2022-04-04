@@ -1,5 +1,4 @@
 import Head from "next/head";
-import axios from "axios";
 import type { GetStaticProps, NextPage } from "next";
 import type { Category, Product } from "@prisma/client";
 
@@ -8,6 +7,7 @@ import styles from "@page-styles/Home.module.scss";
 import Container from "@components/Container";
 import Button from "@components/Button";
 import ProductsCategory from "@components/ProductsCategory";
+import { prisma } from "@src/lib/prisma";
 
 type HomeProps = {
   products: Product[];
@@ -58,12 +58,12 @@ const Home: NextPage<HomeProps> = function HomePage({ products, categories }) {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data: products } = await axios.get(
-    "http://localhost:3000/api/products"
-  );
-  const { data: categories } = await axios.get(
-    "http://localhost:3000/api/categories"
-  );
+  const products = (await prisma.product.findMany()).map((product) => ({
+    ...product,
+    createdAt: product.createdAt.toISOString(),
+    updatedAt: product.updatedAt.toISOString(),
+  }));
+  const categories = await prisma.category.findMany();
 
   return {
     props: {

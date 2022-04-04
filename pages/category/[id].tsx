@@ -1,12 +1,13 @@
 import Head from "next/head";
-import axios from "axios";
+import { useRouter } from "next/router";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import type { Category } from "@prisma/client";
 
 import styles from "@page-styles/Category.module.scss";
 
+import Fallback from "@components/Fallback";
 import Container from "@components/Container";
 import ProductItem from "@components/ProductItem";
+import { prisma } from "@src/lib/prisma";
 import type { CategoryWithProducts } from "@src/types/category";
 
 type CategoryProps = {
@@ -14,6 +15,10 @@ type CategoryProps = {
 };
 
 const Category: NextPage<CategoryProps> = function CategoryPage({ category }) {
+  const { isFallback } = useRouter();
+
+  if (isFallback) return <Fallback />;
+
   const categoryTitleId = `${category.name.toLowerCase()}-category-title`;
 
   return (
@@ -39,9 +44,7 @@ const Category: NextPage<CategoryProps> = function CategoryPage({ category }) {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: categories }: { data: Category[] } = await axios.get(
-    "http://localhost:3000/api/categories"
-  );
+  const categories = await prisma.category.findMany();
 
   const paths = categories.map((category) => ({
     params: {
@@ -58,13 +61,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, { id: string }> = async (
   context
 ) => {
-  if (!context.params) return { props: {} };
+  if (!context.params) return { notFound: true };
 
   const { id } = context.params;
 
-  const { data: category }: { data: Category } = await axios.get(
-    `http://localhost:3000/api/category/${id}`
-  );
+  const category = await prisma.category.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      products: true,
+    },
+  });
+
+  if (!category) return { notFound: true };
+
+  category.products = category.products.map((product) => ({
+    ...product,
+    createdAt: product.createdAt.toISOString(),
+    updatedAt: product.updatedAt.toISOString(),
+  })) as any;
 
   return {
     props: {

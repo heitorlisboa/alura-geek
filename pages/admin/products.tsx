@@ -16,10 +16,11 @@ import { formatPrice } from "@src/utils";
 
 type ManageProductsProps = {
   products: Product[];
+  baseUrl: string;
 };
 
 const ManageProducts: NextPage<ManageProductsProps> =
-  function ManageProductsPage({ products: initialProducts }) {
+  function ManageProductsPage({ products: initialProducts, baseUrl }) {
     const [products, setProducts] = useState(initialProducts);
 
     function handleDelete(productId: string) {
@@ -30,7 +31,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
 
       if (confirmed) {
         axios
-          .delete(`http://localhost:3000/api/product/${productId}`)
+          .delete(`${baseUrl}/api/product/${productId}`)
           .then(({ data: deletedProduct }: { data: Product }) => {
             // TODO: Add success notification
             setProducts((prevState) =>
@@ -92,13 +93,14 @@ const ManageProducts: NextPage<ManageProductsProps> =
   };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data: products } = await axios.get(
-    "http://localhost:3000/api/products"
-  );
+  const baseUrl = process.env.VERCEL_URL || "http://localhost:3000";
+
+  const { data: products } = await axios.get(`${baseUrl}/api/products`);
 
   return {
     props: {
       products,
+      baseUrl,
     },
   };
 };

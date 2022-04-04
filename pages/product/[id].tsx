@@ -1,15 +1,17 @@
 import Head from "next/head";
 import Image from "next/image";
-import axios from "axios";
+import { useRouter } from "next/router";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import type { Product as ProductType } from "@prisma/client";
 
 import styles from "@page-styles/Product.module.scss";
 
+import Fallback from "@components/Fallback";
 import Container from "@components/Container";
 import ProductsCategory from "@components/ProductsCategory";
 import { formatPrice } from "@src/utils";
 import type { CategoryWithProducts } from "@src/types/category";
+import { prisma } from "@src/lib/prisma";
 
 type ProductProps = {
   product: ProductType;
@@ -20,6 +22,10 @@ const Product: NextPage<ProductProps> = function ProductPage({
   product,
   category,
 }) {
+  const { isFallback } = useRouter();
+
+  if (isFallback) return <Fallback />;
+
   return (
     <>
       <Head>
@@ -59,9 +65,7 @@ const Product: NextPage<ProductProps> = function ProductPage({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: products }: { data: ProductType[] } = await axios.get(
-    "http://localhost:3000/api/products"
-  );
+  const products = await prisma.product.findMany();
 
   const paths = products.map((product) => ({
     params: {
@@ -78,17 +82,28 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, { id: string }> = async (
   context
 ) => {
-  if (!context.params) return { props: {} };
+  if (!context.params) return { notFound: true };
 
   const { id } = context.params;
 
-  const { data: product }: { data: ProductType } = await axios.get(
-    `http://localhost:3000/api/product/${id}`
-  );
+  const product = await prisma.product.findUnique({
+    where: {
+      id,
+    },
+  });
 
-  const { data: category } = await axios.get(
-    `http://localhost:3000/api/category/${product.categoryId}`
-  );
+  if (!product) return { notFound: true };
+
+  product.createdAt = product.createdAt.toISOString() as any;
+  product.updatedAt = product.updatedAt.toISOString() as any;
+
+  const category = await prisma.category.findUnique({
+    where: {
+      id: product.categoryId,
+    },
+  });
+
+  if (!category) return { notFound: true };
 
   return {
     props: {

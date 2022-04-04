@@ -55,17 +55,14 @@ export const getServerSideProps: GetServerSideProps<
   any,
   { id: string }
 > = async (context) => {
-  if (!context.params) return { props: {} };
+  if (!context.params) return { notFound: true };
+
+  const baseUrl = process.env.VERCEL_URL || "http://localhost:3000";
 
   const { id } = context.params;
 
-  const { data: product } = await axios.get(
-    `http://localhost:3000/api/product/${id}`
-  );
-
-  const { data: categories } = await axios.get(
-    "http://localhost:3000/api/categories"
-  );
+  const { data: product } = await axios.get(`${baseUrl}/api/product/${id}`);
+  const { data: categories } = await axios.get(`${baseUrl}/api/categories`);
 
   return {
     props: {

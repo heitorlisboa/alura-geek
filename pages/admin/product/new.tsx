@@ -29,9 +29,9 @@ const NewProduct: NextPage<NewProductProps> = function NewProductPage({
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data: categories } = await axios.get(
-    "http://localhost:3000/api/categories"
-  );
+  const baseUrl = process.env.VERCEL_URL || "http://localhost:3000";
+
+  const { data: categories } = await axios.get(`${baseUrl}/api/categories`);
 
   return {
     props: {
