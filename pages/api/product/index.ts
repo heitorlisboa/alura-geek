@@ -47,7 +47,7 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const imageUploadResponse = await cloudinary.uploader.upload(base64Image, {
-      upload_preset: "alura_geek",
+      upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
     });
 
     try {

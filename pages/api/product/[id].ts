@@ -114,7 +114,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
     if (base64Image) {
       const imageUploadResponse = await cloudinary.uploader.upload(
         base64Image,
-        { upload_preset: "alura_geek" }
+        { upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET }
       );
 
       productWithChanges.imageUrl = imageUploadResponse.url;
