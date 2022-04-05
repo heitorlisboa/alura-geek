@@ -13,18 +13,6 @@
   }
 }
 
-.seeAllLink,
-.productLink {
-  --default-color: var(--accent-color);
-  --hover-color: var(--accent-color-light);
-  color: var(--default-color);
-  font-weight: bold;
-
-  &:hover {
-    color: var(--hover-color);
-  }
-}
-
 .seeAllLink {
   display: flex;
   align-items: center;
@@ -43,17 +31,6 @@
   gap: var(--size-3);
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
-}
-
-.product {
-  display: flex;
-  gap: var(--size-2);
-  flex-direction: column;
-
-  &Title {
-    font-size: var(--fs-small);
-    font-weight: 500;
-  }
 }
 
 @media (max-width: 700px) {

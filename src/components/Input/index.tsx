@@ -1,15 +1,11 @@
-import { useRef, forwardRef, useCallback } from "react";
-import type {
-  HTMLProps,
-  HTMLInputTypeAttribute,
-  FocusEvent,
-  ForwardedRef,
-} from "react";
+import { useRef, forwardRef, useCallback, useEffect } from "react";
+import type { HTMLProps, HTMLInputTypeAttribute, FocusEvent } from "react";
 import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./Input.module.scss";
 
-import { classNames } from "../../utils";
+import { classNames, mergeRefs } from "@src/utils";
+import { AnyMutableRef } from "@src/types/misc";
 
 type InputType = HTMLInputElement | HTMLTextAreaElement;
 
@@ -23,6 +19,7 @@ type InputProps = {
   required?: boolean;
   as?: "input" | "textarea";
   inputType?: HTMLInputTypeAttribute;
+  step?: number;
   // React Hook Form props
   onChange?: ChangeHandler;
   onBlur?: ChangeHandler;
@@ -39,6 +36,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     required = false,
     as = "input",
     inputType = "text",
+    step = 1,
     onChange,
     onBlur,
   },
@@ -46,6 +44,8 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
   ref
 ) {
   const labelRef = useRef<HTMLLabelElement>(null);
+  const inputRef = useRef<InputType>(null);
+  const inputMergedRefs = mergeRefs(inputRef, ref);
   const className = classNames(
     [
       styles[as],
@@ -61,6 +61,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     name,
     placeholder,
     required,
+    step,
     onChange,
     onFocus: handleFocus,
     onBlur: useCallback(
@@ -74,11 +75,15 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
 
   const labelAttrs: HTMLProps<HTMLLabelElement> = {
     htmlFor: id,
-    className: labelVisible ? styles.label : "sr-only",
+    className: labelVisible
+      ? as === "input"
+        ? styles.labelInput
+        : styles.labelTextArea
+      : "sr-only",
     ref: labelRef,
   };
 
-  function handleFocus(event: FocusEvent) {
+  function handleFocus() {
     labelRef.current?.classList.add(styles.labelFocused);
   }
 
@@ -86,6 +91,11 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     const elementIsEmpty = !event.target.value;
     if (elementIsEmpty) labelRef.current?.classList.remove(styles.labelFocused);
   }
+
+  useEffect(() => {
+    const elementHasValue = inputRef.current?.value;
+    if (elementHasValue) handleFocus();
+  }, []);
 
   return (
     <div className={styles.parentWrapper}>
@@ -95,12 +105,12 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
           <input
             {...generalAttrs}
             type={inputType}
-            ref={ref as ForwardedRef<HTMLInputElement>}
+            ref={inputMergedRefs as AnyMutableRef<HTMLInputElement>}
           />
         ) : (
           <textarea
             {...generalAttrs}
-            ref={ref as ForwardedRef<HTMLTextAreaElement>}
+            ref={inputMergedRefs as AnyMutableRef<HTMLTextAreaElement>}
           />
         )}
       </p>

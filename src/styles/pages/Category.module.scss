@@ -2,19 +2,18 @@
   margin-block: var(--size-6);
 }
 
-.formTitle {
+.title {
   font-size: var(--fs-medium-title);
 
   margin-bottom: var(--size-3);
 }
 
-.formFields {
+.productList {
   display: grid;
   gap: var(--size-3);
-}
-
-.fileInput {
-  width: min(40rem, 100%);
-
-  margin-inline: auto;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--product-min-size), 1fr)
+  );
+  grid-template-rows: auto;
 }

@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 import styles from "./ArrowRightSvg.module.scss";
 
-import { classNames } from "../../utils";
+import { classNames } from "@src/utils";
 
 type ArrowRightSvgProps = {
   className?: string;

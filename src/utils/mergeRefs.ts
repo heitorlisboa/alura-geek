@@ -1,8 +1,6 @@
-import type { RefCallback, MutableRefObject, ForwardedRef } from "react";
+import type { AnyMutableRef } from "@src/types/misc";
 
-function mergeRefs<T>(
-  ...refs: (RefCallback<T> | MutableRefObject<T> | ForwardedRef<T>)[]
-) {
+function mergeRefs<T>(...refs: AnyMutableRef<T>[]) {
   const filteredRefs = refs.filter(Boolean);
   if (!filteredRefs) return null;
   if (filteredRefs.length === 1) return filteredRefs[0];

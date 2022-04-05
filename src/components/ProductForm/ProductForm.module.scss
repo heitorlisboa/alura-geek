@@ -1,0 +1,21 @@
+.form {
+  max-width: 40rem;
+
+  margin-block: var(--size-6);
+  margin-inline: auto;
+
+  &Title {
+    font-size: var(--fs-medium-title);
+
+    margin-bottom: var(--size-3);
+  }
+
+  &Fields {
+    display: grid;
+    gap: var(--size-3);
+  }
+}
+
+.fileInput {
+  width: 100%;
+}

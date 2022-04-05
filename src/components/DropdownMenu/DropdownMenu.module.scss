@@ -1,0 +1,27 @@
+.wrapper {
+  position: relative;
+}
+
+.toggleButton {
+  width: 100%;
+
+  padding: 1rem;
+
+  &[aria-expanded="true"] + .menu {
+    display: block;
+
+    & * {
+      width: 100%;
+    }
+  }
+}
+
+.menu {
+  background-color: var(--primary-color);
+
+  display: none;
+  position: absolute;
+  inset: 100% 0 auto;
+
+  box-shadow: 0 0.25rem 0.5rem hsla(0, 0%, 0%, 0.2);
+}

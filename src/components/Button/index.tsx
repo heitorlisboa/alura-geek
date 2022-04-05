@@ -1,9 +1,9 @@
 import Link from "next/link";
-import type { FC, ButtonHTMLAttributes } from "react";
-
-import { classNames } from "../../utils";
+import type { FC, ButtonHTMLAttributes, AriaAttributes } from "react";
 
 import styles from "./Button.module.scss";
+
+import { classNames } from "@src/utils";
 
 type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>["type"];
 
@@ -13,7 +13,8 @@ type ButtonProps = {
   as?: "button" | "link";
   buttonType?: ButtonType;
   linkHref?: string;
-};
+  onClick?: () => void;
+} & AriaAttributes;
 
 const Button: FC<ButtonProps> = function ButtonComponent({
   children,
@@ -22,13 +23,20 @@ const Button: FC<ButtonProps> = function ButtonComponent({
   as = "button",
   buttonType = "button",
   linkHref = "/",
+  onClick,
+  ...ariaAttrs
 }) {
   const classNameList = [styles.button, styles[variant], className];
 
   switch (as) {
     case "button":
       return (
-        <button {...classNames(classNameList)} type={buttonType}>
+        <button
+          {...classNames(classNameList)}
+          type={buttonType}
+          {...ariaAttrs}
+          onClick={onClick}
+        >
           {children}
         </button>
       );

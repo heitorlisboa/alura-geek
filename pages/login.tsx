@@ -1,13 +1,18 @@
 import Head from "next/head";
-import type { NextPage } from "next";
+import { getSession, signIn } from "next-auth/react";
+import type { GetServerSideProps, NextPage } from "next";
 
-import styles from "../src/styles/pages/Login.module.scss";
+import styles from "@page-styles/Login.module.scss";
 
-import Container from "../src/components/Container";
-import Input from "../src/components/Input";
-import Button from "../src/components/Button";
+import Container from "@components/Container";
+import Button from "@components/Button";
+import GitHubSvg from "@icons/GitHubSvg";
 
 const Login: NextPage = function LoginPage() {
+  function handleSignIn() {
+    signIn("github");
+  }
+
   return (
     <>
       <Head>
@@ -15,45 +20,40 @@ const Login: NextPage = function LoginPage() {
       </Head>
 
       <main className={styles.main}>
-        <Container>
-          <form
-            className={styles.loginForm}
-            onSubmit={(e) => e.preventDefault()}
+        <Container className={styles.container}>
+          <h2 className={styles.title}>Iniciar Sessão</h2>
+
+          <Button
+            className={styles.loginButton}
+            as="button"
+            variant="outlined"
+            buttonType="button"
+            onClick={handleSignIn}
           >
-            <h2 className={styles.formTitle}>Iniciar Sessão</h2>
-
-            <div className={styles.formFields}>
-              <Input
-                id="email-address"
-                name="email"
-                label="Email"
-                inputType="email"
-                placeholder="Escreva seu email"
-                required
-              />
-
-              <Input
-                id="password"
-                name="password"
-                label="Senha"
-                inputType="password"
-                placeholder="Escreva sua senha"
-                required
-              />
-
-              <Button
-                className={styles.submitButton}
-                as="button"
-                buttonType="submit"
-              >
-                Entrar
-              </Button>
-            </div>
-          </form>
+            <GitHubSvg />
+            Fazer login com GitHub
+          </Button>
         </Container>
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/admin/products",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default Login;

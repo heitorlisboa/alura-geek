@@ -13,11 +13,14 @@
   --accent-color-light: hsl(214, 77%, 62%);
   --accent-color-lighter: hsl(215, 79%, 91%);
   --accent-color-lightest: hsl(215, 83%, 95%);
+  --primary-color: hsl(0, 0%, 100%);
+  --contrast-color: hsl(0, 0%, 0%);
   --light-gray: hsl(0, 0%, 78%);
   --lighter-gray: hsl(0, 0%, 96%);
   --warning: hsl(0, 100%, 60%);
 
   /* SIZES */
+  /* General sizes */
   --size-1: 0.25rem;
   --size-2: 0.5rem;
   --size-3: 1rem;
@@ -25,6 +28,9 @@
   --size-5: 2rem;
   --size-6: 4rem;
   --size-7: 6rem;
+
+  /* Product size */
+  --product-min-size: 10rem;
 
   /* FONT SIZES */
   --fs-smaller: 0.75rem;

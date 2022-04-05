@@ -1,19 +1,18 @@
-import Link from "next/link";
-import Image from "next/image";
 import React from "react";
 import type { FC } from "react";
+import type { Product } from "@prisma/client";
 
 import styles from "./ProductsCategory.module.scss";
 
-import Container from "../Container";
-import ArrowRightSvg from "../../icons/ArrowRightSvg";
-import { useWindowSize } from "../../hooks/WindowSize";
-import { formatPrice } from "../../utils";
-import type { ProductType } from "../../types";
+import Container from "@components/Container";
+import BrandLink from "@components/BrandLink";
+import ArrowRightSvg from "@icons/ArrowRightSvg";
+import ProductItem from "@components/ProductItem";
+import { useWindowSize } from "@src/hooks/WindowSize";
 
 type ProductsCategoryProps = {
   title: string;
-  products: ProductType[];
+  products: Product[];
   categoryLinkHref?: string;
 };
 
@@ -32,12 +31,10 @@ const ProductsCategory: FC<ProductsCategoryProps> =
               {title}
             </h3>
             {categoryLinkHref && (
-              <Link href={categoryLinkHref} passHref>
-                <a className={styles.seeAllLink}>
-                  Ver tudo
-                  <ArrowRightSvg className={styles.linkArrow} />
-                </a>
-              </Link>
+              <BrandLink href={categoryLinkHref} className={styles.seeAllLink}>
+                Ver tudo
+                <ArrowRightSvg className={styles.linkArrow} />
+              </BrandLink>
             )}
           </header>
 
@@ -46,24 +43,7 @@ const ProductsCategory: FC<ProductsCategoryProps> =
             aria-label={`Produtos da categoria ${title}`}
           >
             {products.slice(0, numberOfProducts).map((product) => (
-              <li className={styles.product} key={product.id}>
-                <Image
-                  src={product.image}
-                  alt={`Foto de ${product.name}`}
-                  width={100}
-                  height={100}
-                  objectFit="cover"
-                  layout="responsive"
-                />
-
-                <h4 className={styles.productTitle}>{product.name}</h4>
-                <p>
-                  <strong>{formatPrice(product.price)}</strong>
-                </p>
-                <Link href={`/product/${product.id}`} passHref>
-                  <a className={styles.productLink}>Ver produto</a>
-                </Link>
-              </li>
+              <ProductItem key={product.id} product={product} />
             ))}
           </ul>
         </Container>

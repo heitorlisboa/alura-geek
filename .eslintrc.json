@@ -1,6 +1,19 @@
 {
   "extends": "next/core-web-vitals",
+  "plugins": ["eslint-plugin-import-helpers"],
   "rules": {
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always",
+        "groups": [
+          ["module", "/^@prisma/"],
+          "/css$/",
+          "/^@/",
+          ["parent", "sibling", "index"]
+        ]
+      }
+    ]
   }
 }

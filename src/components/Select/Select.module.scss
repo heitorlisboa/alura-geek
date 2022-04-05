@@ -1,0 +1,54 @@
+.childWrapper {
+  --select-padding-inline: var(--size-3);
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: var(--size-3);
+    top: 50%;
+    transform: translateY(-25%);
+
+    border: 0.4rem solid var(--dark-gray-text);
+    border-inline-color: transparent;
+    border-bottom-color: transparent;
+
+    pointer-events: none;
+  }
+}
+
+.label {
+  color: var(--light-gray-text);
+  font-size: var(--fs-smaller);
+
+  position: absolute;
+  top: var(--size-2);
+  left: var(--select-padding-inline);
+
+  pointer-events: none;
+}
+
+.select {
+  // Removes default `<select>` styling
+  appearance: none;
+
+  width: 100%;
+
+  padding: var(--size-2) var(--select-padding-inline);
+  border-radius: var(--size-1);
+  box-shadow: 0 1px 0 0 var(--light-gray);
+}
+
+.withLabelVisible {
+  padding-top: var(--size-4);
+}
+
+.withError:not(:focus-visible) {
+  outline: 2px solid var(--warning);
+}
+
+.errorMessage {
+  color: var(--warning);
+
+  margin-top: var(--size-1);
+}

@@ -1,6 +1,10 @@
 @use "../../styles/partials/custom-media.scss" as cm;
 
 .button {
+  text-align: center;
+
+  display: block;
+
   --padding: var(--size-3);
   padding-inline: var(--padding-inline, var(--padding));
   padding-block: var(--padding-block, var(--padding));

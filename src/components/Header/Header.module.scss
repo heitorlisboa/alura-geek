@@ -26,7 +26,7 @@
   right: 0;
 }
 
-.loginButton {
+.sessionButton {
   --padding-inline: var(--size-6);
 }
 
@@ -36,20 +36,24 @@
     gap: var(--size-2);
   }
 
-  .loginButton {
-    --padding-inline: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
+  .sessionButton,
+  .adminMenu {
     margin-right: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
+  }
+
+  .sessionButton {
+    --padding-inline: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
   }
 
   .searchFormWrapper {
     display: none;
 
     &.active {
-      background-color: white;
+      background-color: var(--primary-color);
 
       position: absolute;
       inset: 0;
-      
+
       display: grid;
       gap: var(--size-2);
       grid-template-columns: 1fr auto;
