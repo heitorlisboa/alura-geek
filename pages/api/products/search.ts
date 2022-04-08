@@ -30,6 +30,9 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
           { category: { name: { contains: q } } },
         ],
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
 
     res.status(200).json(product);

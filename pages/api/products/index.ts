@@ -14,7 +14,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+      orderBy: { updatedAt: "desc" },
+    });
 
     res.status(200).json(products);
   } catch (error) {

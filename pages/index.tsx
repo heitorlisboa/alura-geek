@@ -58,7 +58,9 @@ const Home: NextPage<HomeProps> = function HomePage({ products, categories }) {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const products = (await prisma.product.findMany()).map((product) => ({
+  const products = (
+    await prisma.product.findMany({ orderBy: { updatedAt: "desc" } })
+  ).map((product) => ({
     ...product,
     createdAt: product.createdAt.toISOString(),
     updatedAt: product.updatedAt.toISOString(),
