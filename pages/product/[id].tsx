@@ -32,7 +32,7 @@ const Product: NextPage<ProductProps> = function ProductPage({
         <title>{product.name}</title>
       </Head>
 
-      <main>
+      <main id="main-content">
         <Container className={styles.productContainer}>
           <article className={styles.product}>
             <Image

@@ -32,7 +32,7 @@ const EditProduct: NextPage<EditProductProps> = function EditProductPage({
         <title>Admin - Editar produto</title>
       </Head>
 
-      <main>
+      <main id="main-content">
         <Container>
           <ProductForm
             categories={categories}

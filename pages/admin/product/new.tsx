@@ -20,7 +20,7 @@ const NewProduct: NextPage<NewProductProps> = function NewProductPage({
         <title>Admin - Adicionar produto</title>
       </Head>
 
-      <main>
+      <main id="main-content">
         <Container>
           <ProductForm categories={categories} action="create" />
         </Container>

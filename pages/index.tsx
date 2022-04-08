@@ -21,7 +21,7 @@ const Home: NextPage<HomeProps> = function HomePage({ products, categories }) {
         <title>AluraGeek - Página inicial</title>
       </Head>
 
-      <main>
+      <main id="main-content">
         <section className={styles.hero} aria-labelledby="hero-title">
           <Container className={styles.heroContainer}>
             <h2 id="hero-title" className={styles.heroTitle}>

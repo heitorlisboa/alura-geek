@@ -11,8 +11,35 @@
   padding-block: var(--size-3);
 }
 
+.skipToContent {
+  color: var(--accent-color);
+  font-weight: 500;
+
+  background-color: var(--primary-color);
+
+  position: absolute;
+  top: 0;
+  left: var(--size-3);
+  
+  padding: var(--size-2) var(--size-3);
+  border-radius: 0 0 var(--size-1) var(--size-1);
+  
+  transform: translateY(-100%);
+  transition: transform 200ms ease-out;
+  z-index: 1;
+
+  &:focus-visible {
+    transform: unset;
+    outline-offset: 0;
+  }
+}
+
 .titleAndForm {
   gap: var(--size-5);
+}
+
+.logoAnchor {
+  display: block;
 }
 
 .logo {

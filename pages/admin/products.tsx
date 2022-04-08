@@ -50,7 +50,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
           <title>Admin - Todos os produtos</title>
         </Head>
 
-        <main>
+        <main id="main-content">
           <Container className={styles.container}>
             <header className={styles.header}>
               <h2 id={pageTitleId} className={styles.title}>

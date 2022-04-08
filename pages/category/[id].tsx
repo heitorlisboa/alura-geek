@@ -27,7 +27,7 @@ const Category: NextPage<CategoryProps> = function CategoryPage({ category }) {
         <title>Categoria {category.name}</title>
       </Head>
 
-      <main>
+      <main id="main-content">
         <Container className={styles.container}>
           <h2 id={categoryTitleId} className={styles.title}>
             {category.name}

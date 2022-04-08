@@ -24,7 +24,7 @@ const SearchProducts: NextPage<SearchProductsProps> =
           <title>Buscando &quot;{query}&quot;</title>
         </Head>
 
-        <main>
+        <main id="main-content">
           <Container className={styles.container}>
             <h2 id={pageTitleId} className={styles.title}>
               Resultados da busca de &quot;{query}&quot;
