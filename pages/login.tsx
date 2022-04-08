@@ -19,7 +19,7 @@ const Login: NextPage = function LoginPage() {
         <title>AluraGeek - Login</title>
       </Head>
 
-      <main id="main-content" className={styles.main}>
+      <main id="main-content">
         <Container className={styles.container}>
           <h2 className={styles.title}>Iniciar Sessão</h2>
 

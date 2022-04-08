@@ -1,5 +1,5 @@
 .svg {
-  $-min-size: 1.5rem;
+  $-min-size: var(--size-4);
   fill: var(--accent-color);
   
   min-width: $-min-size;
