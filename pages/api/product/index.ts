@@ -4,6 +4,7 @@ import apiRouteWithAuth from "@src/middlewares/apiRouteWithAuth";
 import { prisma } from "@src/lib/prisma";
 import { cloudinary } from "@src/lib/cloudinary";
 import { productValidator } from "@src/lib/productValidator";
+import { revalidateProductPages } from "@src/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@src/lib/handlePrismaError";
 import { handleCloudinaryError } from "@src/lib/handleCloudinaryError";
@@ -61,7 +62,9 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
         },
       });
 
-      res.status(201).json(product);
+      const revalidated = await revalidateProductPages(res, product);
+
+      res.status(201).json({ ...product, ...revalidated });
     } catch (error) {
       handlePrismaError(error, res, "Produto");
     }

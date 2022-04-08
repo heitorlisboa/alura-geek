@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import apiRouteWithAuth from "@src/middlewares/apiRouteWithAuth";
 import { prisma } from "@src/lib/prisma";
 import { categoryValidator } from "@src/lib/categoryValidator";
+import { revalidateCategoryPages } from "@src/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@src/lib/handlePrismaError";
 import type { CategoryRequestToValidate } from "@src/types/category";
@@ -82,7 +83,9 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
-    res.status(200).json(category);
+    const revalidated = await revalidateCategoryPages(res, category);
+
+    res.status(200).json({ ...category, ...revalidated });
   } catch (error) {
     handlePrismaError(error, res, "Categoria");
   }

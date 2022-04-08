@@ -6,6 +6,7 @@ import { prisma } from "@src/lib/prisma";
 import { cloudinary } from "@src/lib/cloudinary";
 import { productValidator } from "@src/lib/productValidator";
 import { getPublicIdFromUrl } from "@src/lib/getPublicIdFromUrl";
+import { revalidateProductPages } from "@src/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@src/lib/handlePrismaError";
 import { handleCloudinaryError } from "@src/lib/handleCloudinaryError";
@@ -128,6 +129,9 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
         },
       });
 
+      const revalidated = await revalidateProductPages(res, product);
+      const jsonResponse = { ...product, ...revalidated };
+
       if (base64Image) {
         try {
           const imagePublicId = getPublicIdFromUrl(productFound.imageUrl);
@@ -136,7 +140,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
           });
         } catch (error) {
           res.status(200).json({
-            ...product,
+            ...jsonResponse,
             error:
               "Produto atualizado, porém sua imagem antiga não pôde ser excluída",
           });
@@ -144,7 +148,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
         }
       }
 
-      res.status(200).json(product);
+      res.status(200).json(jsonResponse);
     } catch (error) {
       handlePrismaError(error, res, "Produto");
     }

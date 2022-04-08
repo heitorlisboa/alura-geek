@@ -6,6 +6,7 @@ import { categoryValidator } from "@src/lib/categoryValidator";
 import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@src/lib/handlePrismaError";
 import type { CategoryRequestToValidate } from "@src/types/category";
+import { revalidateCategoryPages } from "@src/lib/revalidatePage";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
@@ -35,7 +36,9 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
-    res.status(201).json(category);
+    const revalidated = await revalidateCategoryPages(res, category);
+
+    res.status(201).json({ ...category, ...revalidated });
   } catch (error) {
     handlePrismaError(error, res, "Categoria");
   }
