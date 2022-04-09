@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import type { Product as ProductType } from "@prisma/client";
+import type { Product as IProduct } from "@prisma/client";
 
 import styles from "@page-styles/Product.module.scss";
 
@@ -14,7 +14,7 @@ import type { CategoryWithProducts } from "@src/types/category";
 import { prisma } from "@src/lib/prisma";
 
 type ProductProps = {
-  product: ProductType;
+  product: IProduct;
   category: CategoryWithProducts;
 };
 

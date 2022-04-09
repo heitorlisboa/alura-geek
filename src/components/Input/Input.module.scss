@@ -72,11 +72,11 @@
 }
 
 .withError:not(:focus-visible) {
-  outline: 2px solid var(--warning);
+  outline: 2px solid var(--danger);
 }
 
 .errorMessage {
-  color: var(--warning);
+  color: var(--danger);
 
   margin-top: var(--size-1);
 }

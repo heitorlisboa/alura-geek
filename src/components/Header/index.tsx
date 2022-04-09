@@ -11,7 +11,7 @@ import Button from "@components/Button";
 import SearchForm from "@components/SearchForm";
 import SearchSvg from "@icons/SearchSvg";
 import CloseSvg from "@icons/CloseSvg";
-import { useWindowSize } from "@src/hooks/WindowSize";
+import { useWindowSize } from "@src/hooks/useWindowSize";
 import { classNames } from "@src/utils";
 
 const Header: FC = function HeaderComponent() {
