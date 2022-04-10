@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
+import { Modal } from "@mantine/core";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Product } from "@prisma/client";
 
@@ -25,23 +27,55 @@ const ManageProducts: NextPage<ManageProductsProps> =
     const pageTitleId = "admin-all-products-title";
 
     const [products, setProducts] = useState(initialProducts);
+    const [modalOpened, setModalOpened] = useState(false);
+    const [productIdToDelete, setProductIdToDelete] = useState<string>("");
 
-    function handleDelete(productId: string) {
-      // TODO: Improve confirmation pop-up
-      const confirmed = window.confirm(
-        "Tem certeza que quer excluir esse produto?"
-      );
+    function handleOpenModal(productId: string) {
+      setModalOpened(true);
+      setProductIdToDelete(productId);
+    }
 
-      if (confirmed) {
-        axios
-          .delete(`${baseUrl}/api/product/${productId}`)
-          .then(({ data: deletedProduct }: { data: Product }) => {
-            // TODO: Add success notification
-            setProducts((prevState) =>
-              prevState.filter((product) => product.id !== deletedProduct.id)
-            );
+    function handleCloseModal() {
+      setModalOpened(false);
+      setProductIdToDelete("");
+    }
+
+    function handleDelete() {
+      showNotification({
+        id: "delete-product",
+        message: "Deletando produto, espere um momento...",
+        loading: true,
+        autoClose: false,
+        disallowClose: true,
+      });
+
+      axios
+        .delete(`${baseUrl}/api/product/${productIdToDelete}`)
+        .then(({ data: deletedProduct }: { data: Product }) => {
+          // Removing the product from the `products` state
+          setProducts((prevState) =>
+            prevState.filter((product) => product.id !== deletedProduct.id)
+          );
+
+          // Success notification
+          updateNotification({
+            id: "delete-product",
+            color: "green",
+            message: "Produto deletado com sucesso!",
           });
-      }
+        })
+        .catch((err) => {
+          // Error notification
+          updateNotification({
+            id: "delete-product",
+            color: "red",
+            title: "Erro ao deletar produto",
+            message: err,
+          });
+        });
+
+      // Closing the modal after confirming the action
+      handleCloseModal();
     }
 
     return (
@@ -52,6 +86,16 @@ const ManageProducts: NextPage<ManageProductsProps> =
 
         <main id="main-content">
           <Container className={styles.container}>
+            <Modal
+              title={"Tem certeza que quer excluir esse produto?"}
+              opened={modalOpened}
+              onClose={handleCloseModal}
+              closeButtonLabel={"Cancelar de deleção de produto"}
+              styles={{ title: { fontFamily: "inherit" } }}
+            >
+              <Button onClick={handleDelete}>Confirmar</Button>
+            </Modal>
+
             <header className={styles.header}>
               <h2 id={pageTitleId} className={styles.title}>
                 Todos os produtos
@@ -73,7 +117,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
                   />
 
                   <div className={styles.productIcons}>
-                    <button onClick={handleDelete.bind(null, product.id)}>
+                    <button onClick={handleOpenModal.bind(null, product.id)}>
                       <TrashSvg />
                     </button>
                     <Link href={`/admin/product/${product.id}`}>

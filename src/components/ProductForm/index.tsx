@@ -1,7 +1,9 @@
 import Router from "next/router";
 import axios from "axios";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { LoadingOverlay } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import type { FC } from "react";
 import type { Category, Product } from "@prisma/client";
 
@@ -45,6 +47,7 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
     handleSubmit,
     formState: { errors },
   } = useForm<FormFields>({ defaultValues: initialValues });
+  const [loading, setLoading] = useState(false);
 
   const fileDropInputRef = useRef<HTMLInputElement>(null);
 
@@ -78,32 +81,45 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
 
         const productId = Router.query.id as string;
 
-        // TODO: Add loading animation while processing the request
+        // Setting the loading animation
+        setLoading(true);
+        // Doing the create/update request
         const { data: product }: { data: Product } =
           action === "create"
             ? await axios.post(apiRoute, reqBody)
             : await axios.put(`${apiRoute}/${productId}`, reqBody);
 
+        // Redirecting to the created/updated product page
         Router.push(`/product/${product.id}`);
       } catch (error) {
-        // TODO: Remove the loading animation if the request fails
-        // TODO: Improve error notification
-        alert("Erro ao adicionar produto");
+        // Removing the loading animation
+        setLoading(false);
+        // Error notification
+        const keyword = action === "create" ? "adicionar" : "atualizar";
+        showNotification({
+          color: "red",
+          message: `Erro ao ${keyword} produto`,
+        });
       }
     }
 
     function handleReadError() {
-      // TODO: Improve error notification
-      alert("Erro ao processar imagem");
+      // Error notification
+      showNotification({
+        color: "red",
+        message: "Erro ao processar imagem",
+      });
     }
 
     imgFileToBase64(imageBlob, callback, handleReadError);
   }
 
+  /**
+   * As the initial image value stated in the `useForm` hook won't affect the
+   * file drop input, it's necessary to manually change the input files based on
+   * this initial value
+   */
   useEffect(() => {
-    /* As the initial image value stated in the `useForm` hook won't affect the
-       file drop input, it's necessary to manually change the input files based
-       on this initial value */
     const fileDropInput = fileDropInputRef.current;
     if (fileDropInput && initialValues?.productImage)
       changeInputFiles(fileDropInput, initialValues.productImage);
@@ -111,6 +127,7 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(handleProductSubmit)}>
+      <LoadingOverlay visible={loading} />
       <h2 className={styles.formTitle}>
         {action === "create" ? "Adicionar novo" : "Atualizar"} produto
       </h2>
