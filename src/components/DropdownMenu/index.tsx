@@ -1,4 +1,5 @@
 import { Children, useState } from "react";
+import { useClickOutside } from "@mantine/hooks";
 import type { FC } from "react";
 
 import styles from "./DropdownMenu.module.scss";
@@ -18,6 +19,7 @@ const DropdownMenu: FC<DropdownMenuProps> = function DropdownMenuComponent({
 }) {
   const childList = Children.toArray(children);
   const [expanded, setExpanded] = useState(false);
+  const ref = useClickOutside<HTMLDivElement>(handleClickOutside);
 
   const menuId = `${menuTitle}-menu`;
 
@@ -25,8 +27,12 @@ const DropdownMenu: FC<DropdownMenuProps> = function DropdownMenuComponent({
     setExpanded((prevState) => !prevState);
   }
 
+  function handleClickOutside() {
+    setExpanded(false);
+  }
+
   return (
-    <div {...classNames([styles.wrapper, className])}>
+    <div {...classNames([styles.wrapper, className])} ref={ref}>
       <Button
         className={styles.toggleButton}
         as="button"
@@ -44,7 +50,7 @@ const DropdownMenu: FC<DropdownMenuProps> = function DropdownMenuComponent({
         aria-label={menuTitle}
       >
         {childList.map((child, index) => (
-          <li key={index} role="menuitem">
+          <li key={index} role="menuitem" onClick={handleClickOutside}>
             {child}
           </li>
         ))}
