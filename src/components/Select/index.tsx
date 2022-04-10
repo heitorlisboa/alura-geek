@@ -1,5 +1,5 @@
-import { forwardRef, useState } from "react";
-import type { ChangeEvent, PropsWithChildren } from "react";
+import { forwardRef } from "react";
+import type { PropsWithChildren } from "react";
 import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./Select.module.scss";
