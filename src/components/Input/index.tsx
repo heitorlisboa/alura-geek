@@ -7,7 +7,7 @@ import styles from "./Input.module.scss";
 import { classNames, mergeRefs } from "@src/utils";
 import { AnyMutableRef } from "@src/types/misc";
 
-type InputType = HTMLInputElement | HTMLTextAreaElement;
+type InputElement = HTMLInputElement | HTMLTextAreaElement;
 
 type InputProps = {
   id: string;
@@ -25,7 +25,7 @@ type InputProps = {
   onBlur?: ChangeHandler;
 };
 
-const Input = forwardRef<InputType, InputProps>(function InputComponent(
+const Input = forwardRef<InputElement, InputProps>(function InputComponent(
   {
     id,
     name,
@@ -44,7 +44,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
   ref
 ) {
   const labelRef = useRef<HTMLLabelElement>(null);
-  const inputRef = useRef<InputType>(null);
+  const inputRef = useRef<InputElement>(null);
   const inputMergedRefs = mergeRefs(inputRef, ref);
   const className = classNames(
     [
@@ -55,7 +55,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     false
   );
 
-  const generalAttrs: HTMLProps<InputType> = {
+  const generalAttrs: HTMLProps<InputElement> = {
     id,
     className,
     name,
@@ -65,7 +65,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     onChange,
     onFocus: handleFocus,
     onBlur: useCallback(
-      (event: FocusEvent<InputType>) => {
+      (event: FocusEvent<InputElement>) => {
         if (onBlur) onBlur(event);
         handleBlur(event);
       },
@@ -87,7 +87,7 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
     labelRef.current?.classList.add(styles.labelFocused);
   }
 
-  function handleBlur(event: FocusEvent<InputType>) {
+  function handleBlur(event: FocusEvent<InputElement>) {
     const elementIsEmpty = !event.target.value;
     if (elementIsEmpty) labelRef.current?.classList.remove(styles.labelFocused);
   }
@@ -115,7 +115,11 @@ const Input = forwardRef<InputType, InputProps>(function InputComponent(
         )}
       </p>
 
-      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+      {errorMessage && (
+        <p className={styles.errorMessage} role="alert">
+          {errorMessage}
+        </p>
+      )}
     </div>
   );
 });

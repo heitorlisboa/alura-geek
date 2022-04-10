@@ -142,7 +142,11 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
           onBlur={onBlur}
         />
 
-        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+        {errorMessage && (
+          <p className={styles.errorMessage} role="alert">
+            {errorMessage}
+          </p>
+        )}
       </div>
     );
   }

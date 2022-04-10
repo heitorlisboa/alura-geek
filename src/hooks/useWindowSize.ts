@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function useWindowSize(handler?: () => any) {
+function useWindowSize(handler?: () => void) {
   const [windowSize, setWindowSize] = useState<number | null>(null);
 
   useEffect(() => {

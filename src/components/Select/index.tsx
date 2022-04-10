@@ -66,7 +66,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </p>
 
           {errorMessage && (
-            <p className={styles.errorMessage}>{errorMessage}</p>
+            <p className={styles.errorMessage} role="alert">
+              {errorMessage}
+            </p>
           )}
         </div>
       </>
