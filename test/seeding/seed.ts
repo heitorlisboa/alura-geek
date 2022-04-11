@@ -1,6 +1,8 @@
 import { PrismaClient, type Product } from "@prisma/client";
+import path from "path";
 
 import seedSource from "./seedSource.json";
+import { cloudinary } from "../../src/lib/cloudinary";
 
 const prisma = new PrismaClient();
 
@@ -17,7 +19,7 @@ async function main() {
     data: { name: "Diversos" },
   });
 
-  const productsToCreate: ProductToCreate[] = seedSource.map((item, index) => {
+  const data = seedSource.map(async (item, index) => {
     const categoryId =
       index <= 5
         ? starWarsCategory.id
@@ -25,13 +27,24 @@ async function main() {
         ? consolesCategory.id
         : miscCategory.id;
 
+    const prevImageUrl = path.join(__dirname, item.imageUrl);
+
+    const newImageUrl = (
+      await cloudinary.uploader.upload(prevImageUrl, {
+        upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+      })
+    ).url;
+
     return {
       ...item,
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. In ex quos soluta culpa minima sint dignissimos dicta, pariatur sed deleniti saepe quod earum assumenda architecto officiis, voluptates laborum voluptas molestias.",
+      imageUrl: newImageUrl,
       categoryId,
     };
   });
+
+  const productsToCreate: ProductToCreate[] = await Promise.all(data);
 
   await prisma.product.createMany({
     data: productsToCreate,
