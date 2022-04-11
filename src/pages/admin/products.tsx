@@ -14,8 +14,8 @@ import Container from "@components/Container";
 import Button from "@components/Button";
 import TrashSvg from "@icons/TrashSvg";
 import PencilSvg from "@icons/PencilSvg";
-import { formatPrice, getBaseUrl } from "@src/utils";
 import BrandLink from "@src/components/BrandLink";
+import { formatPrice, getBaseUrl } from "@src/utils";
 
 type ManageProductsProps = {
   products: Product[];
