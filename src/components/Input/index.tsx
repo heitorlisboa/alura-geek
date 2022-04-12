@@ -9,7 +9,7 @@ import { AnyMutableRef } from "@src/types/misc";
 
 type InputElement = HTMLInputElement | HTMLTextAreaElement;
 
-type InputProps = {
+type GeneralProps = {
   id: string;
   name: string;
   label: string;
@@ -17,13 +17,24 @@ type InputProps = {
   errorMessage?: string;
   labelVisible?: boolean;
   required?: boolean;
-  as?: "input" | "textarea";
-  inputType?: HTMLInputTypeAttribute;
-  step?: number;
   // React Hook Form props
   onChange?: ChangeHandler;
   onBlur?: ChangeHandler;
 };
+
+type AsInputProps = {
+  as?: "input";
+  inputType?: HTMLInputTypeAttribute;
+  step?: number;
+};
+
+type AsTextAreaProps = {
+  as?: "textarea";
+  inputType?: undefined;
+  step?: undefined;
+};
+
+type InputProps = (AsInputProps | AsTextAreaProps) & GeneralProps;
 
 const Input = forwardRef<InputElement, InputProps>(function InputComponent(
   {

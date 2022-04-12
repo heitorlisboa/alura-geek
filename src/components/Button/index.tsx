@@ -5,16 +5,28 @@ import styles from "./Button.module.scss";
 
 import { classNames } from "@src/utils";
 
-type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>["type"];
-
-type ButtonProps = {
+type GeneralProps = {
   className?: string;
   variant?: "contained" | "outlined";
-  as?: "button" | "link";
-  buttonType?: ButtonType;
-  linkHref?: string;
-  onClick?: () => void;
 } & AriaAttributes;
+
+type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>["type"];
+
+type AsButtonProps = {
+  as?: "button";
+  buttonType?: ButtonType;
+  linkHref?: undefined;
+  onClick?: () => void;
+};
+
+type AsLinkProps = {
+  as?: "link";
+  buttonType?: undefined;
+  linkHref?: string;
+  onClick?: undefined;
+};
+
+type ButtonProps = (AsButtonProps | AsLinkProps) & GeneralProps;
 
 const Button: FC<ButtonProps> = function ButtonComponent({
   children,
