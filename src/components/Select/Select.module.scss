@@ -10,15 +10,15 @@
     transform: translateY(-25%);
 
     border: 0.4rem solid;
-    border-color: var(--dark-gray-text) transparent transparent;
+    border-color: var(--neutral-color-700) transparent transparent;
 
     pointer-events: none;
   }
 }
 
 .label {
-  color: var(--light-gray-text);
-  font-size: var(--fs-smaller);
+  color: var(--neutral-text-500);
+  font-size: var(--fs-100);
 
   position: absolute;
   top: var(--size-2);
@@ -31,11 +31,15 @@
   // Removes default `<select>` styling
   appearance: none;
 
+  color: var(--neutral-text-900);
+
+  background-color: var(--neutral-color-100);
+
   width: 100%;
 
   padding: var(--size-2) var(--select-padding-inline);
   border-radius: var(--size-1);
-  box-shadow: 0 1px 0 0 var(--light-gray);
+  box-shadow: var(--form-field-shadow);
 }
 
 .withLabelVisible {
@@ -43,11 +47,11 @@
 }
 
 .withError:not(:focus-visible) {
-  outline: 2px solid var(--danger);
+  outline: 2px solid var(--danger-color);
 }
 
 .errorMessage {
-  color: var(--danger);
+  color: var(--danger-color);
 
   margin-top: var(--size-1);
 }

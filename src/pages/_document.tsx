@@ -30,6 +30,7 @@ function Document() {
           content="AluraGeek. Feito por Heitor Lisboa"
         />
       </Head>
+
       <body>
         <Main />
         <NextScript />

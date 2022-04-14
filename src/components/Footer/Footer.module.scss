@@ -1,7 +1,7 @@
 @use "../../styles/partials/custom-media.scss" as cm;
 
 .info {
-  background-color: var(--accent-color-lightest);
+  background-color: var(--footer-info-color);
 }
 
 .infoContainer {
@@ -23,7 +23,7 @@
 
 .navList {
   a {
-    color: var(--dark-gray-text);
+    color: var(--neutral-text-700);
     font-weight: 500;
   }
 }
@@ -33,7 +33,7 @@
 }
 
 .formTitle {
-  font-size: var(--fs-text);
+  font-size: var(--fs-300);
   font-weight: bold;
 
   margin-bottom: var(--size-1);
@@ -52,6 +52,8 @@
 .copyright {
   text-align: center;
   font-weight: 500;
+
+  background-color: var(--neutral-color-100);
 
   padding-block: var(--size-4);
 }

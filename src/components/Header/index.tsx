@@ -6,6 +6,8 @@ import type { FC } from "react";
 import styles from "./Header.module.scss";
 
 import Container from "@components/Container";
+import LogoSvg from "@icons/LogoSvg";
+import ToggleDarkTheme from "@src/components/ToggleDarkTheme";
 import DropdownMenu from "@components/DropdownMenu";
 import Button from "@components/Button";
 import SearchForm from "@components/SearchForm";
@@ -17,7 +19,7 @@ import { classNames } from "@src/utils";
 const Header: FC = function HeaderComponent() {
   // Responsive layout
   const windowSize = useWindowSize();
-  const mobile = windowSize < 650;
+  const mobile = windowSize < 768;
 
   // Mobile search bar interaction
   const [searchBarIsOpen, setSearchBarIsOpen] = useState(false);
@@ -39,7 +41,7 @@ const Header: FC = function HeaderComponent() {
   }
 
   return (
-    <header>
+    <header className={styles.header}>
       <Container className={styles.headerContainer}>
         <a href="#main-content" className={styles.skipToContent}>
           Pular para o conteúdo
@@ -52,11 +54,7 @@ const Header: FC = function HeaderComponent() {
                 className={styles.logoAnchor}
               >
                 <span className="sr-only">AluraGeek</span>
-                <img
-                  className={styles.logo}
-                  src="/svg/logo.svg"
-                  alt="Logo AluraGeek"
-                />
+                <LogoSvg className={styles.logo} />
               </a>
             </Link>
           </h1>
@@ -64,53 +62,50 @@ const Header: FC = function HeaderComponent() {
           {!mobile && <SearchForm />}
         </div>
 
-        {isAuthenticated ? (
-          <DropdownMenu
-            className={styles.adminMenu}
-            menuTitle="Menu administrador"
-          >
-            <Button as="link" variant="outlined" linkHref="/admin/products">
-              Gerenciar produtos
-            </Button>
-            <Button as="button" variant="outlined" onClick={handleSignOut}>
-              Logout
-            </Button>
-          </DropdownMenu>
-        ) : (
-          <Button
-            className={styles.sessionButton}
-            as="link"
-            variant="outlined"
-            linkHref="/login"
-          >
-            Login
-          </Button>
-        )}
+        <div className={styles.buttonsWrapper}>
+          <ToggleDarkTheme />
 
-        {mobile && (
-          <>
-            <button
-              className={styles.toggleSearchButton}
-              type="submit"
-              onClick={openSearchBar}
+          {isAuthenticated ? (
+            <DropdownMenu menuTitle="Menu administrador">
+              <Button as="link" variant="outlined" linkHref="/admin/products">
+                Gerenciar produtos
+              </Button>
+              <Button as="button" variant="outlined" onClick={handleSignOut}>
+                Logout
+              </Button>
+            </DropdownMenu>
+          ) : (
+            <Button
+              className={styles.sessionButton}
+              as="link"
+              variant="outlined"
+              linkHref="/login"
             >
+              Login
+            </Button>
+          )}
+
+          {mobile && (
+            <button type="submit" onClick={openSearchBar}>
               <span className="sr-only">Abrir barra de pesquisa</span>
               <SearchSvg className={styles.searchIcon} />
             </button>
+          )}
+        </div>
 
-            <div
-              {...classNames([
-                styles.searchFormWrapper,
-                searchBarIsOpen ? styles.active : undefined,
-              ])}
-            >
-              <SearchForm className={styles.searchForm} />
-              <button onClick={closeSearchBar}>
-                <span className="sr-only">Fechar barra de pesquisa</span>
-                <CloseSvg />
-              </button>
-            </div>
-          </>
+        {mobile && (
+          <div
+            {...classNames([
+              styles.searchFormWrapper,
+              searchBarIsOpen ? styles.active : undefined,
+            ])}
+          >
+            <SearchForm className={styles.searchForm} />
+            <button onClick={closeSearchBar}>
+              <span className="sr-only">Fechar barra de pesquisa</span>
+              <CloseSvg />
+            </button>
+          </div>
         )}
       </Container>
     </header>

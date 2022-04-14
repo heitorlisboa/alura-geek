@@ -1,0 +1,12 @@
+.light {
+  background-color: transparent;
+  border-color: var(--accent-color-500);
+}
+
+.dark {
+  background-color: var(--neutral-color-200);
+
+  &:hover {
+    background-color: var(--neutral-color-300);
+  }
+}

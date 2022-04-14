@@ -1,5 +1,5 @@
 .dropArea {
-  background-color: var(--primary-color);
+  background-color: var(--neutral-color-100);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -12,7 +12,7 @@
   width: 100%;
 
   padding: var(--size-4);
-  border: 2px dashed var(--light-gray-text);
+  border: 2px dashed var(--neutral-color-500);
 
   &.dragOver {
     border-style: solid;
@@ -23,7 +23,7 @@
   }
 
   &DefaultContent {
-    color: var(--gray-text);
+    color: var(--neutral-text-500);
     text-align: center;
 
     display: grid;
@@ -33,7 +33,7 @@
 }
 
 .fileNames {
-  color: white;
+  color: var(--fixed-color-100);
   text-align: left;
 
   background-color: hsla(0, 0%, 10%, 0.9);
@@ -47,7 +47,7 @@
 }
 
 .errorMessage {
-  color: var(--danger);
+  color: var(--danger-color);
 
   margin-top: var(--size-1);
 }

@@ -1,10 +1,11 @@
 :focus-visible {
-  outline: 2px solid var(--contrast-color);
+  outline: 2px solid var(--accent-color-500);
+  outline-offset: var(--size-1);
 }
 
 html,
 body {
-  color: var(--dark-gray-text);
+  color: var(--neutral-text-700);
   font-family: "Raleway", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
 }
@@ -19,7 +20,7 @@ h6 {
 }
 
 main {
-  background-color: var(--lighter-gray);
+  background-color: var(--neutral-color-200);
 
   // Preveinting margin collapse
   overflow-x: hidden;

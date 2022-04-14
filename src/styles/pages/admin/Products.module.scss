@@ -13,7 +13,7 @@
 }
 
 .title {
-  font-size: var(--fs-medium-title);
+  font-size: var(--fs-500-clamp);
 }
 
 .productList {
@@ -46,7 +46,7 @@
     padding: var(--size-2);
 
     & > * {
-      filter: drop-shadow(0 0 1px black);
+      filter: drop-shadow(0 0 1px var(--fixed-color-900));
     }
   }
 
@@ -56,11 +56,11 @@
   }
 
   &Title {
-    font-size: var(--fs-small);
+    font-size: var(--fs-200);
   }
 
   &Id {
-    font-size: var(--fs-smaller);
+    font-size: var(--fs-100);
 
     &::before {
       content: "#";
