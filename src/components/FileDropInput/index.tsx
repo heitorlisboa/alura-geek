@@ -1,10 +1,15 @@
-import { forwardRef, ReactElement, useRef, useState } from "react";
-import type { DragEvent, ChangeEvent } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
+import type { ChangeEvent, DragEvent, ReactElement } from "react";
 import type { ChangeHandler } from "react-hook-form";
 
 import styles from "./FileDropInput.module.scss";
 
-import { changeInputFiles, imgFileToBase64, mergeRefs } from "@src/utils";
+import {
+  changeInputFiles,
+  classNames,
+  imgFileToBase64,
+  mergeRefs,
+} from "@src/utils";
 
 type FileDropInputProps = {
   name: string;
@@ -12,6 +17,7 @@ type FileDropInputProps = {
   className?: string;
   accept?: string;
   errorMessage?: string;
+  placeholderImage?: string;
   Icon?: ReactElement;
   // React Hook Form props
   onChange?: ChangeHandler;
@@ -26,6 +32,7 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
       className,
       accept,
       errorMessage,
+      placeholderImage,
       Icon,
       onChange,
       onBlur,
@@ -108,6 +115,15 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
         dropAreaElement.style.removeProperty("background-image");
     }
 
+    /* Setting the placeholder image as the background image when the component
+    loads and every time there is no file selected */
+    useEffect(() => {
+      const dropAreaElement = dropAreaRef.current;
+      const hasNoFiles = fileNames.length === 0;
+      if (placeholderImage && dropAreaElement && hasNoFiles)
+        dropAreaElement.style.backgroundImage = `url(${placeholderImage})`;
+    }, [placeholderImage, fileNames]);
+
     return (
       <div className={className}>
         <button
@@ -121,8 +137,10 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
           onDragLeave={handleDragLeave}
         >
           <div
-            className={styles.dropAreaDefaultContent}
-            style={{ display: fileNames.length > 0 ? "none" : undefined }}
+            {...classNames([
+              styles.dropAreaDefaultContent,
+              fileNames.length > 0 || placeholderImage ? "sr-only" : undefined,
+            ])}
           >
             {Icon}
             <p>{description}</p>
