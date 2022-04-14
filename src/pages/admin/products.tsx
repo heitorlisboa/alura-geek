@@ -69,8 +69,8 @@ const ManageProducts: NextPage<ManageProductsProps> =
           updateNotification({
             id: "delete-product",
             color: "red",
-            title: "Erro ao deletar produto",
-            message: err,
+            title: err.response.data.error || "Erro ao deletar produto",
+            message: err.response.data.message || "Erro desconhecido",
           });
         });
 

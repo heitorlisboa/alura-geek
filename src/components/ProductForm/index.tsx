@@ -111,14 +111,15 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
 
         // Redirecting to the created/updated product page
         Router.push(`/product/${product.id}`);
-      } catch (error) {
+      } catch (error: any) {
         // Removing the loading animation
         setLoading(false);
         // Error notification
         const keyword = action === "create" ? "adicionar" : "atualizar";
         showNotification({
           color: "red",
-          message: `Erro ao ${keyword} produto`,
+          title: error.response.data.error || `Erro ao ${keyword} produto`,
+          message: error.response.data.message || "Erro desconhecido",
         });
       }
     }
@@ -135,9 +136,11 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
   return (
     <form className={styles.form} onSubmit={handleSubmit(handleProductSubmit)}>
       <LoadingOverlay visible={loading} />
+
       <h2 className={styles.formTitle}>
         {action === "create" ? "Adicionar novo" : "Atualizar"} produto
       </h2>
+
       <div className={styles.formFields}>
         <FileDropInput
           className={styles.fileInput}
