@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}
     >
-      <MantineProvider>
+      <MantineProvider theme={{ colorScheme, fontFamily: "Raleway" }}>
         <NotificationsProvider>
           <SessionProvider session={session}>
             <Head>

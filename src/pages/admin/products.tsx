@@ -91,7 +91,6 @@ const ManageProducts: NextPage<ManageProductsProps> =
               opened={modalOpened}
               onClose={handleCloseModal}
               closeButtonLabel={"Cancelar de deleção de produto"}
-              styles={{ title: { fontFamily: "inherit" } }}
             >
               <Button onClick={handleDelete}>Confirmar</Button>
             </Modal>
@@ -104,6 +103,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
                 Adicionar produto
               </Button>
             </header>
+
             <ul className={styles.productList} aria-labelledby={pageTitleId}>
               {products.map((product) => (
                 <li className={styles.product} key={product.id}>
@@ -120,7 +120,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
                     <button onClick={handleOpenModal.bind(null, product.id)}>
                       <TrashSvg />
                     </button>
-                    <Link href={`/admin/product/${product.id}`}>
+                    <Link href={`/admin/product/${product.id}`} passHref>
                       <a>
                         <PencilSvg />
                       </a>
@@ -131,7 +131,9 @@ const ManageProducts: NextPage<ManageProductsProps> =
                   <p>
                     <strong>{formatPrice(product.price)}</strong>
                   </p>
-                  <p className={styles.productId}>{product.id}</p>
+                  <p className={styles.productId} aria-label="Id do produto">
+                    {product.id}
+                  </p>
                   <p>
                     <BrandLink href={`/product/${product.id}`}>
                       Ver produto
