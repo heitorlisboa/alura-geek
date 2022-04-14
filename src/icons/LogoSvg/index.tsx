@@ -12,8 +12,8 @@ const LogoSvg: FC<LogoSvgProps> = function LogoSvgComponent({ className }) {
   return (
     <svg
       className={className}
-      aria-labelledby={svgTitleId}
       role="img"
+      aria-labelledby={svgTitleId}
       width="172"
       height="31"
       viewBox="0 0 172 31"
