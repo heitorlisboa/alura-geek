@@ -26,7 +26,7 @@ const EditProduct: NextPage<EditProductProps> = function EditProductPage({
         <title>Admin - Editar produto</title>
       </Head>
 
-      <main id="main-content">
+      <main id="main-content" className="relative">
         <Container>
           <ProductForm
             categories={categories}

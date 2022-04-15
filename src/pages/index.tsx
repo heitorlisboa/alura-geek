@@ -42,16 +42,21 @@ const Home: NextPage<HomeProps> = function HomePage({ products, categories }) {
           </Container>
         </section>
 
-        {categories.map((category) => (
-          <ProductsCategory
-            key={category.id}
-            title={category.name}
-            categoryLinkHref={`/category/${category.id}`}
-            products={products.filter(
-              (product) => product.categoryId === category.id
-            )}
-          />
-        ))}
+        {categories.map((category) => {
+          const categoryProducts = products.filter(
+            (product) => product.categoryId === category.id
+          );
+          if (categoryProducts.length > 0) {
+            return (
+              <ProductsCategory
+                key={category.id}
+                title={category.name}
+                categoryLinkHref={`/category/${category.id}`}
+                products={categoryProducts}
+              />
+            );
+          }
+        })}
       </main>
     </>
   );
