@@ -14,7 +14,7 @@ import Container from "@components/Container";
 import Button from "@components/Button";
 import TrashSvg from "@icons/TrashSvg";
 import PencilSvg from "@icons/PencilSvg";
-import BrandLink from "@src/components/BrandLink";
+import BrandLink from "@components/BrandLink";
 import { formatPrice, getBaseUrl } from "@src/utils";
 
 type ManageProductsProps = {
@@ -40,7 +40,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
       setProductIdToDelete("");
     }
 
-    function handleDelete() {
+    function handleDeleteProduct() {
       showNotification({
         id: "delete-product",
         message: "Deletando produto, espere um momento...",
@@ -92,7 +92,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
               onClose={handleCloseModal}
               closeButtonLabel={"Cancelar de deleção de produto"}
             >
-              <Button onClick={handleDelete}>Confirmar</Button>
+              <Button onClick={handleDeleteProduct}>Confirmar</Button>
             </Modal>
 
             <header className={styles.header}>
@@ -116,12 +116,14 @@ const ManageProducts: NextPage<ManageProductsProps> =
                     layout="responsive"
                   />
 
-                  <div className={styles.productIcons}>
+                  <div className={styles.productButtons}>
                     <button onClick={handleOpenModal.bind(null, product.id)}>
+                      <span className="sr-only">Excluir produto</span>
                       <TrashSvg />
                     </button>
                     <Link href={`/admin/product/${product.id}`} passHref>
                       <a>
+                        <span className="sr-only">Editar produto</span>
                         <PencilSvg />
                       </a>
                     </Link>
