@@ -1,0 +1,17 @@
+.form {
+  max-width: 40rem;
+
+  margin-block: var(--size-6);
+  margin-inline: auto;
+
+  &Title {
+    font-size: var(--fs-500-clamp);
+
+    margin-bottom: var(--size-3);
+  }
+
+  &Fields {
+    display: grid;
+    gap: var(--size-3);
+  }
+}

@@ -70,6 +70,9 @@ const Header: FC = function HeaderComponent() {
               <Button as="link" variant="outlined" linkHref="/admin/products">
                 Gerenciar produtos
               </Button>
+              <Button as="link" variant="outlined" linkHref="/admin/categories">
+                Gerenciar categorias
+              </Button>
               <Button as="button" variant="outlined" onClick={handleSignOut}>
                 Logout
               </Button>

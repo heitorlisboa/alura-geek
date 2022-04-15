@@ -14,7 +14,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const categories = await prisma.category.findMany();
+    const { withProducts } = req.query;
+
+    let categories;
+
+    if (typeof withProducts === "string" && withProducts === "true") {
+      categories = await prisma.category.findMany({
+        include: { products: true },
+      });
+    } else {
+      categories = await prisma.category.findMany();
+    }
 
     res.status(200).json(categories);
   } catch (error) {
