@@ -66,7 +66,7 @@ const CategoryForm: FC<CategoryFormProps> = function CategoryFormComponent({
       const keyword = action === "create" ? "adicionar" : "atualizar";
       showNotification({
         color: "red",
-        title: error.response.data.error || `Erro ao ${keyword} produto`,
+        title: error.response.data.error || `Erro ao ${keyword} categoria`,
         message: error.response.data.message || "Erro desconhecido",
       });
     }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
 import { Accordion, AccordionItem, Modal } from "@mantine/core";
+import { randomId } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Category } from "@prisma/client";
@@ -19,11 +20,10 @@ import type { CategoryWithProducts } from "@src/types/category";
 
 type ManageCategoriesProps = {
   categories: CategoryWithProducts[];
-  baseUrl: string;
 };
 
 const ManageCategories: NextPage<ManageCategoriesProps> =
-  function ManageCategoriesPage({ categories: initialCategories, baseUrl }) {
+  function ManageCategoriesPage({ categories: initialCategories }) {
     const pageTitleId = "admin-all-categories-title";
 
     const windowSize = useWindowSize();
@@ -44,16 +44,21 @@ const ManageCategories: NextPage<ManageCategoriesProps> =
     }
 
     function handleDeleteCategory() {
+      // Closing the modal after confirming the action
+      handleCloseModal();
+
+      // Loading notification
+      const notificationId = `delete-category-${randomId()}`;
       showNotification({
-        id: "delete-category",
+        id: notificationId,
         message: "Deletando categoria, espere um momento...",
         loading: true,
         autoClose: false,
         disallowClose: true,
       });
-
+      // Category deletion request
       axios
-        .delete(`${baseUrl}/api/category/${categoryIdToDelete}`)
+        .delete(`/api/category/${categoryIdToDelete}`)
         .then(({ data: deletedCategory }: { data: Category }) => {
           // Removing the category from the `categories` state
           setCategories((prevState) =>
@@ -62,7 +67,7 @@ const ManageCategories: NextPage<ManageCategoriesProps> =
 
           // Success notification
           updateNotification({
-            id: "delete-category",
+            id: notificationId,
             color: "green",
             message: "Categoria deletada com sucesso!",
           });
@@ -70,15 +75,12 @@ const ManageCategories: NextPage<ManageCategoriesProps> =
         .catch((err) => {
           // Error notification
           updateNotification({
-            id: "delete-category",
+            id: notificationId,
             color: "red",
             title: err.response.data.error || "Erro ao deletar categoria",
             message: err.response.data.message || "Erro desconhecido",
           });
         });
-
-      // Closing the modal after confirming the action
-      handleCloseModal();
     }
 
     return (
@@ -90,10 +92,10 @@ const ManageCategories: NextPage<ManageCategoriesProps> =
         <main id="main-content">
           <Container className={styles.container}>
             <Modal
-              title={"Tem certeza que quer excluir essa categoria?"}
+              title="Tem certeza que quer excluir essa categoria?"
               opened={modalOpened}
               onClose={handleCloseModal}
-              closeButtonLabel={"Cancelar de deleção de categoria"}
+              closeButtonLabel="Cancelar de deleção de categoria"
             >
               <Button onClick={handleDeleteCategory}>Confirmar</Button>
             </Modal>
@@ -119,7 +121,7 @@ const ManageCategories: NextPage<ManageCategoriesProps> =
                   role="listitem"
                 >
                   <div className={styles.categoryButtons}>
-                    <button onClick={handleOpenModal.bind(null, category.id)}>
+                    <button onClick={() => handleOpenModal(category.id)}>
                       <span className="sr-only">Excluir categoria</span>
                       <TrashSvg />
                     </button>
@@ -166,7 +168,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       categories,
-      baseUrl,
     },
   };
 };

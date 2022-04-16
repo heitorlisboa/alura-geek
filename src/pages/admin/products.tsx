@@ -4,6 +4,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
 import { Modal } from "@mantine/core";
+import { randomId } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Product } from "@prisma/client";
@@ -19,11 +20,10 @@ import { formatPrice, getBaseUrl } from "@src/utils";
 
 type ManageProductsProps = {
   products: Product[];
-  baseUrl: string;
 };
 
 const ManageProducts: NextPage<ManageProductsProps> =
-  function ManageProductsPage({ products: initialProducts, baseUrl }) {
+  function ManageProductsPage({ products: initialProducts }) {
     const pageTitleId = "admin-all-products-title";
 
     const [products, setProducts] = useState(initialProducts);
@@ -41,16 +41,21 @@ const ManageProducts: NextPage<ManageProductsProps> =
     }
 
     function handleDeleteProduct() {
+      // Closing the modal after confirming the action
+      handleCloseModal();
+
+      // Loading notification
+      const notificationId = `delete-product-${randomId()}`;
       showNotification({
-        id: "delete-product",
+        id: notificationId,
         message: "Deletando produto, espere um momento...",
         loading: true,
         autoClose: false,
         disallowClose: true,
       });
-
+      // Product deletion request
       axios
-        .delete(`${baseUrl}/api/product/${productIdToDelete}`)
+        .delete(`/api/product/${productIdToDelete}`)
         .then(({ data: deletedProduct }: { data: Product }) => {
           // Removing the product from the `products` state
           setProducts((prevState) =>
@@ -59,7 +64,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
 
           // Success notification
           updateNotification({
-            id: "delete-product",
+            id: notificationId,
             color: "green",
             message: "Produto deletado com sucesso!",
           });
@@ -67,15 +72,12 @@ const ManageProducts: NextPage<ManageProductsProps> =
         .catch((err) => {
           // Error notification
           updateNotification({
-            id: "delete-product",
+            id: notificationId,
             color: "red",
             title: err.response.data.error || "Erro ao deletar produto",
             message: err.response.data.message || "Erro desconhecido",
           });
         });
-
-      // Closing the modal after confirming the action
-      handleCloseModal();
     }
 
     return (
@@ -87,10 +89,10 @@ const ManageProducts: NextPage<ManageProductsProps> =
         <main id="main-content">
           <Container className={styles.container}>
             <Modal
-              title={"Tem certeza que quer excluir esse produto?"}
+              title="Tem certeza que quer excluir esse produto?"
               opened={modalOpened}
               onClose={handleCloseModal}
-              closeButtonLabel={"Cancelar de deleção de produto"}
+              closeButtonLabel="Cancelar de deleção de produto"
             >
               <Button onClick={handleDeleteProduct}>Confirmar</Button>
             </Modal>
@@ -117,7 +119,7 @@ const ManageProducts: NextPage<ManageProductsProps> =
                   />
 
                   <div className={styles.productButtons}>
-                    <button onClick={handleOpenModal.bind(null, product.id)}>
+                    <button onClick={() => handleOpenModal(product.id)}>
                       <span className="sr-only">Excluir produto</span>
                       <TrashSvg />
                     </button>
@@ -158,7 +160,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       products,
-      baseUrl,
     },
   };
 };

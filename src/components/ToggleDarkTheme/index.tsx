@@ -17,7 +17,7 @@ const ToggleDarkTheme = function ToggleDarkThemeComponent() {
     <ActionIcon
       className={styles[colorScheme]}
       variant={darkTheme ? "filled" : "outline"}
-      title={"Toggle color scheme"}
+      title="Alternar esquema de cores"
       onClick={handleToggleDarkTheme}
       size={30}
     >
