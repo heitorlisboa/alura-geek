@@ -66,12 +66,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
   const { id } = context.params;
 
   const category = await prisma.category.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      products: true,
-    },
+    where: { id },
+    include: { products: { orderBy: { updatedAt: "desc" } } },
   });
 
   if (!category) return { notFound: true };

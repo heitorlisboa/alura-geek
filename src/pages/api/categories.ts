@@ -20,7 +20,7 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 
     if (typeof withProducts === "string" && withProducts === "true") {
       categories = await prisma.category.findMany({
-        include: { products: true },
+        include: { products: { orderBy: { updatedAt: "desc" } } },
       });
     } else {
       categories = await prisma.category.findMany();

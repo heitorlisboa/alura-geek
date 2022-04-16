@@ -39,12 +39,8 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const category = await prisma.category.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        products: true,
-      },
+      where: { id },
+      include: { products: { orderBy: { updatedAt: "desc" } } },
     });
 
     if (category) {
