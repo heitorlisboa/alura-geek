@@ -5,14 +5,18 @@ import type { Category } from "@prisma/client";
 
 import Container from "@components/Container";
 import CategoryForm from "@components/CategoryForm";
+import ProductsSelection from "@components/ProductsSelection";
 import { getBaseUrl } from "@src/utils";
+import type { CategoryWithProducts } from "@src/types/category";
 
 type EditCategoryProps = {
-  category: Category;
+  category: CategoryWithProducts;
+  categories: Category[];
 };
 
 const EditCategory: NextPage<EditCategoryProps> = function EditCategoryPage({
   category,
+  categories,
 }) {
   return (
     <>
@@ -25,6 +29,10 @@ const EditCategory: NextPage<EditCategoryProps> = function EditCategoryPage({
           <CategoryForm
             action="update"
             initialValues={{ categoryName: category.name }}
+          />
+          <ProductsSelection
+            products={category.products}
+            categories={categories}
           />
         </Container>
       </main>
@@ -40,10 +48,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params;
 
   const { data: category } = await axios.get(`${baseUrl}/api/category/${id}`);
+  const { data: categories }: { data: Category[] } = await axios.get(
+    `${baseUrl}/api/categories`
+  );
 
   return {
     props: {
       category,
+      /* Filtering the categories since they will be used to select a category
+      to move the selected products to, and it doesn't make sense to move a
+      product to the same category it already is */
+      categories: categories.filter(
+        (currentCategory) => currentCategory.id !== category.id
+      ),
     },
   };
 };
