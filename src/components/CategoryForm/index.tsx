@@ -40,8 +40,11 @@ const CategoryForm: FC<CategoryFormProps> = function CategoryFormComponent({
   async function handleCategorySubmit(data: Partial<FormFields>) {
     try {
       const apiRoute = "/api/category";
+      /* This field is not undefined when empty (it is an empty string), so it
+      needs a backup value as undefined, otherwise this would accidentally
+      change its value to empty instead of simply not changing it */
       const reqBody: Partial<ValidCategoryRequest> = {
-        name: data.categoryName,
+        name: data.categoryName || undefined,
       };
 
       const categoryId = Router.query.id as string;
