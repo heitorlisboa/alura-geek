@@ -1,21 +1,21 @@
-type ClassNameListType = (string | undefined)[];
+type ClassNameList = (string | undefined)[];
 
 // Function overloads
 function classNames(
-  classNameList: ClassNameListType,
+  classNameList: ClassNameList,
   returnAsObject?: true
 ): {
   className: string;
 };
 
 function classNames(
-  classNameList: ClassNameListType,
+  classNameList: ClassNameList,
   returnAsObject?: false
 ): string;
 
 // Main function
 function classNames(
-  classNameList: ClassNameListType,
+  classNameList: ClassNameList,
   returnAsObject: boolean = true
 ) {
   const reducedClassNames = classNameList

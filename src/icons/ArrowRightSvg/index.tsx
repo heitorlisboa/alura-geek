@@ -14,6 +14,7 @@ const ArrowRightSvg: FC<ArrowRightSvgProps> = function ArrowRightSvgComponent({
   return (
     <svg
       {...classNames([styles.svg, className])}
+      role="img"
       width="16"
       height="16"
       viewBox="0 0 16 16"

@@ -1,44 +1,79 @@
-.headerContainer,
-.titleAndForm {
-  display: flex;
-  align-items: center;
+@use "../../styles/partials/custom-media.scss" as cm;
+
+.header {
+  background-color: var(--neutral-color-100);
 }
 
 .headerContainer {
-  gap: var(--size-5);
-  justify-content: space-between;
-
   padding-block: var(--size-3);
 }
 
-.titleAndForm {
-  gap: var(--size-5);
+.skipToContent {
+  color: var(--accent-color-500);
+  font-weight: 500;
+
+  background-color: var(--fixed-color-100);
+
+  position: absolute;
+  top: 0;
+  left: var(--size-3);
+
+  padding: var(--size-2) var(--size-3);
+  border-radius: 0 0 var(--size-1) var(--size-1);
+
+  transform: translateY(-101%);
+  transition: transform 200ms ease-out;
+  z-index: 1;
+
+  &:focus-visible {
+    transform: unset;
+    outline-offset: 0;
+  }
+}
+
+.logoAnchor {
+  display: block;
 }
 
 .logo {
-  width: clamp(7.5rem, 12.5vw + 1rem, 172px);
+  width: clamp(8.5rem, 12.5vw + 1rem, 172px);
 }
 
-.toggleSearchButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0;
+.buttonsWrapper {
+  display: flex;
+  gap: var(--size-3);
+  align-items: center;
 }
 
 .sessionButton {
   --padding-inline: var(--size-6);
 }
 
-@media (max-width: calc(650px - 1px)) {
-  .headerContainer {
-    position: relative;
-    gap: var(--size-2);
+@include cm.media(max, phone) {
+  .titleAndForm {
+    display: grid;
+    justify-items: center;
   }
 
-  .sessionButton,
-  .adminMenu {
-    margin-right: clamp(var(--size-4), 7.5vw + 1rem, var(--size-6));
+  .buttonsWrapper {
+    justify-content: center;
+
+    margin-top: var(--size-3);
+  }
+}
+
+@include cm.media(min, phone) {
+  .headerContainer {
+    display: flex;
+    gap: var(--size-3);
+    align-items: center;
+  }
+}
+
+@include cm.media(max, tablet) {
+  .headerContainer {
+    position: relative;
+    justify-content: space-between;
   }
 
   .sessionButton {
@@ -49,7 +84,7 @@
     display: none;
 
     &.active {
-      background-color: var(--primary-color);
+      background-color: var(--neutral-color-100);
 
       position: absolute;
       inset: 0;
@@ -61,11 +96,24 @@
     }
   }
 
+  .searchIcon {
+    fill: var(--neutral-color-700);
+  }
+
   .searchForm {
     width: 100%;
   }
+}
 
-  .searchIcon {
-    fill: var(--dark-gray-text);
+@include cm.media(min, tablet) {
+  .headerContainer,
+  .titleAndForm {
+    display: flex;
+    gap: var(--size-5);
+    align-items: center;
+  }
+
+  .headerContainer {
+    justify-content: space-between;
   }
 }

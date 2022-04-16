@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Caneca Stormtrooper 3D",
+    "price": 59.9,
+    "imageUrl": "./images/cristina-hernandez-6FDXGY9J6y4-unsplash_ztmcno.webp"
+  },
+  {
+    "name": "Lego Star Wars",
+    "price": 899.9,
+    "imageUrl": "./images/horology-hands-epRFE_hBNjo-unsplash_egqeli.webp"
+  },
+  {
+    "name": "Boneco Yoda de porcelana",
+    "price": 69.9,
+    "imageUrl": "./images/d-a-v-i-d-s-o-n-l-u-n-a-KeGToDVN0l4-unsplash_c54mhv.webp"
+  },
+  {
+    "name": "Action figure Stormtrooper",
+    "price": 229.9,
+    "imageUrl": "./images/ben-lei-4OHkK555s1A-unsplash_wrcyln.webp"
+  },
+  {
+    "name": "Action figure Baby Yoda",
+    "price": 119.9,
+    "imageUrl": "./images/jonathan-cooper-R8L1l9RN198-unsplash_irxm5p.webp"
+  },
+  {
+    "name": "Action figure Kylo Ren",
+    "price": 229.9,
+    "imageUrl": "./images/michael-marais-1VV1MRafd7A-unsplash_gbqkp0.webp"
+  },
+  {
+    "name": "Controle Xbox One",
+    "price": 299.9,
+    "imageUrl": "./images/alex-motoc-0POwK6iAiRQ-unsplash_j9qomm.webp"
+  },
+  {
+    "name": "Console PlayStation 5",
+    "price": 4999.9,
+    "imageUrl": "./images/martin-katler-caNzzoxls8Q-unsplash_gpmhll.webp"
+  },
+  {
+    "name": "Console Nintento Entertainment System",
+    "price": 1099.9,
+    "imageUrl": "./images/jason-leung-ZV7lnfyQLmA-unsplash_eroizw.webp"
+  },
+  {
+    "name": "Controle Joy-Con Nintendo Switch",
+    "price": 349.9,
+    "imageUrl": "./images/ehimetalor-akhere-unuabona-wa5z9o9fgjw-unsplash_utwkva.webp"
+  },
+  {
+    "name": "Console Xbox Series X",
+    "price": 5499.9,
+    "imageUrl": "./images/billy-freeman-Zjn4dT993-g-unsplash_bgjvot.webp"
+  },
+  {
+    "name": "Console Nintendo Game Boy transparente com jogos",
+    "price": 599.9,
+    "imageUrl": "./images/dim-hou-k-xYhI3-gJM-unsplash_dq9iri.webp"
+  },
+  {
+    "name": "Camiseta Atari",
+    "price": 54.9,
+    "imageUrl": "./images/red-dot-fMP-oCze3AY-unsplash_boscqn.webp"
+  },
+  {
+    "name": "Camiseta de Controle NES",
+    "price": 49.9,
+    "imageUrl": "./images/kelly-sikkema-bUgaIaZysH0-unsplash_qww9v3.webp"
+  },
+  {
+    "name": "Action figure Sonic",
+    "price": 149.9,
+    "imageUrl": "./images/hello-i-m-nik-sYVY_ZKwaxU-unsplash_y1oala.webp"
+  },
+  {
+    "name": "Rádio relógio vintage",
+    "price": 179.9,
+    "imageUrl": "./images/joshua-coleman-jMT6BrgBuXU-unsplash_esdjhl.webp"
+  },
+  {
+    "name": "Oculus Quest 2 VR (Realidade Virtual)",
+    "price": 2999.9,
+    "imageUrl": "./images/uriel-soberanes-MxVkWPiJALs-unsplash_s9uniq.webp"
+  },
+  {
+    "name": "Plush Pikachu gigante",
+    "price": 349.9,
+    "imageUrl": "./images/jon-tyson-r27umXAelDc-unsplash_dq1loo.webp"
+  }
+]

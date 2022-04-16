@@ -10,7 +10,8 @@ const Fallback = function FallbackComponent() {
       <Head>
         <title>Gerando página</title>
       </Head>
-      <main>
+
+      <main id="main-content">
         <Container className={styles.container}>
           <h2>Gerando página...</h2>
         </Container>

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { showNotification } from "@mantine/notifications";
 
 import styles from "./Footer.module.scss";
 
 import Container from "@components/Container";
+import LogoSvg from "@src/icons/LogoSvg";
 import Input from "@components/Input";
 import Button from "@components/Button";
 import { getFormErrorMessage } from "@src/utils";
@@ -21,8 +23,10 @@ const Footer = function FooterComponent() {
   } = useForm<ContactFields>();
 
   function handleContactMessage(data: ContactFields) {
-    // TODO: Improve sent message notification
-    alert("Mensagem enviada com sucesso");
+    showNotification({
+      color: "green",
+      message: "Mensagem enviada com sucesso",
+    });
     console.log(data);
   }
 
@@ -33,10 +37,7 @@ const Footer = function FooterComponent() {
           <Link href="/" passHref>
             <a aria-label="Ir para página inicial">
               <span className="sr-only">AluraGeek</span>
-              <img
-                src="/svg/logo.svg"
-                alt="Logo AluraGeek"
-              />
+              <LogoSvg />
             </a>
           </Link>
 

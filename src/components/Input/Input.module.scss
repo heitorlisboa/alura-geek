@@ -3,7 +3,7 @@
 }
 
 .childWrapper {
-  --label-color: var(--light-gray-text);
+  --label-color: var(--neutral-text-500);
   --input-padding-inline: var(--size-3);
   position: relative;
 }
@@ -25,14 +25,14 @@
 }
 
 .labelTextArea {
-  background-color: var(--primary-color);
+  background-color: var(--neutral-color-100);
 
   top: var(--size-3);
   right: var(--input-padding-inline);
 }
 
 .labelFocused {
-  font-size: var(--fs-smaller);
+  font-size: var(--fs-100);
 
   top: 0;
   padding-top: var(--size-2);
@@ -41,10 +41,14 @@
 
 .input,
 .textarea {
+  color: var(--neutral-text-900);
+
+  background-color: var(--neutral-color-100);
+
   width: 100%;
 
   border-radius: var(--size-1);
-  box-shadow: 0 1px 0 0 var(--light-gray);
+  box-shadow: var(--form-field-shadow);
 
   &::placeholder {
     color: var(--label-color);
@@ -72,11 +76,11 @@
 }
 
 .withError:not(:focus-visible) {
-  outline: 2px solid var(--warning);
+  outline: 2px solid var(--danger-color);
 }
 
 .errorMessage {
-  color: var(--warning);
+  color: var(--danger-color);
 
   margin-top: var(--size-1);
 }

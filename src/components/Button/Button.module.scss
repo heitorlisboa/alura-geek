@@ -11,28 +11,28 @@
 }
 
 .contained {
-  background-color: var(--accent-color);
-  color: var(--white-text);
+  background-color: var(--accent-color-500);
+  color: var(--fixed-color-100);
 
   &:hover,
   &:focus-visible {
-    background-color: var(--accent-color-light);
+    background-color: var(--accent-color-400);
   }
 }
 
 .outlined {
-  border: 1px solid var(--accent-color);
-  color: var(--accent-color);
+  border: 1px solid var(--accent-color-500);
+  color: var(--accent-color-500);
 
   &:hover,
   &:focus-visible {
-    background-color: var(--accent-color-lighter);
+    background-color: var(--accent-color-400-transparent);
   }
 }
 
 @include cm.media(max, tablet) {
   .button {
-    font-size: var(--fs-small);
+    font-size: var(--fs-200);
     font-weight: 600;
 
     --padding-block: 0.75rem;

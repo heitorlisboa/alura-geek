@@ -2,22 +2,34 @@
 
 :root {
   /* COLORS */
-  /* Text specific colors */
-  --dark-gray-text: hsl(0, 0%, 27%);
-  --gray-text: hsl(0, 0%, 45%);
-  --light-gray-text: hsl(0, 0%, 64%);
-  --white-text: hsl(0, 0%, 100%);
-
   /* General colors */
-  --accent-color: hsl(214, 78%, 53%);
-  --accent-color-light: hsl(214, 77%, 62%);
-  --accent-color-lighter: hsl(215, 79%, 91%);
-  --accent-color-lightest: hsl(215, 83%, 95%);
-  --primary-color: hsl(0, 0%, 100%);
-  --contrast-color: hsl(0, 0%, 0%);
-  --light-gray: hsl(0, 0%, 78%);
-  --lighter-gray: hsl(0, 0%, 96%);
-  --warning: hsl(0, 100%, 60%);
+  --neutral-color-100: hsl(0, 0%, 100%);
+  --neutral-color-200: hsl(0, 0%, 96%);
+  --neutral-color-300: hsl(0, 0%, 78%);
+  --neutral-color-500: hsl(0, 0%, 50%);
+  --neutral-color-700: hsl(0, 0%, 27%);
+  --neutral-color-900: hsl(0, 0%, 0%);
+
+  --accent-color-100: hsl(215, 83%, 95%);
+  --accent-color-400: hsl(214, 77%, 62%);
+  --accent-color-400-transparent: hsla(214, 77%, 62%, 0.25);
+  --accent-color-500: hsl(214, 78%, 53%);
+
+  --fixed-color-100: var(--neutral-color-100);
+  --fixed-color-300: var(--neutral-color-300);
+  --fixed-color-900: var(--neutral-color-900);
+
+  --danger-color: hsl(0, 100%, 60%);
+
+  /* Text specific colors */
+  --neutral-text-100: var(--neutral-color-100);
+  --neutral-text-500: var(--neutral-color-500);
+  --neutral-text-700: var(--neutral-color-700);
+  --neutral-text-900: var(--neutral-color-900);
+
+  /* Specific elements colors */
+  --form-field-shadow: 0 1px 0 0 var(--neutral-color-300);
+  --footer-info-color: var(--accent-color-100);
 
   /* SIZES */
   /* General sizes */
@@ -32,20 +44,44 @@
   /* Product size */
   --product-min-size: 10rem;
 
-  /* FONT SIZES */
-  --fs-smaller: 0.75rem;
-  --fs-small: 0.875rem;
-  --fs-text: 1rem;
-  --fs-big-text: 1.4rem;
-  --fs-medium-title: clamp(1.4rem, 1.5vw + 1rem, 2rem);
-  --fs-big-title: clamp(2rem, 5vw + 1rem, 3rem);
-
-  /* DEFAULT INLINE PADDING/MARGIN */
+  /* Default inline padding/margin */
   --inline-spacing: var(--size-5);
+
+  /* FONT SIZES */
+  --fs-100: 0.75rem;
+  --fs-200: 0.875rem;
+  --fs-300: 1rem;
+  --fs-400: 1.4rem;
+  --fs-500-clamp: clamp(1.4rem, 1.5vw + 1rem, 2rem);
+  --fs-600-clamp: clamp(2rem, 5vw + 1rem, 3rem);
 }
 
 @include cm.media(max, phone) {
   :root {
+    /* Default inline padding/margin */
     --inline-spacing: var(--size-3);
   }
+}
+
+[data-theme="dark"] {
+  /* General colors */
+  --neutral-color-100: hsl(0, 0%, 5%);
+  --neutral-color-200: hsl(0, 0%, 10%);
+  --neutral-color-300: hsl(0, 0%, 22%);
+  --neutral-color-500: hsl(0, 0%, 50%);
+  --neutral-color-700: hsl(0, 0%, 90%);
+  --neutral-color-900: hsl(0, 0%, 100%);
+
+  /* Text specific colors */
+  /* These custom properties need to be redefined here, otherwise they wouldn't
+  update their values based on the custom property whose color they are
+  inheriting */
+  --neutral-text-100: var(--neutral-color-100);
+  --neutral-text-500: var(--neutral-color-500);
+  --neutral-text-700: var(--neutral-color-700);
+  --neutral-text-900: var(--neutral-color-900);
+
+  /* Specific elements colors */
+  --form-field-shadow: 0 0px var(--size-1) 0 var(--neutral-color-700);
+  --footer-info-color: hsl(214, 30%, 20%);
 }

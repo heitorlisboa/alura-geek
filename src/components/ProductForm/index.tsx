@@ -1,7 +1,9 @@
 import Router from "next/router";
 import axios from "axios";
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { LoadingOverlay } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import type { FC } from "react";
 import type { Category, Product } from "@prisma/client";
 
@@ -14,7 +16,6 @@ import Input from "@components/Input";
 import Button from "@components/Button";
 import {
   bytesToMegaBytes,
-  changeInputFiles,
   getFormErrorMessage,
   imgFileToBase64,
   mergeRefs,
@@ -29,31 +30,42 @@ type FormFields = {
   productCategory: string;
 };
 
+type InitialFormValues = Partial<
+  Omit<FormFields, "productImage"> & {
+    productImageUrl: string;
+  }
+>;
+
 type ProductFormProps = {
   categories: Category[];
   action: "create" | "update";
-  initialValues?: Partial<FormFields>;
+  initialValues?: InitialFormValues;
 };
 
 const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
   categories,
   action,
-  initialValues,
+  initialValues = {},
 }) {
+  const { productImageUrl, ...defaultValues } = initialValues;
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormFields>({ defaultValues: initialValues });
+  } = useForm<FormFields>({ defaultValues });
+
+  const [loading, setLoading] = useState(false);
+
+  const required = action === "create";
 
   const fileDropInputRef = useRef<HTMLInputElement>(null);
 
   const fileDropInputFormRegistration = register("productImage", {
-    required: true,
+    required,
     validate: {
-      onlyOneImage: (files) => files.length === 1,
-      mustBeImage: (files) => files[0].type.startsWith("image/"),
-      lessThan5Mb: (files) => bytesToMegaBytes(files[0].size) <= 5,
+      onlyOneImage: (files) => files.length <= 1,
+      mustBeImage: (files) => files[0]?.type.startsWith("image/"),
+      lessThan5Mb: (files) => files[0] && bytesToMegaBytes(files[0].size) <= 5,
     },
   });
 
@@ -62,64 +74,80 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
     ref: mergeRefs(fileDropInputRef, fileDropInputFormRegistration.ref),
   };
 
-  async function handleProductSubmit(data: FormFields) {
-    const imageBlob = Array.from(data.productImage)[0];
+  async function handleProductSubmit(data: Partial<FormFields>) {
+    /* If the file list exists and has any files, call the image converter
+    function */
+    if (data.productImage && data.productImage.length > 0) {
+      const imageBlob = Array.from(data.productImage)[0];
+      imgFileToBase64(imageBlob, callback, handleReadError);
+    } else {
+      callback();
+    }
 
-    async function callback(base64EncodedImage: string | ArrayBuffer | null) {
+    async function callback(base64EncodedImage?: string | ArrayBuffer | null) {
       try {
         const apiRoute = "/api/product";
-        const reqBody: ValidProductRequest = {
-          name: data.productName,
-          price: parseFloat(data.productPrice),
-          description: data.productDescription,
-          base64Image: base64EncodedImage as string,
+        /* None of the fields, except for the image and the category name, are
+        undefined when empty (they are empty strings), so they need to have a
+        backup value as undefined, otherwise this would accidentally change the
+        values to empty instead of simply not changing them */
+        const reqBody: Partial<ValidProductRequest> = {
+          name: data.productName || undefined,
+          price: data.productPrice ? parseFloat(data.productPrice) : undefined,
+          description: data.productDescription || undefined,
+          base64Image: base64EncodedImage as string | undefined,
           categoryName: data.productCategory,
         };
 
         const productId = Router.query.id as string;
 
-        // TODO: Add loading animation while processing the request
+        // Setting the loading animation
+        setLoading(true);
+        // Doing the create/update request
         const { data: product }: { data: Product } =
           action === "create"
             ? await axios.post(apiRoute, reqBody)
             : await axios.put(`${apiRoute}/${productId}`, reqBody);
 
+        // Redirecting to the created/updated product page
         Router.push(`/product/${product.id}`);
-      } catch (error) {
-        // TODO: Remove the loading animation if the request fails
-        // TODO: Improve error notification
-        alert("Erro ao adicionar produto");
+      } catch (error: any) {
+        // Removing the loading animation
+        setLoading(false);
+        // Error notification
+        const keyword = action === "create" ? "adicionar" : "atualizar";
+        showNotification({
+          color: "red",
+          title: error.response.data.error || `Erro ao ${keyword} produto`,
+          message: error.response.data.message || "Erro desconhecido",
+        });
       }
     }
 
     function handleReadError() {
-      // TODO: Improve error notification
-      alert("Erro ao processar imagem");
+      // Error notification
+      showNotification({
+        color: "red",
+        message: "Erro ao processar imagem",
+      });
     }
-
-    imgFileToBase64(imageBlob, callback, handleReadError);
   }
-
-  useEffect(() => {
-    /* As the initial image value stated in the `useForm` hook won't affect the
-       file drop input, it's necessary to manually change the input files based
-       on this initial value */
-    const fileDropInput = fileDropInputRef.current;
-    if (fileDropInput && initialValues?.productImage)
-      changeInputFiles(fileDropInput, initialValues.productImage);
-  }, [initialValues]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(handleProductSubmit)}>
+      <LoadingOverlay visible={loading} />
+
       <h2 className={styles.formTitle}>
         {action === "create" ? "Adicionar novo" : "Atualizar"} produto
       </h2>
+
       <div className={styles.formFields}>
         <FileDropInput
           className={styles.fileInput}
           description="Arraste ou clique para adicionar uma imagem para o produto"
           accept="image/*"
           errorMessage={getFormErrorMessage(errors.productImage)}
+          placeholderImage={productImageUrl}
           Icon={<ImagePlaceholderSvg />}
           {...fileDropInputProps}
         />
@@ -129,7 +157,7 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
           label="Categoria do produto"
           errorMessage={getFormErrorMessage(errors.productCategory)}
           labelVisible
-          {...register("productCategory", { required: true })}
+          {...register("productCategory", { required })}
         >
           <option value="">Selecione uma categoria</option>
           {categories.map(({ id, name }) => (
@@ -146,7 +174,7 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
           labelVisible
           errorMessage={getFormErrorMessage(errors.productName)}
           {...register("productName", {
-            required: true,
+            required,
             maxLength: {
               value: 50,
               message: "Máximo de 50 caracteres",
@@ -161,7 +189,7 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
           step={0.01}
           labelVisible
           errorMessage={getFormErrorMessage(errors.productPrice)}
-          {...register("productPrice", { required: true })}
+          {...register("productPrice", { required })}
         />
 
         <Input
@@ -171,7 +199,7 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
           errorMessage={getFormErrorMessage(errors.productDescription)}
           labelVisible
           {...register("productDescription", {
-            required: true,
+            required,
             maxLength: {
               value: 300,
               message: "Máximo de 300 caracteres",

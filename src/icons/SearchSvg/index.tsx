@@ -14,6 +14,7 @@ const SearchSvg: FC<SearchSvgProps> = function SearchSvgComponent({
   return (
     <svg
       {...classNames([styles.svg, className])}
+      role="img"
       width="18"
       height="18"
       viewBox="0 0 18 18"

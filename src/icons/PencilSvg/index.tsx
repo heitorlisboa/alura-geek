@@ -4,6 +4,7 @@ const PencilSvg = function PencilSvgComponent() {
   return (
     <svg
       className={styles.svg}
+      role="img"
       width="19"
       height="19"
       viewBox="0 0 19 19"

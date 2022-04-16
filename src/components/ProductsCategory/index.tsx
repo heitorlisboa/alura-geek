@@ -8,7 +8,7 @@ import Container from "@components/Container";
 import BrandLink from "@components/BrandLink";
 import ArrowRightSvg from "@icons/ArrowRightSvg";
 import ProductItem from "@components/ProductItem";
-import { useWindowSize } from "@src/hooks/WindowSize";
+import { useWindowSize } from "@src/hooks/useWindowSize";
 
 type ProductsCategoryProps = {
   title: string;

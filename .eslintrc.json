@@ -8,7 +8,7 @@
       {
         "newlinesBetween": "always",
         "groups": [
-          ["module", "/^@prisma/"],
+          ["module", "/^@prisma/", "/^@mantine/"],
           "/css$/",
           "/^@/",
           ["parent", "sibling", "index"]
