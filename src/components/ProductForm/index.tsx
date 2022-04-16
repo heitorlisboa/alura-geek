@@ -30,7 +30,7 @@ type FormFields = {
   productCategory: string;
 };
 
-type InitalFormValues = Partial<
+type InitialFormValues = Partial<
   Omit<FormFields, "productImage"> & {
     productImageUrl: string;
   }
@@ -39,7 +39,7 @@ type InitalFormValues = Partial<
 type ProductFormProps = {
   categories: Category[];
   action: "create" | "update";
-  initialValues?: InitalFormValues;
+  initialValues?: InitialFormValues;
 };
 
 const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
@@ -87,10 +87,10 @@ const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
     async function callback(base64EncodedImage?: string | ArrayBuffer | null) {
       try {
         const apiRoute = "/api/product";
-        /* All fields, except for the category name, are not undefined when
-        empty, so they need to have a backup value as undefined, otherwise this
-        would accidentally change the values to empty instead of simply not
-        changing them */
+        /* None of the fields, except for the image and the category name, are
+        undefined when empty (they are empty strings), so they need to have a
+        backup value as undefined, otherwise this would accidentally change the
+        values to empty instead of simply not changing them */
         const reqBody: Partial<ValidProductRequest> = {
           name: data.productName || undefined,
           price: data.productPrice ? parseFloat(data.productPrice) : undefined,
