@@ -2,7 +2,7 @@
   "name": "front-end-3",
   "version": "0.1.0",
   "author": "heitorlisboa",
-  "repository": "https://github.com/heitorlisboa/alura-challenge-front-end-3.git",
+  "repository": "https://github.com/heitorlisboa/alura-geek.git",
   "license": "GPL-3.0-only",
   "scripts": {
     "dev": "next dev",
