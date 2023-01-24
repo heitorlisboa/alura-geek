@@ -3,14 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
-}
-
-generator js {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Category {
@@ -32,5 +26,6 @@ model Product {
   updatedAt   DateTime @updatedAt
 
   category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
   @@map("products")
 }
