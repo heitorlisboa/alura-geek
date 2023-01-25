@@ -1,3 +1,5 @@
+@use "../../partials/custom-media.scss" as cm;
+
 .container {
   margin-block: var(--size-6);
 }
@@ -48,5 +50,11 @@
     &::before {
       content: "#";
     }
+  }
+}
+
+@include cm.media(min, tablet) {
+  .categoryAccordionPanel {
+    padding-left: 1.8rem;
   }
 }

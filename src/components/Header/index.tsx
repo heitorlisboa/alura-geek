@@ -48,14 +48,9 @@ const Header: FC = function HeaderComponent() {
         </a>
         <div className={styles.titleAndForm}>
           <h1>
-            <Link href="/" passHref>
-              <a
-                aria-label="Ir para página inicial"
-                className={styles.logoAnchor}
-              >
-                <span className="sr-only">AluraGeek</span>
-                <LogoSvg className={styles.logo} />
-              </a>
+            <Link className={styles.logoAnchor} href="/">
+              <span className="sr-only">AluraGeek</span>
+              <LogoSvg className={styles.logo} />
             </Link>
           </h1>
 

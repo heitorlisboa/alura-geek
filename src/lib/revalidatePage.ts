@@ -3,7 +3,7 @@ import type { Category, Product } from "@prisma/client";
 
 export async function revalidatePage(res: NextApiResponse, urlPath: string) {
   try {
-    await res.unstable_revalidate(urlPath);
+    await res.revalidate(urlPath);
     return true;
   } catch (error) {
     return false;

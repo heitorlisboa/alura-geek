@@ -36,12 +36,11 @@ const Product: NextPage<ProductProps> = function ProductPage({
         <Container className={styles.productContainer}>
           <article className={styles.product}>
             <Image
+              className={styles.productImage}
               src={product.imageUrl}
               alt={product.name}
               width={600}
               height={400}
-              layout="responsive"
-              objectFit="cover"
               priority
             />
 

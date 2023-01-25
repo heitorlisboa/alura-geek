@@ -110,12 +110,11 @@ const ManageProducts: NextPage<ManageProductsProps> =
               {products.map((product) => (
                 <li className={styles.product} key={product.id}>
                   <Image
+                    className={styles.productImage}
                     src={product.imageUrl}
                     alt={`Foto de ${product.name}`}
-                    width={100}
-                    height={100}
-                    objectFit="cover"
-                    layout="responsive"
+                    width={250}
+                    height={250}
                   />
 
                   <div className={styles.productButtons}>
@@ -123,11 +122,9 @@ const ManageProducts: NextPage<ManageProductsProps> =
                       <span className="sr-only">Excluir produto</span>
                       <TrashSvg />
                     </button>
-                    <Link href={`/admin/product/${product.id}`} passHref>
-                      <a>
-                        <span className="sr-only">Editar produto</span>
-                        <PencilSvg />
-                      </a>
+                    <Link href={`/admin/product/${product.id}`}>
+                      <span className="sr-only">Editar produto</span>
+                      <PencilSvg />
                     </Link>
                   </div>
 

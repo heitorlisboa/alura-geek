@@ -55,10 +55,8 @@ const Button: FC<ButtonProps> = function ButtonComponent({
 
     case "link":
       return (
-        <Link passHref href={linkHref}>
-          <a {...classNames(classNameList)} {...ariaAttrs}>
-            {children}
-          </a>
+        <Link {...classNames(classNameList)} href={linkHref} {...ariaAttrs}>
+          {children}
         </Link>
       );
   }

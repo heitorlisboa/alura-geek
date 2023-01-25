@@ -4,6 +4,12 @@
   display: grid;
   gap: var(--size-3);
 
+  &Image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   &Info {
     display: flex;
     flex-direction: column;

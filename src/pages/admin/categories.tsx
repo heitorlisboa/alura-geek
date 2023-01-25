@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
-import { Accordion, AccordionItem, Modal } from "@mantine/core";
+import { Accordion, Modal } from "@mantine/core";
 import { randomId } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import type { GetServerSideProps, NextPage } from "next";
@@ -15,7 +15,6 @@ import Button from "@components/Button";
 import TrashSvg from "@icons/TrashSvg";
 import PencilSvg from "@icons/PencilSvg";
 import { getBaseUrl } from "@src/utils";
-import { useWindowSize } from "@src/hooks/useWindowSize";
 import type { CategoryWithProducts } from "@src/types/category";
 
 type ManageCategoriesProps = {
@@ -25,9 +24,6 @@ type ManageCategoriesProps = {
 const ManageCategories: NextPage<ManageCategoriesProps> =
   function ManageCategoriesPage({ categories: initialCategories }) {
     const pageTitleId = "admin-all-categories-title";
-
-    const windowSize = useWindowSize();
-    const mobile = windowSize < 768;
 
     const [categories, setCategories] = useState(initialCategories);
     const [modalOpened, setModalOpened] = useState(false);
@@ -109,47 +105,40 @@ const ManageCategories: NextPage<ManageCategoriesProps> =
               </Button>
             </header>
 
-            <Accordion
-              role="list"
-              aria-labelledby={pageTitleId}
-              offsetIcon={!mobile}
-            >
+            <Accordion chevronPosition="left" aria-labelledby={pageTitleId}>
               {categories.map((category) => (
-                <AccordionItem
-                  key={category.id}
-                  label={category.name}
-                  role="listitem"
-                >
-                  <div className={styles.categoryButtons}>
-                    <button onClick={() => handleOpenModal(category.id)}>
-                      <span className="sr-only">Excluir categoria</span>
-                      <TrashSvg />
-                    </button>
+                <Accordion.Item key={category.id} value={category.name}>
+                  <Accordion.Control>{category.name}</Accordion.Control>
+                  <Accordion.Panel className={styles.categoryAccordionPanel}>
+                    <div className={styles.categoryButtons}>
+                      <button onClick={() => handleOpenModal(category.id)}>
+                        <span className="sr-only">Excluir categoria</span>
+                        <TrashSvg />
+                      </button>
 
-                    <Link href={`/admin/category/${category.id}`}>
-                      <a>
+                      <Link href={`/admin/category/${category.id}`}>
                         <span className="sr-only">Editar categoria</span>
                         <PencilSvg />
-                      </a>
-                    </Link>
-                  </div>
+                      </Link>
+                    </div>
 
-                  <ul className={styles.productList}>
-                    {category.products.map((product) => (
-                      <li key={product.id} className={styles.product}>
-                        <span className={styles.productName}>
-                          {product.name}
-                        </span>{" "}
-                        <span
-                          className={styles.productId}
-                          aria-label="Id do produto"
-                        >
-                          {product.id}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </AccordionItem>
+                    <ul className={styles.productList}>
+                      {category.products.map((product) => (
+                        <li key={product.id} className={styles.product}>
+                          <span className={styles.productName}>
+                            {product.name}
+                          </span>{" "}
+                          <span
+                            className={styles.productId}
+                            aria-label="Id do produto"
+                          >
+                            {product.id}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Accordion.Panel>
+                </Accordion.Item>
               ))}
             </Accordion>
           </Container>

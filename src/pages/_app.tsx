@@ -12,6 +12,7 @@ import type { AppProps } from "next/app";
 
 import "@src/styles/global/index.scss";
 
+import { emotionCache } from "@src/config/emotion-cache";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 
@@ -47,7 +48,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}
     >
-      <MantineProvider theme={{ colorScheme, fontFamily: "Raleway" }}>
+      <MantineProvider
+        emotionCache={emotionCache}
+        theme={{ colorScheme, fontFamily: "Raleway" }}
+      >
         <NotificationsProvider>
           <SessionProvider session={session}>
             <Head>

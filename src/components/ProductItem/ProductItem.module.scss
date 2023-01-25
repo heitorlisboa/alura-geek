@@ -3,6 +3,13 @@
   align-content: flex-start;
   gap: var(--size-2);
 
+  &Image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+
   &Title {
     font-size: var(--fs-200);
     font-weight: 500;

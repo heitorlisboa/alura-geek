@@ -17,12 +17,11 @@ const ProductItem: FC<ProductItemProps> = function ProductItemComponent({
   return (
     <li className={styles.product}>
       <Image
+        className={styles.productImage}
         src={imageUrl}
         alt={`Foto de ${name}`}
-        width={100}
-        height={100}
-        objectFit="cover"
-        layout="responsive"
+        width={300}
+        height={300}
       />
 
       <h4 className={styles.productTitle}>{name}</h4>

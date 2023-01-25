@@ -34,11 +34,9 @@ const Footer = function FooterComponent() {
     <footer>
       <section className={styles.info} aria-label="Informações e contato">
         <Container className={styles.infoContainer}>
-          <Link href="/" passHref>
-            <a aria-label="Ir para página inicial">
-              <span className="sr-only">AluraGeek</span>
-              <LogoSvg />
-            </a>
+          <Link href="/">
+            <span className="sr-only">AluraGeek</span>
+            <LogoSvg />
           </Link>
 
           <nav className={styles.nav}>

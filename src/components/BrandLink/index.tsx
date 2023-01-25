@@ -16,8 +16,8 @@ const BrandLink: FC<BrandLinkProps> = function BrandLinkComponent({
   className,
 }) {
   return (
-    <Link href={href} passHref>
-      <a {...classNames([className, styles.link])}>{children}</a>
+    <Link {...classNames([className, styles.link])} href={href}>
+      {children}
     </Link>
   );
 };
