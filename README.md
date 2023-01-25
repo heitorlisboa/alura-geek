@@ -43,13 +43,17 @@ Link do meu projeto: [https://alura-geek-heitorlisboa.vercel.app](https://alura-
 - Temas claro e escuro
 
 ## ❓ Como utilizar
+
 ### 💻 Inicializando localmente
+
 #### Pré-requisitos
+
 - [Git](https://git-scm.com/downloads)
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/) (instale com `npm i -g yarn`)
 
 Primeiro, crie uma pasta, clone o repositório dentro dela e depois entre na pasta.
+
 ```sh
 mkdir alura-geek
 
@@ -59,6 +63,7 @@ cd alura-geek
 ```
 
 Após isso, instale as dependências da aplicação e crie um arquivo `.env` na raíz do projeto (recomendo copiar o `.env.example`).
+
 ```sh
 yarn
 
@@ -69,6 +74,7 @@ cp .env.example .env
 Com o arquivo criado, abra o projeto com seu editor de código favorito, depois, abra o arquivo `.env` e substitua os valores de exemplo das variáveis de ambiente pelos seus.
 
 Guias úteis para essa operação:
+
 - [Variáveis de ambiente do NextAuth.js](https://next-auth.js.org/configuration/options)
 - [Cadastrando um app OAuth GitHub](https://docs.github.com/pt/developers/apps/building-oauth-apps/creating-an-oauth-app)
 
@@ -81,21 +87,25 @@ Não se esqueça de fazer os ajustes necessários em `prisma/schema.prisma` para
 - [Configurando banco de dados para o Prisma](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/connect-your-database-typescript-mysql)
 
 Depois de tudo configurado, envie o schema para o banco de dados.
+
 ```sh
 yarn prisma db push
 ```
 
 Esse comando já irá gerar o cliente do Prisma junto, mas caso dê algum problema, utilize o seguinte comando para gerar o cliente:
+
 ```sh
 yarn prisma generate
 ```
 
-A aplicação também possui uma *seed* para popular o banco de dados com produtos e categorias pré-cadastrados. Para isso use:
+A aplicação também possui uma _seed_ para popular o banco de dados com produtos e categorias pré-cadastrados. Para isso use:
+
 ```sh
 yarn prisma db seed
 ```
 
 Se quiser adicionar alguma funcionalidade, crie uma nova branch antes de começar a editar:
+
 ```sh
 git checkout -b <nome_da_branch>
 ```
@@ -106,14 +116,14 @@ Agora basta utilizar `yarn dev` para iniciar o ambiente de desenvolvimento, ou `
 
 O website como um todo apresenta uma interface bem intuitiva de se navegar, porém vou dar algumas dicas de como funciona o painel de administrador da aplicação.
 
-Primeiramente, para ter acesso de administrador, é necessário se autenticar com uma conta qualquer do GitHub. Para isso, clique no botão de login no cabeçalho da página e depois clique em *Fazer login com GitHub*.
+Primeiramente, para ter acesso de administrador, é necessário se autenticar com uma conta qualquer do GitHub. Para isso, clique no botão de login no cabeçalho da página e depois clique em _Fazer login com GitHub_.
 
 <div align="center">
   <img style="width: 600px;" src="showcase/header-with-login-button.png" alt="Cabeçalho com botão de login" />
 </div>
 <br />
 
-Depois de autenticado, você será redirecionado à página de gerenciamento de produtos (também é possível acessar essa página através do botão *Menu administrador* no cabeçalho da página, substituíndo o botão de login). Nessa página há um botão para adicionar um novo produto, e botões para editar e para excluir cada um dos produtos já cadastrados.
+Depois de autenticado, você será redirecionado à página de gerenciamento de produtos (também é possível acessar essa página através do botão _Menu administrador_ no cabeçalho da página, substituíndo o botão de login). Nessa página há um botão para adicionar um novo produto, e botões para editar e para excluir cada um dos produtos já cadastrados.
 
 <div align="center">
   <img style="width: 600px;" src="showcase/products-management.png" alt="Página de gerenciamento de produtos" />
@@ -133,7 +143,7 @@ Ao clicar para excluir um produto você será questionado se realmente deseja ex
 
 Além de produtos, também é possível gerenciar diretamente suas categorias, criando novas, alterando seus nomes e/ou os produtos que possui e as deletando.
 
-Para realizar tais ações, clique no botão *Menu administrador* presente no cabeçalho da página e selecione *Gerenciar categorias*. Ao fazer isso você será redirecionado a uma página onde haverá todas as categorias cadastradas e um botão para adicionar novas categorias.
+Para realizar tais ações, clique no botão _Menu administrador_ presente no cabeçalho da página e selecione _Gerenciar categorias_. Ao fazer isso você será redirecionado a uma página onde haverá todas as categorias cadastradas e um botão para adicionar novas categorias.
 
 <div align="center">
   <img style="width: 600px;" src="showcase/categories-management.png" alt="Página de gerenciamento de categorias" />
@@ -152,6 +162,7 @@ Na página de gerenciamento das categorias, também é possível excluir cada um
 Outro ponto importante de destacar na usabilidade é que todo campo que estiver vazio no formulário ao editar um produto ou categoria terá seu valor inalterado. Somente os campos que forem preenchidos terão seus valores atualizados.
 
 ## 📄 Licença
+
 Esse projeto utiliza a licença GNU GPL-3.0 &ndash; veja o arquivo [`COPYING`](COPYING) para mais detalhes.
 
 Em resumo: é uma licença que permite fazer quase tudo com o projeto, com exceção de distribuir versões de código fechado (closed source).
