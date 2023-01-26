@@ -1,14 +1,21 @@
 import Link from "next/link";
-import type { FC, ButtonHTMLAttributes, AriaAttributes } from "react";
+import type {
+  FC,
+  ButtonHTMLAttributes,
+  AriaAttributes,
+  PropsWithChildren,
+} from "react";
 
 import styles from "./Button.module.scss";
 
 import { classNames } from "@src/utils";
 
-type GeneralProps = {
-  className?: string;
-  variant?: "contained" | "outlined";
-} & AriaAttributes;
+type GeneralProps = PropsWithChildren<
+  {
+    className?: string;
+    variant?: "contained" | "outlined";
+  } & AriaAttributes
+>;
 
 type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>["type"];
 

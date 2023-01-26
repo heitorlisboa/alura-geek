@@ -1,4 +1,4 @@
-import { Children, useState } from "react";
+import { Children, type PropsWithChildren, useState } from "react";
 import { useClickOutside } from "@mantine/hooks";
 import type { FC } from "react";
 
@@ -7,10 +7,10 @@ import styles from "./DropdownMenu.module.scss";
 import Button from "@components/Button";
 import { classNames } from "@src/utils";
 
-type DropdownMenuProps = {
+type DropdownMenuProps = PropsWithChildren<{
   menuTitle: string;
   className?: string;
-};
+}>;
 
 const DropdownMenu: FC<DropdownMenuProps> = function DropdownMenuComponent({
   children,

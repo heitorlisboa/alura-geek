@@ -1,14 +1,14 @@
 import Link from "next/link";
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 
 import styles from "./BrandLink.module.scss";
 
 import { classNames } from "@src/utils";
 
-type BrandLinkProps = {
+type BrandLinkProps = PropsWithChildren<{
   href: string;
   className?: string;
-};
+}>;
 
 const BrandLink: FC<BrandLinkProps> = function BrandLinkComponent({
   children,
