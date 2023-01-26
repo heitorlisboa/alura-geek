@@ -8,6 +8,8 @@ body {
   color: var(--neutral-text-700);
   font-family: "Raleway", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -22,7 +24,7 @@ h6 {
 main {
   background-color: var(--neutral-color-200);
 
-  // Preveinting margin collapse
+  // Preventing margin collapse
   overflow-x: hidden;
 }
 
