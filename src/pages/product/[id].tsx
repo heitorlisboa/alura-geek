@@ -1,8 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import type { Product as IProduct } from "@prisma/client";
+import type {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 
 import styles from "@page-styles/Product.module.scss";
 
@@ -10,13 +15,9 @@ import { Fallback } from "@components/Fallback";
 import { Container } from "@components/Container";
 import { ProductsCategory } from "@components/ProductsCategory";
 import { formatPrice } from "@src/utils";
-import type { CategoryWithProducts } from "@src/types/category";
 import { prisma } from "@src/lib/prisma";
 
-type ProductPageProps = {
-  product: IProduct;
-  category: CategoryWithProducts;
-};
+type ProductPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const ProductPage: NextPage<ProductPageProps> = ({ product, category }) => {
   const { isFallback } = useRouter();
@@ -75,10 +76,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<any, { id: string }> = async (
-  context
-) => {
-  if (!context.params) return { notFound: true };
+export async function getStaticProps(
+  context: GetStaticPropsContext<{ id: string }>
+) {
+  if (!context.params)
+    return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
   const { id } = context.params;
 
@@ -88,7 +90,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
     },
   });
 
-  if (!product) return { notFound: true };
+  if (!product)
+    return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
   product.createdAt = product.createdAt.toISOString() as any;
   product.updatedAt = product.updatedAt.toISOString() as any;
@@ -98,7 +101,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
     include: { products: { orderBy: { updatedAt: "desc" } } },
   });
 
-  if (!category) return { notFound: true };
+  if (!category)
+    return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
   category.products = category.products.map((product) => ({
     ...product,
@@ -112,7 +116,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
       category,
     },
     revalidate: 60 * 60, // 1 hour
-  };
-};
+  } satisfies GetStaticPropsResult<unknown>;
+}
 
 export default ProductPage;

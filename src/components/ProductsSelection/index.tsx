@@ -19,13 +19,13 @@ import type { ValidProductRequest } from "@src/types/product";
 type FormFields = { categoryName: string };
 
 type ProductsSelectionProps = {
-  products: Product[];
-  categories: Category[];
+  initialProducts: Product[];
+  otherCategories: Category[];
 };
 
 export const ProductsSelection: FC<ProductsSelectionProps> = ({
-  products: initialProducts,
-  categories,
+  initialProducts,
+  otherCategories,
 }) => {
   const productSelecionTitleId = "product-selection-title";
 
@@ -204,7 +204,7 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
             {...register("categoryName", { required: true })}
           >
             <option value="">Selecione uma categoria</option>
-            {categories.map(({ id, name }) => (
+            {otherCategories.map(({ id, name }) => (
               <option key={id} value={name}>
                 {name}
               </option>

@@ -1,6 +1,12 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 
 import styles from "@page-styles/Category.module.scss";
 
@@ -8,11 +14,8 @@ import { Fallback } from "@components/Fallback";
 import { Container } from "@components/Container";
 import { ProductItem } from "@components/ProductItem";
 import { prisma } from "@src/lib/prisma";
-import type { CategoryWithProducts } from "@src/types/category";
 
-type CategoryPageProps = {
-  category: CategoryWithProducts;
-};
+type CategoryPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const CategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
   const { isFallback } = useRouter();
@@ -58,10 +61,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<any, { id: string }> = async (
-  context
-) => {
-  if (!context.params) return { notFound: true };
+export async function getStaticProps(
+  context: GetStaticPropsContext<{ id: string }>
+) {
+  if (!context.params)
+    return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
   const { id } = context.params;
 
@@ -70,7 +74,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
     include: { products: { orderBy: { updatedAt: "desc" } } },
   });
 
-  if (!category) return { notFound: true };
+  if (!category)
+    return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
   category.products = category.products.map((product) => ({
     ...product,
@@ -83,7 +88,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
       category,
     },
     revalidate: 60 * 60, // 1 hour
-  };
-};
+  } satisfies GetStaticPropsResult<unknown>;
+}
 
 export default CategoryPage;

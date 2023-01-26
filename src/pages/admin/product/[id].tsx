@@ -1,16 +1,20 @@
 import Head from "next/head";
 import axios from "axios";
-import type { GetServerSideProps, NextPage } from "next";
+import type {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import type { Category, Product } from "@prisma/client";
 
 import { Container } from "@components/Container";
 import { ProductForm } from "@components/ProductForm";
 import { getBaseUrl } from "@src/utils";
 
-type EditProductPageProps = {
-  product: Product;
-  categories: Category[];
-};
+type EditProductPageProps = InferGetServerSidePropsType<
+  typeof getServerSideProps
+>;
 
 const EditProductPage: NextPage<EditProductPageProps> = ({
   product,
@@ -45,25 +49,24 @@ const EditProductPage: NextPage<EditProductPageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<
-  any,
-  { id: string }
-> = async (context) => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!context.params) return { notFound: true };
 
   const baseUrl = getBaseUrl(context.req.headers);
 
   const { id } = context.params;
 
-  const { data: product } = await axios.get(`${baseUrl}/api/product/${id}`);
-  const { data: categories } = await axios.get(`${baseUrl}/api/categories`);
+  const product: Product = (await axios.get(`${baseUrl}/api/product/${id}`))
+    .data;
+  const categories: Category[] = (await axios.get(`${baseUrl}/api/categories`))
+    .data;
 
   return {
     props: {
       product,
       categories,
     },
-  };
-};
+  } satisfies GetServerSidePropsResult<unknown>;
+}
 
 export default EditProductPage;

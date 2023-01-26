@@ -1,6 +1,9 @@
 import Head from "next/head";
-import type { GetStaticProps, NextPage } from "next";
-import type { Category, Product } from "@prisma/client";
+import type {
+  GetStaticPropsResult,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 
 import styles from "@page-styles/Home.module.scss";
 
@@ -9,10 +12,7 @@ import { Button } from "@components/Button";
 import { ProductsCategory } from "@components/ProductsCategory";
 import { prisma } from "@src/lib/prisma";
 
-type HomePageProps = {
-  products: Product[];
-  categories: Category[];
-};
+type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const HomePage: NextPage<HomePageProps> = ({ products, categories }) => (
   <>
@@ -42,9 +42,13 @@ const HomePage: NextPage<HomePageProps> = ({ products, categories }) => (
       </section>
 
       {categories.map((category) => {
-        const categoryProducts = products.filter(
-          (product) => product.categoryId === category.id
-        );
+        const categoryProducts = products
+          .filter((product) => product.categoryId === category.id)
+          .map((product) => ({
+            ...product,
+            createdAt: new Date(product.createdAt),
+            updatedAt: new Date(product.updatedAt),
+          }));
         if (categoryProducts.length > 0) {
           return (
             <ProductsCategory
@@ -60,7 +64,7 @@ const HomePage: NextPage<HomePageProps> = ({ products, categories }) => (
   </>
 );
 
-export const getStaticProps: GetStaticProps = async () => {
+export async function getStaticProps() {
   const products = (
     await prisma.product.findMany({ orderBy: { updatedAt: "desc" } })
   ).map((product) => ({
@@ -76,7 +80,7 @@ export const getStaticProps: GetStaticProps = async () => {
       categories,
     },
     revalidate: 60 * 60, // 1 hour
-  };
-};
+  } satisfies GetStaticPropsResult<unknown>;
+}
 
 export default HomePage;

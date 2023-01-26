@@ -1,6 +1,11 @@
 import Head from "next/head";
 import axios from "axios";
-import type { GetServerSideProps, NextPage } from "next";
+import type {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import type { Product } from "@prisma/client";
 
 import styles from "@page-styles/SearchProducts.module.scss";
@@ -9,10 +14,9 @@ import { Container } from "@src/components/Container";
 import { ProductItem } from "@src/components/ProductItem";
 import { getBaseUrl } from "@src/utils";
 
-type SearchProductsPageProps = {
-  query: string;
-  productsFound: Product[];
-};
+type SearchProductsPageProps = InferGetServerSidePropsType<
+  typeof getServerSideProps
+>;
 
 const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
   query,
@@ -49,22 +53,22 @@ const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const baseUrl = getBaseUrl(context.req.headers);
-  const { q } = context.query;
+  const query = context.query.q;
 
-  if (typeof q !== "string") return { notFound: true };
+  if (typeof query !== "string") return { notFound: true };
 
-  const { data: productsFound } = await axios.get(
-    `${baseUrl}/api/products/search?q=${q}`
-  );
+  const productsFound: Product[] = (
+    await axios.get(`${baseUrl}/api/products/search?q=${query}`)
+  ).data;
 
   return {
     props: {
-      query: q,
+      query,
       productsFound,
     },
-  };
-};
+  } satisfies GetServerSidePropsResult<unknown>;
+}
 
 export default SearchProductsPage;

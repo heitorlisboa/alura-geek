@@ -1,6 +1,10 @@
 import Head from "next/head";
 import { getSession, signIn } from "next-auth/react";
-import type { GetServerSideProps, NextPage } from "next";
+import type {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from "next";
 
 import styles from "@page-styles/Login.module.scss";
 
@@ -39,7 +43,7 @@ const LoginPage: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
 
   if (session) {
@@ -48,12 +52,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         destination: "/admin/products",
         permanent: false,
       },
-    };
+    } satisfies GetServerSidePropsResult<unknown>;
   }
 
   return {
     props: {},
-  };
-};
+  } satisfies GetServerSidePropsResult<unknown>;
+}
 
 export default LoginPage;

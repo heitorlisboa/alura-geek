@@ -5,7 +5,12 @@ import { useState } from "react";
 import { Accordion, Modal } from "@mantine/core";
 import { randomId } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import type { GetServerSideProps, NextPage } from "next";
+import type {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import type { Category } from "@prisma/client";
 
 import styles from "@page-styles/admin/Categories.module.scss";
@@ -17,12 +22,12 @@ import { PencilSvg } from "@icons/PencilSvg";
 import { getBaseUrl } from "@src/utils";
 import type { CategoryWithProducts } from "@src/types/category";
 
-type ManageCategoriesPageProps = {
-  categories: CategoryWithProducts[];
-};
+type ManageCategoriesPageProps = InferGetServerSidePropsType<
+  typeof getServerSideProps
+>;
 
 const ManageCategoriesPage: NextPage<ManageCategoriesPageProps> = ({
-  categories: initialCategories,
+  initialCategories,
 }) => {
   const pageTitleId = "admin-all-categories-title";
 
@@ -148,18 +153,18 @@ const ManageCategoriesPage: NextPage<ManageCategoriesPageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const baseUrl = getBaseUrl(context.req.headers);
 
-  const { data: categories } = await axios.get(
-    `${baseUrl}/api/categories?withProducts=true`
-  );
+  const initialCategories: CategoryWithProducts[] = (
+    await axios.get(`${baseUrl}/api/categories?withProducts=true`)
+  ).data;
 
   return {
     props: {
-      categories,
+      initialCategories,
     },
-  };
-};
+  } satisfies GetServerSidePropsResult<unknown>;
+}
 
 export default ManageCategoriesPage;

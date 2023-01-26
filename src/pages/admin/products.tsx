@@ -6,7 +6,12 @@ import { useState } from "react";
 import { Modal } from "@mantine/core";
 import { randomId } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import type { GetServerSideProps, NextPage } from "next";
+import type {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import type { Product } from "@prisma/client";
 
 import styles from "@page-styles/admin/Products.module.scss";
@@ -18,12 +23,12 @@ import { PencilSvg } from "@icons/PencilSvg";
 import { BrandLink } from "@components/BrandLink";
 import { formatPrice, getBaseUrl } from "@src/utils";
 
-type ManageProductsPageProps = {
-  products: Product[];
-};
+type ManageProductsPageProps = InferGetServerSidePropsType<
+  typeof getServerSideProps
+>;
 
 const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
-  products: initialProducts,
+  initialProducts,
 }) => {
   const pageTitleId = "admin-all-products-title";
 
@@ -150,16 +155,18 @@ const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const baseUrl = getBaseUrl(context.req.headers);
 
-  const { data: products } = await axios.get(`${baseUrl}/api/products`);
+  const initialProducts: Product[] = (
+    await axios.get(`${baseUrl}/api/products`)
+  ).data;
 
   return {
     props: {
-      products,
+      initialProducts,
     },
-  };
-};
+  } satisfies GetServerSidePropsResult<unknown>;
+}
 
 export default ManageProductsPage;
