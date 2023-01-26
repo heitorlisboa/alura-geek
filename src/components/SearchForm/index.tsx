@@ -15,9 +15,7 @@ type SearchFormProps = {
   className?: string;
 };
 
-const SearchForm: FC<SearchFormProps> = function SearchFormComponent({
-  className,
-}) {
+const SearchForm: FC<SearchFormProps> = ({ className }) => {
   const { register, handleSubmit } = useForm<FormFields>();
 
   function handleSearch({ searchProduct }: FormFields) {

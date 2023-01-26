@@ -23,10 +23,7 @@ type CategoryFormProps = {
   initialValues?: Partial<FormFields>;
 };
 
-const CategoryForm: FC<CategoryFormProps> = function CategoryFormComponent({
-  action,
-  initialValues,
-}) {
+const CategoryForm: FC<CategoryFormProps> = ({ action, initialValues }) => {
   const {
     register,
     handleSubmit,

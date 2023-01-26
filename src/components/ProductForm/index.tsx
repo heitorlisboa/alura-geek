@@ -42,11 +42,11 @@ type ProductFormProps = {
   initialValues?: InitialFormValues;
 };
 
-const ProductForm: FC<ProductFormProps> = function ProductFormComponent({
+const ProductForm: FC<ProductFormProps> = ({
   categories,
   action,
   initialValues = {},
-}) {
+}) => {
   const { productImageUrl, ...defaultValues } = initialValues;
   const {
     register,

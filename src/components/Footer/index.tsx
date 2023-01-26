@@ -15,7 +15,7 @@ type ContactFields = {
   message: string;
 };
 
-const Footer = function FooterComponent() {
+const Footer = () => {
   const {
     register,
     handleSubmit,

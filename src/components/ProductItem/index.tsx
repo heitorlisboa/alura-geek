@@ -11,28 +11,26 @@ type ProductItemProps = {
   product: IProduct;
 };
 
-const ProductItem: FC<ProductItemProps> = function ProductItemComponent({
+const ProductItem: FC<ProductItemProps> = ({
   product: { id, name, price, imageUrl },
-}) {
-  return (
-    <li className={styles.product}>
-      <Image
-        className={styles.productImage}
-        src={imageUrl}
-        alt={`Foto de ${name}`}
-        width={300}
-        height={300}
-      />
+}) => (
+  <li className={styles.product}>
+    <Image
+      className={styles.productImage}
+      src={imageUrl}
+      alt={`Foto de ${name}`}
+      width={300}
+      height={300}
+    />
 
-      <h4 className={styles.productTitle}>{name}</h4>
-      <p>
-        <strong>{formatPrice(price)}</strong>
-      </p>
-      <p>
-        <BrandLink href={`/product/${id}`}>Ver produto</BrandLink>
-      </p>
-    </li>
-  );
-};
+    <h4 className={styles.productTitle}>{name}</h4>
+    <p>
+      <strong>{formatPrice(price)}</strong>
+    </p>
+    <p>
+      <BrandLink href={`/product/${id}`}>Ver produto</BrandLink>
+    </p>
+  </li>
+);
 
 export default ProductItem;

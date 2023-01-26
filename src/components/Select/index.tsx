@@ -18,8 +18,9 @@ type SelectProps = PropsWithChildren<{
   onBlur?: ChangeHandler;
 }>;
 
+const DISPLAY_NAME = "Select";
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  function SelectComponent(
+  (
     {
       children,
       id,
@@ -32,7 +33,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       onBlur,
     },
     ref
-  ) {
+  ) => {
     const className = classNames(
       [
         styles.select,
@@ -75,5 +76,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     );
   }
 );
+
+Select.displayName = DISPLAY_NAME;
 
 export default Select;

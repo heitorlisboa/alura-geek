@@ -7,27 +7,23 @@ import Container from "@components/Container";
 import ProductForm from "@components/ProductForm";
 import { getBaseUrl } from "@src/utils";
 
-type NewProductProps = {
+type NewProductPageProps = {
   categories: Category[];
 };
 
-const NewProduct: NextPage<NewProductProps> = function NewProductPage({
-  categories,
-}) {
-  return (
-    <>
-      <Head>
-        <title>Admin - Adicionar produto</title>
-      </Head>
+const NewProductPage: NextPage<NewProductPageProps> = ({ categories }) => (
+  <>
+    <Head>
+      <title>Admin - Adicionar produto</title>
+    </Head>
 
-      <main id="main-content" className="relative">
-        <Container>
-          <ProductForm categories={categories} action="create" />
-        </Container>
-      </main>
-    </>
-  );
-};
+    <main id="main-content" className="relative">
+      <Container>
+        <ProductForm categories={categories} action="create" />
+      </Container>
+    </main>
+  </>
+);
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const baseUrl = getBaseUrl(context.req.headers);
@@ -41,4 +37,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default NewProduct;
+export default NewProductPage;

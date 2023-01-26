@@ -16,7 +16,7 @@ import CloseSvg from "@icons/CloseSvg";
 import { useWindowSize } from "@src/hooks/useWindowSize";
 import { classNames } from "@src/utils";
 
-const Header: FC = function HeaderComponent() {
+const Header: FC = () => {
   // Responsive layout
   const windowSize = useWindowSize();
   const mobile = windowSize < 768;

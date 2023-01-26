@@ -12,11 +12,11 @@ type DropdownMenuProps = PropsWithChildren<{
   className?: string;
 }>;
 
-const DropdownMenu: FC<DropdownMenuProps> = function DropdownMenuComponent({
+const DropdownMenu: FC<DropdownMenuProps> = ({
   children,
   menuTitle,
   className,
-}) {
+}) => {
   const childList = Children.toArray(children);
   const [expanded, setExpanded] = useState(false);
   const ref = useClickOutside<HTMLDivElement>(handleClickOutside);

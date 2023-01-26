@@ -7,15 +7,15 @@ import Container from "@components/Container";
 import ProductForm from "@components/ProductForm";
 import { getBaseUrl } from "@src/utils";
 
-type EditProductProps = {
+type EditProductPageProps = {
   product: Product;
   categories: Category[];
 };
 
-const EditProduct: NextPage<EditProductProps> = function EditProductPage({
+const EditProductPage: NextPage<EditProductPageProps> = ({
   product,
   categories,
-}) {
+}) => {
   const productCategory = categories.find(
     (category) => category.id === product.categoryId
   ) as Category;
@@ -66,4 +66,4 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
-export default EditProduct;
+export default EditProductPage;

@@ -9,43 +9,45 @@ import Container from "@src/components/Container";
 import ProductItem from "@src/components/ProductItem";
 import { getBaseUrl } from "@src/utils";
 
-type SearchProductsProps = {
+type SearchProductsPageProps = {
   query: string;
   productsFound: Product[];
 };
 
-const SearchProducts: NextPage<SearchProductsProps> =
-  function SearchProductsPage({ query, productsFound }) {
-    const pageTitleId = "search-products-title";
+const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
+  query,
+  productsFound,
+}) => {
+  const pageTitleId = "search-products-title";
 
-    return (
-      <>
-        <Head>
-          <title>Buscando &quot;{query}&quot;</title>
-        </Head>
+  return (
+    <>
+      <Head>
+        <title>Buscando &quot;{query}&quot;</title>
+      </Head>
 
-        <main id="main-content">
-          <Container className={styles.container}>
-            <h2 id={pageTitleId} className={styles.title}>
-              Resultados da busca de &quot;{query}&quot;
-            </h2>
+      <main id="main-content">
+        <Container className={styles.container}>
+          <h2 id={pageTitleId} className={styles.title}>
+            Resultados da busca de &quot;{query}&quot;
+          </h2>
 
-            {productsFound.length > 0 ? (
-              <ul className={styles.productList} aria-labelledby={pageTitleId}>
-                {productsFound.map((product) => (
-                  <ProductItem key={product.id} product={product} />
-                ))}
-              </ul>
-            ) : (
-              <p className={styles.notFoundMessage}>
-                O produto que você está buscando não foi encontrado 😥
-              </p>
-            )}
-          </Container>
-        </main>
-      </>
-    );
-  };
+          {productsFound.length > 0 ? (
+            <ul className={styles.productList} aria-labelledby={pageTitleId}>
+              {productsFound.map((product) => (
+                <ProductItem key={product.id} product={product} />
+              ))}
+            </ul>
+          ) : (
+            <p className={styles.notFoundMessage}>
+              O produto que você está buscando não foi encontrado 😥
+            </p>
+          )}
+        </Container>
+      </main>
+    </>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const baseUrl = getBaseUrl(context.req.headers);
@@ -65,4 +67,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default SearchProducts;
+export default SearchProductsPage;

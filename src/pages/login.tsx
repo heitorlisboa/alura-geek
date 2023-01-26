@@ -8,7 +8,7 @@ import Container from "@components/Container";
 import Button from "@components/Button";
 import GitHubSvg from "@icons/GitHubSvg";
 
-const Login: NextPage = function LoginPage() {
+const LoginPage: NextPage = () => {
   function handleSignIn() {
     signIn("github");
   }
@@ -56,4 +56,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default Login;
+export default LoginPage;

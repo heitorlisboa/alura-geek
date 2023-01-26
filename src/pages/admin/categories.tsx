@@ -17,135 +17,136 @@ import PencilSvg from "@icons/PencilSvg";
 import { getBaseUrl } from "@src/utils";
 import type { CategoryWithProducts } from "@src/types/category";
 
-type ManageCategoriesProps = {
+type ManageCategoriesPageProps = {
   categories: CategoryWithProducts[];
 };
 
-const ManageCategories: NextPage<ManageCategoriesProps> =
-  function ManageCategoriesPage({ categories: initialCategories }) {
-    const pageTitleId = "admin-all-categories-title";
+const ManageCategoriesPage: NextPage<ManageCategoriesPageProps> = ({
+  categories: initialCategories,
+}) => {
+  const pageTitleId = "admin-all-categories-title";
 
-    const [categories, setCategories] = useState(initialCategories);
-    const [modalOpened, setModalOpened] = useState(false);
-    const [categoryIdToDelete, setCategoryIdToDelete] = useState<string>("");
+  const [categories, setCategories] = useState(initialCategories);
+  const [modalOpened, setModalOpened] = useState(false);
+  const [categoryIdToDelete, setCategoryIdToDelete] = useState<string>("");
 
-    function handleOpenModal(categoryId: string) {
-      setModalOpened(true);
-      setCategoryIdToDelete(categoryId);
-    }
+  function handleOpenModal(categoryId: string) {
+    setModalOpened(true);
+    setCategoryIdToDelete(categoryId);
+  }
 
-    function handleCloseModal() {
-      setModalOpened(false);
-      setCategoryIdToDelete("");
-    }
+  function handleCloseModal() {
+    setModalOpened(false);
+    setCategoryIdToDelete("");
+  }
 
-    function handleDeleteCategory() {
-      // Closing the modal after confirming the action
-      handleCloseModal();
+  function handleDeleteCategory() {
+    // Closing the modal after confirming the action
+    handleCloseModal();
 
-      // Loading notification
-      const notificationId = `delete-category-${randomId()}`;
-      showNotification({
-        id: notificationId,
-        message: "Deletando categoria, espere um momento...",
-        loading: true,
-        autoClose: false,
-        disallowClose: true,
-      });
-      // Category deletion request
-      axios
-        .delete(`/api/category/${categoryIdToDelete}`)
-        .then(({ data: deletedCategory }: { data: Category }) => {
-          // Removing the category from the `categories` state
-          setCategories((prevState) =>
-            prevState.filter((category) => category.id !== deletedCategory.id)
-          );
+    // Loading notification
+    const notificationId = `delete-category-${randomId()}`;
+    showNotification({
+      id: notificationId,
+      message: "Deletando categoria, espere um momento...",
+      loading: true,
+      autoClose: false,
+      disallowClose: true,
+    });
+    // Category deletion request
+    axios
+      .delete(`/api/category/${categoryIdToDelete}`)
+      .then(({ data: deletedCategory }: { data: Category }) => {
+        // Removing the category from the `categories` state
+        setCategories((prevState) =>
+          prevState.filter((category) => category.id !== deletedCategory.id)
+        );
 
-          // Success notification
-          updateNotification({
-            id: notificationId,
-            color: "green",
-            message: "Categoria deletada com sucesso!",
-          });
-        })
-        .catch((err) => {
-          // Error notification
-          updateNotification({
-            id: notificationId,
-            color: "red",
-            title: err.response.data.error || "Erro ao deletar categoria",
-            message: err.response.data.message || "Erro desconhecido",
-          });
+        // Success notification
+        updateNotification({
+          id: notificationId,
+          color: "green",
+          message: "Categoria deletada com sucesso!",
         });
-    }
+      })
+      .catch((err) => {
+        // Error notification
+        updateNotification({
+          id: notificationId,
+          color: "red",
+          title: err.response.data.error || "Erro ao deletar categoria",
+          message: err.response.data.message || "Erro desconhecido",
+        });
+      });
+  }
 
-    return (
-      <>
-        <Head>
-          <title>Admin - Todas as categorias</title>
-        </Head>
+  return (
+    <>
+      <Head>
+        <title>Admin - Todas as categorias</title>
+      </Head>
 
-        <main id="main-content">
-          <Container className={styles.container}>
-            <Modal
-              title="Tem certeza que quer excluir essa categoria?"
-              opened={modalOpened}
-              onClose={handleCloseModal}
-              closeButtonLabel="Cancelar de deleção de categoria"
-            >
-              <Button onClick={handleDeleteCategory}>Confirmar</Button>
-            </Modal>
+      <main id="main-content">
+        <Container className={styles.container}>
+          <Modal
+            title="Tem certeza que quer excluir essa categoria?"
+            opened={modalOpened}
+            onClose={handleCloseModal}
+            closeButtonLabel="Cancelar de deleção de categoria"
+          >
+            <Button onClick={handleDeleteCategory}>Confirmar</Button>
+          </Modal>
 
-            <header className={styles.header}>
-              <h2 id={pageTitleId} className={styles.title}>
-                Todas as categorias
-              </h2>
-              <Button as="link" linkHref="/admin/category/new">
-                Adicionar categoria
-              </Button>
-            </header>
+          <header className={styles.header}>
+            <h2 id={pageTitleId} className={styles.title}>
+              Todas as categorias
+            </h2>
+            <Button as="link" linkHref="/admin/category/new">
+              Adicionar categoria
+            </Button>
+          </header>
 
-            <Accordion chevronPosition="left" aria-labelledby={pageTitleId}>
-              {categories.map((category) => (
-                <Accordion.Item key={category.id} value={category.name}>
-                  <Accordion.Control>{category.name}</Accordion.Control>
-                  <Accordion.Panel className={styles.categoryAccordionPanel}>
-                    <div className={styles.categoryButtons}>
-                      <button onClick={() => handleOpenModal(category.id)}>
-                        <span className="sr-only">Excluir categoria</span>
-                        <TrashSvg />
-                      </button>
+          <Accordion chevronPosition="left" aria-labelledby={pageTitleId}>
+            {categories.map((category) => (
+              <Accordion.Item key={category.id} value={category.name}>
+                <Accordion.Control>{category.name}</Accordion.Control>
+                <Accordion.Panel className={styles.categoryAccordionPanel}>
+                  <div className={styles.categoryButtons}>
+                    <button onClick={() => handleOpenModal(category.id)}>
+                      <span className="sr-only">Excluir categoria</span>
+                      <TrashSvg />
+                    </button>
 
-                      <Link href={`/admin/category/${category.id}`}>
-                        <span className="sr-only">Editar categoria</span>
-                        <PencilSvg />
-                      </Link>
-                    </div>
+                    <Link href={`/admin/category/${category.id}`}>
+                      <span className="sr-only">Editar categoria</span>
+                      <PencilSvg />
+                    </Link>
+                  </div>
 
-                    <ul className={styles.productList}>
-                      {category.products.map((product) => (
-                        <li key={product.id} className={styles.product}>
-                          <span className={styles.productName}>
-                            {product.name}
-                          </span>{" "}
-                          <span
-                            className={styles.productId}
-                            aria-label="Id do produto"
-                          >
-                            {product.id}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </Accordion.Panel>
-                </Accordion.Item>
-              ))}
-            </Accordion>
-          </Container>
-        </main>
-      </>
-    );
-  };
+                  <ul className={styles.productList}>
+                    {category.products.map((product) => (
+                      <li key={product.id} className={styles.product}>
+                        <span className={styles.productName}>
+                          {product.name}
+                        </span>{" "}
+                        <span
+                          className={styles.productId}
+                          aria-label="Id do produto"
+                        >
+                          {product.id}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </Accordion.Panel>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        </Container>
+      </main>
+    </>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const baseUrl = getBaseUrl(context.req.headers);
@@ -161,4 +162,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default ManageCategories;
+export default ManageCategoriesPage;

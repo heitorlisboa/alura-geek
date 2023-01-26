@@ -5,7 +5,7 @@ import styles from "./ToggleDarkTheme.module.scss";
 import MoonSvg from "@icons/MoonSvg";
 import SunSvg from "@icons/SunSvg";
 
-const ToggleDarkTheme = function ToggleDarkThemeComponent() {
+const ToggleDarkTheme = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const darkTheme = colorScheme === "dark";
 

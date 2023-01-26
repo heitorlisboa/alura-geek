@@ -24,8 +24,9 @@ type FileDropInputProps = {
   onBlur?: ChangeHandler;
 };
 
+const DISPLAY_NAME = "FileDropInput";
 const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
-  function FileDropInputComponent(
+  (
     {
       name,
       description,
@@ -38,7 +39,7 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
       onBlur,
     },
     ref
-  ) {
+  ) => {
     const [fileNames, setFileNames] = useState<string[]>([]);
     const dropAreaRef = useRef<HTMLButtonElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -169,5 +170,7 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
     );
   }
 );
+
+FileDropInput.displayName = DISPLAY_NAME;
 
 export default FileDropInput;

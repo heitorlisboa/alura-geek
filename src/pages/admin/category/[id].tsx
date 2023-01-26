@@ -9,36 +9,34 @@ import ProductsSelection from "@components/ProductsSelection";
 import { getBaseUrl } from "@src/utils";
 import type { CategoryWithProducts } from "@src/types/category";
 
-type EditCategoryProps = {
+type EditCategoryPageProps = {
   category: CategoryWithProducts;
   categories: Category[];
 };
 
-const EditCategory: NextPage<EditCategoryProps> = function EditCategoryPage({
+const EditCategoryPage: NextPage<EditCategoryPageProps> = ({
   category,
   categories,
-}) {
-  return (
-    <>
-      <Head>
-        <title>Admin - Editar categoria</title>
-      </Head>
+}) => (
+  <>
+    <Head>
+      <title>Admin - Editar categoria</title>
+    </Head>
 
-      <main id="main-content" className="relative">
-        <Container>
-          <CategoryForm
-            action="update"
-            initialValues={{ categoryName: category.name }}
-          />
-          <ProductsSelection
-            products={category.products}
-            categories={categories}
-          />
-        </Container>
-      </main>
-    </>
-  );
-};
+    <main id="main-content" className="relative">
+      <Container>
+        <CategoryForm
+          action="update"
+          initialValues={{ categoryName: category.name }}
+        />
+        <ProductsSelection
+          products={category.products}
+          categories={categories}
+        />
+      </Container>
+    </main>
+  </>
+);
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!context.params) return { notFound: true };
@@ -65,4 +63,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default EditCategory;
+export default EditCategoryPage;

@@ -35,7 +35,7 @@ type AsLinkProps = {
 
 type ButtonProps = (AsButtonProps | AsLinkProps) & GeneralProps;
 
-const Button: FC<ButtonProps> = function ButtonComponent({
+const Button: FC<ButtonProps> = ({
   children,
   className,
   variant = "contained",
@@ -44,7 +44,7 @@ const Button: FC<ButtonProps> = function ButtonComponent({
   linkHref = "/",
   onClick,
   ...ariaAttrs
-}) {
+}) => {
   const classNameList = [styles.button, styles[variant], className];
 
   switch (as) {

@@ -10,11 +10,11 @@ import ProductItem from "@components/ProductItem";
 import { prisma } from "@src/lib/prisma";
 import type { CategoryWithProducts } from "@src/types/category";
 
-type CategoryProps = {
+type CategoryPageProps = {
   category: CategoryWithProducts;
 };
 
-const Category: NextPage<CategoryProps> = function CategoryPage({ category }) {
+const CategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
   const { isFallback } = useRouter();
 
   if (isFallback) return <Fallback />;
@@ -86,4 +86,4 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
   };
 };
 
-export default Category;
+export default CategoryPage;

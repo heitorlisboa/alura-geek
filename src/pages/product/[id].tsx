@@ -13,15 +13,12 @@ import { formatPrice } from "@src/utils";
 import type { CategoryWithProducts } from "@src/types/category";
 import { prisma } from "@src/lib/prisma";
 
-type ProductProps = {
+type ProductPageProps = {
   product: IProduct;
   category: CategoryWithProducts;
 };
 
-const Product: NextPage<ProductProps> = function ProductPage({
-  product,
-  category,
-}) {
+const ProductPage: NextPage<ProductPageProps> = ({ product, category }) => {
   const { isFallback } = useRouter();
 
   if (isFallback) return <Fallback />;
@@ -118,4 +115,4 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async (
   };
 };
 
-export default Product;
+export default ProductPage;
