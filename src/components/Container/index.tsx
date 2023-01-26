@@ -8,8 +8,6 @@ type ContainerProps = PropsWithChildren<{
   className?: string;
 }>;
 
-const Container: FC<ContainerProps> = ({ children, className }) => (
+export const Container: FC<ContainerProps> = ({ children, className }) => (
   <div {...classNames([styles.container, className])}>{children}</div>
 );
-
-export default Container;

@@ -4,10 +4,10 @@ import { showNotification } from "@mantine/notifications";
 
 import styles from "./Footer.module.scss";
 
-import Container from "@components/Container";
-import LogoSvg from "@src/icons/LogoSvg";
-import Input from "@components/Input";
-import Button from "@components/Button";
+import { Container } from "@components/Container";
+import { LogoSvg } from "@src/icons/LogoSvg";
+import { Input } from "@components/Input";
+import { Button } from "@components/Button";
 import { getFormErrorMessage } from "@src/utils";
 
 type ContactFields = {
@@ -15,7 +15,7 @@ type ContactFields = {
   message: string;
 };
 
-const Footer = () => {
+export const Footer = () => {
   const {
     register,
     handleSubmit,
@@ -132,5 +132,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

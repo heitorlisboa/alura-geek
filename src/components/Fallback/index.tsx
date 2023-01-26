@@ -2,9 +2,9 @@ import Head from "next/head";
 
 import styles from "./Fallback.module.scss";
 
-import Container from "@components/Container";
+import { Container } from "@components/Container";
 
-const Fallback = () => (
+export const Fallback = () => (
   <>
     <Head>
       <title>Gerando página</title>
@@ -17,5 +17,3 @@ const Fallback = () => (
     </main>
   </>
 );
-
-export default Fallback;

@@ -4,9 +4,9 @@ import type { Category, Product } from "@prisma/client";
 
 import styles from "@page-styles/Home.module.scss";
 
-import Container from "@components/Container";
-import Button from "@components/Button";
-import ProductsCategory from "@components/ProductsCategory";
+import { Container } from "@components/Container";
+import { Button } from "@components/Button";
+import { ProductsCategory } from "@components/ProductsCategory";
 import { prisma } from "@src/lib/prisma";
 
 type HomePageProps = {

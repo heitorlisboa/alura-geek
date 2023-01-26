@@ -5,8 +5,8 @@ import type { Product } from "@prisma/client";
 
 import styles from "@page-styles/SearchProducts.module.scss";
 
-import Container from "@src/components/Container";
-import ProductItem from "@src/components/ProductItem";
+import { Container } from "@src/components/Container";
+import { ProductItem } from "@src/components/ProductItem";
 import { getBaseUrl } from "@src/utils";
 
 type SearchProductsPageProps = {

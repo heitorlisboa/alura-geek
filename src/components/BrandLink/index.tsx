@@ -10,10 +10,12 @@ type BrandLinkProps = PropsWithChildren<{
   className?: string;
 }>;
 
-const BrandLink: FC<BrandLinkProps> = ({ children, href, className }) => (
+export const BrandLink: FC<BrandLinkProps> = ({
+  children,
+  href,
+  className,
+}) => (
   <Link {...classNames([className, styles.link])} href={href}>
     {children}
   </Link>
 );
-
-export default BrandLink;

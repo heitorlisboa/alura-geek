@@ -9,11 +9,11 @@ import type { Category, Product } from "@prisma/client";
 
 import styles from "./ProductForm.module.scss";
 
-import FileDropInput from "@components/FileDropInput";
-import ImagePlaceholderSvg from "@icons/ImagePlaceholderSvg";
-import Select from "@components/Select";
-import Input from "@components/Input";
-import Button from "@components/Button";
+import { FileDropInput } from "@components/FileDropInput";
+import { ImagePlaceholderSvg } from "@icons/ImagePlaceholderSvg";
+import { Select } from "@components/Select";
+import { Input } from "@components/Input";
+import { Button } from "@components/Button";
 import {
   bytesToMegaBytes,
   getFormErrorMessage,
@@ -42,7 +42,7 @@ type ProductFormProps = {
   initialValues?: InitialFormValues;
 };
 
-const ProductForm: FC<ProductFormProps> = ({
+export const ProductForm: FC<ProductFormProps> = ({
   categories,
   action,
   initialValues = {},
@@ -214,5 +214,3 @@ const ProductForm: FC<ProductFormProps> = ({
     </form>
   );
 };
-
-export default ProductForm;

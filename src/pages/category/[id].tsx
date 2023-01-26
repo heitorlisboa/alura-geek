@@ -4,9 +4,9 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
 import styles from "@page-styles/Category.module.scss";
 
-import Fallback from "@components/Fallback";
-import Container from "@components/Container";
-import ProductItem from "@components/ProductItem";
+import { Fallback } from "@components/Fallback";
+import { Container } from "@components/Container";
+import { ProductItem } from "@components/ProductItem";
 import { prisma } from "@src/lib/prisma";
 import type { CategoryWithProducts } from "@src/types/category";
 

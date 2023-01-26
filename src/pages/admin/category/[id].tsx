@@ -3,9 +3,9 @@ import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Category } from "@prisma/client";
 
-import Container from "@components/Container";
-import CategoryForm from "@components/CategoryForm";
-import ProductsSelection from "@components/ProductsSelection";
+import { Container } from "@components/Container";
+import { CategoryForm } from "@components/CategoryForm";
+import { ProductsSelection } from "@components/ProductsSelection";
 import { getBaseUrl } from "@src/utils";
 import type { CategoryWithProducts } from "@src/types/category";
 

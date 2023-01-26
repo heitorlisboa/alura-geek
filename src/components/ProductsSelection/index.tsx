@@ -9,10 +9,10 @@ import type { Category, Product } from "@prisma/client";
 
 import styles from "./ProductsSelection.module.scss";
 
-import Select from "@components/Select";
-import Button from "@components/Button";
-import TrashSvg from "@icons/TrashSvg";
-import MoveFromGroupSvg from "@icons/MoveFromGroupSvg";
+import { Select } from "@components/Select";
+import { Button } from "@components/Button";
+import { TrashSvg } from "@icons/TrashSvg";
+import { MoveFromGroupSvg } from "@icons/MoveFromGroupSvg";
 import { getFormErrorMessage } from "@src/utils";
 import type { ValidProductRequest } from "@src/types/product";
 
@@ -23,7 +23,7 @@ type ProductsSelectionProps = {
   categories: Category[];
 };
 
-const ProductsSelection: FC<ProductsSelectionProps> = ({
+export const ProductsSelection: FC<ProductsSelectionProps> = ({
   products: initialProducts,
   categories,
 }) => {
@@ -256,5 +256,3 @@ const ProductsSelection: FC<ProductsSelectionProps> = ({
     </section>
   );
 };
-
-export default ProductsSelection;

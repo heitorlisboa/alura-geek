@@ -19,7 +19,7 @@ type SelectProps = PropsWithChildren<{
 }>;
 
 const DISPLAY_NAME = "Select";
-const Select = forwardRef<HTMLSelectElement, SelectProps>(
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       children,
@@ -78,5 +78,3 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 );
 
 Select.displayName = DISPLAY_NAME;
-
-export default Select;

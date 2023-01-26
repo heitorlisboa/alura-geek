@@ -4,14 +4,14 @@ import type { Product as IProduct } from "@prisma/client";
 
 import styles from "./ProductItem.module.scss";
 
-import BrandLink from "@components/BrandLink";
+import { BrandLink } from "@components/BrandLink";
 import { formatPrice } from "@src/utils";
 
 type ProductItemProps = {
   product: IProduct;
 };
 
-const ProductItem: FC<ProductItemProps> = ({
+export const ProductItem: FC<ProductItemProps> = ({
   product: { id, name, price, imageUrl },
 }) => (
   <li className={styles.product}>
@@ -32,5 +32,3 @@ const ProductItem: FC<ProductItemProps> = ({
     </p>
   </li>
 );
-
-export default ProductItem;

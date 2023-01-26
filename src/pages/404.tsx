@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 
 import styles from "@page-styles/404.module.scss";
 
-import Container from "@components/Container";
+import { Container } from "@components/Container";
 
 const Error404Page: NextPage = () => (
   <>

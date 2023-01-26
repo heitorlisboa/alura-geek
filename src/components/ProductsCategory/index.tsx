@@ -1,13 +1,12 @@
-import React from "react";
 import type { FC } from "react";
 import type { Product } from "@prisma/client";
 
 import styles from "./ProductsCategory.module.scss";
 
-import Container from "@components/Container";
-import BrandLink from "@components/BrandLink";
-import ArrowRightSvg from "@icons/ArrowRightSvg";
-import ProductItem from "@components/ProductItem";
+import { Container } from "@components/Container";
+import { BrandLink } from "@components/BrandLink";
+import { ArrowRightSvg } from "@icons/ArrowRightSvg";
+import { ProductItem } from "@components/ProductItem";
 import { useWindowSize } from "@src/hooks/useWindowSize";
 
 type ProductsCategoryProps = {
@@ -16,7 +15,7 @@ type ProductsCategoryProps = {
   categoryLinkHref?: string;
 };
 
-const ProductsCategory: FC<ProductsCategoryProps> = ({
+export const ProductsCategory: FC<ProductsCategoryProps> = ({
   title,
   categoryLinkHref,
   products,
@@ -53,5 +52,3 @@ const ProductsCategory: FC<ProductsCategoryProps> = ({
     </section>
   );
 };
-
-export default ProductsCategory;

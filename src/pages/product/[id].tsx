@@ -6,9 +6,9 @@ import type { Product as IProduct } from "@prisma/client";
 
 import styles from "@page-styles/Product.module.scss";
 
-import Fallback from "@components/Fallback";
-import Container from "@components/Container";
-import ProductsCategory from "@components/ProductsCategory";
+import { Fallback } from "@components/Fallback";
+import { Container } from "@components/Container";
+import { ProductsCategory } from "@components/ProductsCategory";
 import { formatPrice } from "@src/utils";
 import type { CategoryWithProducts } from "@src/types/category";
 import { prisma } from "@src/lib/prisma";

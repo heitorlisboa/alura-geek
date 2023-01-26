@@ -35,7 +35,7 @@ type AsLinkProps = {
 
 type ButtonProps = (AsButtonProps | AsLinkProps) & GeneralProps;
 
-const Button: FC<ButtonProps> = ({
+export const Button: FC<ButtonProps> = ({
   children,
   className,
   variant = "contained",
@@ -68,5 +68,3 @@ const Button: FC<ButtonProps> = ({
       );
   }
 };
-
-export default Button;

@@ -2,10 +2,10 @@ import { ActionIcon, useMantineColorScheme } from "@mantine/core";
 
 import styles from "./ToggleDarkTheme.module.scss";
 
-import MoonSvg from "@icons/MoonSvg";
-import SunSvg from "@icons/SunSvg";
+import { MoonSvg } from "@icons/MoonSvg";
+import { SunSvg } from "@icons/SunSvg";
 
-const ToggleDarkTheme = () => {
+export const ToggleDarkTheme = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const darkTheme = colorScheme === "dark";
 
@@ -25,5 +25,3 @@ const ToggleDarkTheme = () => {
     </ActionIcon>
   );
 };
-
-export default ToggleDarkTheme;

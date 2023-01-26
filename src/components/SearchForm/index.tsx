@@ -4,7 +4,7 @@ import type { FC } from "react";
 
 import styles from "./SearchForm.module.scss";
 
-import SearchSvg from "@icons/SearchSvg";
+import { SearchSvg } from "@icons/SearchSvg";
 import { classNames } from "@src/utils";
 
 type FormFields = {
@@ -15,7 +15,7 @@ type SearchFormProps = {
   className?: string;
 };
 
-const SearchForm: FC<SearchFormProps> = ({ className }) => {
+export const SearchForm: FC<SearchFormProps> = ({ className }) => {
   const { register, handleSubmit } = useForm<FormFields>();
 
   function handleSearch({ searchProduct }: FormFields) {
@@ -47,5 +47,3 @@ const SearchForm: FC<SearchFormProps> = ({ className }) => {
     </form>
   );
 };
-
-export default SearchForm;

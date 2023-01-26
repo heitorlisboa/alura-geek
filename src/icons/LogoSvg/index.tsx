@@ -6,7 +6,7 @@ type LogoSvgProps = {
   className?: string;
 };
 
-const LogoSvg: FC<LogoSvgProps> = function LogoSvgComponent({ className }) {
+export const LogoSvg: FC<LogoSvgProps> = ({ className }) => {
   const svgTitleId = "logo-svg-title";
 
   return (
@@ -64,5 +64,3 @@ const LogoSvg: FC<LogoSvgProps> = function LogoSvgComponent({ className }) {
     </svg>
   );
 };
-
-export default LogoSvg;

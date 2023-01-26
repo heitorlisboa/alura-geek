@@ -1,8 +1,8 @@
 import Head from "next/head";
 import type { NextPage } from "next";
 
-import Container from "@components/Container";
-import CategoryForm from "@components/CategoryForm";
+import { Container } from "@components/Container";
+import { CategoryForm } from "@components/CategoryForm";
 
 const NewCategoryPage: NextPage = () => (
   <>

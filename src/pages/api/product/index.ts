@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import apiRouteWithAuth from "@src/middlewares/apiRouteWithAuth";
+import { apiRouteWithAuth } from "@src/middlewares/apiRouteWithAuth";
 import { prisma } from "@src/lib/prisma";
 import { cloudinary } from "@src/lib/cloudinary";
 import { productValidator } from "@src/lib/productValidator";

@@ -4,7 +4,7 @@ import type { FC } from "react";
 
 import styles from "./DropdownMenu.module.scss";
 
-import Button from "@components/Button";
+import { Button } from "@components/Button";
 import { classNames } from "@src/utils";
 
 type DropdownMenuProps = PropsWithChildren<{
@@ -12,7 +12,7 @@ type DropdownMenuProps = PropsWithChildren<{
   className?: string;
 }>;
 
-const DropdownMenu: FC<DropdownMenuProps> = ({
+export const DropdownMenu: FC<DropdownMenuProps> = ({
   children,
   menuTitle,
   className,
@@ -58,5 +58,3 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
     </div>
   );
 };
-
-export default DropdownMenu;

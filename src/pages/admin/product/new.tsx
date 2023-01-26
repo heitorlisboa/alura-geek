@@ -3,8 +3,8 @@ import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import type { Category } from "@prisma/client";
 
-import Container from "@components/Container";
-import ProductForm from "@components/ProductForm";
+import { Container } from "@components/Container";
+import { ProductForm } from "@components/ProductForm";
 import { getBaseUrl } from "@src/utils";
 
 type NewProductPageProps = {

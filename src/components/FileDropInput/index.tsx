@@ -25,7 +25,7 @@ type FileDropInputProps = {
 };
 
 const DISPLAY_NAME = "FileDropInput";
-const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
+export const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
   (
     {
       name,
@@ -172,5 +172,3 @@ const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
 );
 
 FileDropInput.displayName = DISPLAY_NAME;
-
-export default FileDropInput;

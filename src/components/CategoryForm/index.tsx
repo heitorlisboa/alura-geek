@@ -9,8 +9,8 @@ import type { Category } from "@prisma/client";
 
 import styles from "./CategoryForm.module.scss";
 
-import Input from "@components/Input";
-import Button from "@components/Button";
+import { Input } from "@components/Input";
+import { Button } from "@components/Button";
 import { getFormErrorMessage } from "@src/utils";
 import type { ValidCategoryRequest } from "@src/types/category";
 
@@ -23,7 +23,10 @@ type CategoryFormProps = {
   initialValues?: Partial<FormFields>;
 };
 
-const CategoryForm: FC<CategoryFormProps> = ({ action, initialValues }) => {
+export const CategoryForm: FC<CategoryFormProps> = ({
+  action,
+  initialValues,
+}) => {
   const {
     register,
     handleSubmit,
@@ -94,5 +97,3 @@ const CategoryForm: FC<CategoryFormProps> = ({ action, initialValues }) => {
     </form>
   );
 };
-
-export default CategoryForm;

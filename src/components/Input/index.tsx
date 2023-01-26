@@ -37,7 +37,7 @@ type AsTextAreaProps = {
 type InputProps = (AsInputProps | AsTextAreaProps) & GeneralProps;
 
 const DISPLAY_NAME = "Input";
-const Input = forwardRef<InputElement, InputProps>(
+export const Input = forwardRef<InputElement, InputProps>(
   (
     {
       id,
@@ -140,5 +140,3 @@ const Input = forwardRef<InputElement, InputProps>(
 );
 
 Input.displayName = DISPLAY_NAME;
-
-export default Input;

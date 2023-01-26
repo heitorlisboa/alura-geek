@@ -10,10 +10,10 @@ import type { Category } from "@prisma/client";
 
 import styles from "@page-styles/admin/Categories.module.scss";
 
-import Container from "@components/Container";
-import Button from "@components/Button";
-import TrashSvg from "@icons/TrashSvg";
-import PencilSvg from "@icons/PencilSvg";
+import { Container } from "@components/Container";
+import { Button } from "@components/Button";
+import { TrashSvg } from "@icons/TrashSvg";
+import { PencilSvg } from "@icons/PencilSvg";
 import { getBaseUrl } from "@src/utils";
 import type { CategoryWithProducts } from "@src/types/category";
 
