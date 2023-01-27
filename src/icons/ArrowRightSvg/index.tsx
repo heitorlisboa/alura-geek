@@ -1,8 +1,7 @@
+import clsx from "clsx";
 import type { FC } from "react";
 
 import styles from "./ArrowRightSvg.module.scss";
-
-import { classNames } from "@src/utils";
 
 type ArrowRightSvgProps = {
   className?: string;
@@ -10,7 +9,7 @@ type ArrowRightSvgProps = {
 
 export const ArrowRightSvg: FC<ArrowRightSvgProps> = ({ className }) => (
   <svg
-    {...classNames([styles.svg, className])}
+    className={clsx(styles.svg, className)}
     role="img"
     width="16"
     height="16"

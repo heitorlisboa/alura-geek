@@ -1,11 +1,11 @@
 import Router from "next/router";
 import { useForm } from "react-hook-form";
 import type { FC } from "react";
+import clsx from "clsx";
 
 import styles from "./SearchForm.module.scss";
 
 import { SearchSvg } from "@icons/SearchSvg";
-import { classNames } from "@src/utils";
 
 type FormFields = {
   searchProduct: string;
@@ -24,7 +24,7 @@ export const SearchForm: FC<SearchFormProps> = ({ className }) => {
 
   return (
     <form
-      {...classNames([styles.searchForm, className])}
+      className={clsx(styles.searchForm, className)}
       role="search"
       onSubmit={handleSubmit(handleSearch)}
     >

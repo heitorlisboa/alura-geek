@@ -1,11 +1,11 @@
 import { Children, type PropsWithChildren, useState } from "react";
 import { useClickOutside } from "@mantine/hooks";
 import type { FC } from "react";
+import clsx from "clsx";
 
 import styles from "./DropdownMenu.module.scss";
 
 import { Button } from "@components/Button";
-import { classNames } from "@src/utils";
 
 type DropdownMenuProps = PropsWithChildren<{
   menuTitle: string;
@@ -32,7 +32,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   }
 
   return (
-    <div {...classNames([styles.wrapper, className])} ref={ref}>
+    <div className={clsx(styles.wrapper, className)} ref={ref}>
       <Button
         className={styles.toggleButton}
         as="button"

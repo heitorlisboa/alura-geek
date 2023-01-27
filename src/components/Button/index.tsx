@@ -5,10 +5,9 @@ import type {
   AriaAttributes,
   PropsWithChildren,
 } from "react";
+import clsx from "clsx";
 
 import styles from "./Button.module.scss";
-
-import { classNames } from "@src/utils";
 
 type GeneralProps = PropsWithChildren<
   {
@@ -45,13 +44,13 @@ export const Button: FC<ButtonProps> = ({
   onClick,
   ...ariaAttrs
 }) => {
-  const classNameList = [styles.button, styles[variant], className];
+  const groupedClassNames = clsx(styles.button, styles[variant], className);
 
   switch (as) {
     case "button":
       return (
         <button
-          {...classNames(classNameList)}
+          className={groupedClassNames}
           type={buttonType}
           {...ariaAttrs}
           onClick={onClick}
@@ -62,7 +61,7 @@ export const Button: FC<ButtonProps> = ({
 
     case "link":
       return (
-        <Link {...classNames(classNameList)} href={linkHref} {...ariaAttrs}>
+        <Link className={groupedClassNames} href={linkHref} {...ariaAttrs}>
           {children}
         </Link>
       );

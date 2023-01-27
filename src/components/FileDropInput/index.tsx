@@ -1,15 +1,11 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { ChangeEvent, DragEvent, ReactElement } from "react";
 import type { ChangeHandler } from "react-hook-form";
+import clsx from "clsx";
 
 import styles from "./FileDropInput.module.scss";
 
-import {
-  changeInputFiles,
-  classNames,
-  imgFileToBase64,
-  mergeRefs,
-} from "@src/utils";
+import { changeInputFiles, imgFileToBase64, mergeRefs } from "@src/utils";
 
 type FileDropInputProps = {
   name: string;
@@ -138,10 +134,9 @@ export const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
           onDragLeave={handleDragLeave}
         >
           <div
-            {...classNames([
-              styles.dropAreaDefaultContent,
-              fileNames.length > 0 || placeholderImage ? "sr-only" : undefined,
-            ])}
+            className={clsx(styles.dropAreaDefaultContent, {
+              "sr-only": fileNames.length > 0 || placeholderImage,
+            })}
           >
             {Icon}
             <p>{description}</p>

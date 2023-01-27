@@ -1,8 +1,7 @@
 import type { FC } from "react";
+import clsx from "clsx";
 
 import styles from "./SearchSvg.module.scss";
-
-import { classNames } from "@src/utils";
 
 type SearchSvgProps = {
   className?: string;
@@ -10,7 +9,7 @@ type SearchSvgProps = {
 
 export const SearchSvg: FC<SearchSvgProps> = ({ className }) => (
   <svg
-    {...classNames([styles.svg, className])}
+    className={clsx(styles.svg, className)}
     role="img"
     width="18"
     height="18"

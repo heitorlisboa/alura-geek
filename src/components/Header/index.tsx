@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import type { FC } from "react";
+import clsx from "clsx";
 
 import styles from "./Header.module.scss";
 
@@ -14,7 +15,6 @@ import { SearchForm } from "@components/SearchForm";
 import { SearchSvg } from "@icons/SearchSvg";
 import { CloseSvg } from "@icons/CloseSvg";
 import { useWindowSize } from "@src/hooks/useWindowSize";
-import { classNames } from "@src/utils";
 
 export const Header: FC = () => {
   // Responsive layout
@@ -93,10 +93,9 @@ export const Header: FC = () => {
 
         {mobile && (
           <div
-            {...classNames([
-              styles.searchFormWrapper,
-              searchBarIsOpen ? styles.active : undefined,
-            ])}
+            className={clsx(styles.searchFormWrapper, {
+              [styles.active]: searchBarIsOpen,
+            })}
           >
             <SearchForm className={styles.searchForm} />
             <button onClick={closeSearchBar}>

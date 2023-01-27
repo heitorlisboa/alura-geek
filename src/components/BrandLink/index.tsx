@@ -1,9 +1,8 @@
 import Link from "next/link";
 import type { FC, PropsWithChildren } from "react";
+import clsx from "clsx";
 
 import styles from "./BrandLink.module.scss";
-
-import { classNames } from "@src/utils";
 
 type BrandLinkProps = PropsWithChildren<{
   href: string;
@@ -15,7 +14,7 @@ export const BrandLink: FC<BrandLinkProps> = ({
   href,
   className,
 }) => (
-  <Link {...classNames([className, styles.link])} href={href}>
+  <Link className={clsx(className, styles.link)} href={href}>
     {children}
   </Link>
 );

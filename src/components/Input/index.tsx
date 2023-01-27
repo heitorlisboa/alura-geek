@@ -1,10 +1,11 @@
 import { useRef, forwardRef, useCallback, useEffect } from "react";
 import type { HTMLProps, HTMLInputTypeAttribute, FocusEvent } from "react";
 import type { ChangeHandler } from "react-hook-form";
+import clsx from "clsx";
 
 import styles from "./Input.module.scss";
 
-import { classNames, mergeRefs } from "@src/utils";
+import { mergeRefs } from "@src/utils";
 import { AnyMutableRef } from "@src/types/misc";
 
 type InputElement = HTMLInputElement | HTMLTextAreaElement;
@@ -59,18 +60,14 @@ export const Input = forwardRef<InputElement, InputProps>(
     const labelRef = useRef<HTMLLabelElement>(null);
     const inputRef = useRef<InputElement>(null);
     const inputMergedRefs = mergeRefs(inputRef, ref);
-    const className = classNames(
-      [
-        styles[as],
-        labelVisible ? styles.withLabelVisible : undefined,
-        errorMessage ? styles.withError : undefined,
-      ],
-      false
-    );
+    const groupedClassNames = clsx(styles[as], {
+      [styles.withLabelVisible]: labelVisible,
+      [styles.withError]: errorMessage,
+    });
 
     const generalAttrs: HTMLProps<InputElement> = {
       id,
-      className,
+      className: groupedClassNames,
       name,
       placeholder,
       required,

@@ -1,10 +1,9 @@
 import { forwardRef } from "react";
 import type { PropsWithChildren } from "react";
 import type { ChangeHandler } from "react-hook-form";
+import clsx from "clsx";
 
 import styles from "./Select.module.scss";
-
-import { classNames } from "@src/utils";
 
 type SelectProps = PropsWithChildren<{
   id: string;
@@ -34,14 +33,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref
   ) => {
-    const className = classNames(
-      [
-        styles.select,
-        errorMessage ? styles.withError : undefined,
-        labelVisible ? styles.withLabelVisible : undefined,
-      ],
-      false
-    );
+    const groupedClassNames = clsx(styles.select, {
+      [styles.withError]: errorMessage,
+      [styles.withLabelVisible]: labelVisible,
+    });
 
     return (
       <>
@@ -55,7 +50,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             </label>
             <select
               id={id}
-              className={className}
+              className={groupedClassNames}
               name={name}
               required={required}
               ref={ref}
