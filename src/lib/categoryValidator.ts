@@ -5,9 +5,7 @@ import type {
 
 import { Validator } from "./Validator";
 
-const categoryValidator = new Validator<
+export const categoryValidator = new Validator<
   CategoryRequestToValidate,
   ValidCategoryRequest
 >({ name: "string" });
-
-export { categoryValidator };

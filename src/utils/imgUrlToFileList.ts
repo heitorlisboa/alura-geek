@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { createFileList } from "@/utils/createFileList";
 
-function imgUrlToFileList(
+export function imgUrlToFileList(
   url: string,
   fileName: string,
   callback: (fileList: FileList) => void
@@ -20,5 +20,3 @@ function imgUrlToFileList(
       callback(fileList);
     });
 }
-
-export { imgUrlToFileList };

@@ -1,7 +1,7 @@
 /**
  * Get the image public id from its Cloudinary url
  */
-function getPublicIdFromUrl(url: string) {
+export function getPublicIdFromUrl(url: string) {
   const firstMatch = url.match(/[^\/]+\/[^\/]+$/);
 
   if (!firstMatch) throw new Error("Invalid URL");
@@ -12,5 +12,3 @@ function getPublicIdFromUrl(url: string) {
 
   return secondMatch[0];
 }
-
-export { getPublicIdFromUrl };

@@ -5,7 +5,7 @@ import type {
 
 import { Validator } from "./Validator";
 
-const productValidator = new Validator<
+export const productValidator = new Validator<
   ProductRequestToValidate,
   ValidProductRequest
 >({
@@ -15,5 +15,3 @@ const productValidator = new Validator<
   base64Image: "string",
   categoryName: "string",
 });
-
-export { productValidator };

@@ -1,6 +1,6 @@
 import type { AnyMutableRef } from "@/types/misc";
 
-function mergeRefs<T>(...refs: AnyMutableRef<T>[]) {
+export function mergeRefs<T>(...refs: AnyMutableRef<T>[]) {
   const filteredRefs = refs.filter(Boolean);
   if (!filteredRefs) return null;
   if (filteredRefs.length === 1) return filteredRefs[0];
@@ -12,5 +12,3 @@ function mergeRefs<T>(...refs: AnyMutableRef<T>[]) {
     }
   };
 }
-
-export { mergeRefs };

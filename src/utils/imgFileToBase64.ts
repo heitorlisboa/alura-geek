@@ -1,4 +1,4 @@
-function imgFileToBase64(
+export function imgFileToBase64(
   file: File,
   callback: (base64EncodedImage: string | ArrayBuffer | null) => void,
   errorHandler?: () => void
@@ -13,5 +13,3 @@ function imgFileToBase64(
 
   reader.readAsDataURL(file);
 }
-
-export { imgFileToBase64 };

@@ -8,7 +8,7 @@ type PrimitiveType =
   | "symbol"
   | "undefined";
 
-class Validator<T extends object, P extends T> {
+export class Validator<T extends object, P extends T> {
   constructor(private types: Record<keyof T, PrimitiveType>) {}
 
   public validate(itemRequest: T, allRequired: true): itemRequest is P;
@@ -32,5 +32,3 @@ class Validator<T extends object, P extends T> {
     return true;
   }
 }
-
-export { Validator };

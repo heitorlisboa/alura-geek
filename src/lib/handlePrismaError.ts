@@ -1,7 +1,7 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import type { NextApiResponse } from "next";
 
-function handlePrismaError(
+export function handlePrismaError(
   error: unknown,
   res: NextApiResponse,
   itemName: "Produto" | "Categoria"
@@ -25,4 +25,3 @@ function handlePrismaError(
     error: `Erro desconhecido ao realização ação com ${itemName.toLowerCase()}`,
   });
 }
-export { handlePrismaError };

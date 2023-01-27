@@ -1,6 +1,6 @@
 import type { FieldError } from "react-hook-form";
 
-function getFormErrorMessage(fieldError: FieldError | undefined) {
+export function getFormErrorMessage(fieldError: FieldError | undefined) {
   if (!fieldError) {
     return undefined;
   }
@@ -25,5 +25,3 @@ function getFormErrorMessage(fieldError: FieldError | undefined) {
       return `Erro do tipo ${fieldError.type}`;
   }
 }
-
-export { getFormErrorMessage };
