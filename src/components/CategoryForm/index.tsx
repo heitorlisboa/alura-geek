@@ -9,10 +9,10 @@ import type { Category } from "@prisma/client";
 
 import styles from "./CategoryForm.module.scss";
 
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
-import { getFormErrorMessage } from "@src/utils";
-import type { ValidCategoryRequest } from "@src/types/category";
+import { Input } from "@/components/Input";
+import { Button } from "@/components/Button";
+import { getFormErrorMessage } from "@/utils";
+import type { ValidCategoryRequest } from "@/types/category";
 
 type FormFields = {
   categoryName: string;

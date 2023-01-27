@@ -6,11 +6,11 @@ import type {
   NextPage,
 } from "next";
 
-import styles from "@page-styles/Login.module.scss";
+import styles from "@/styles/pages/Login.module.scss";
 
-import { Container } from "@components/Container";
-import { Button } from "@components/Button";
-import { GitHubSvg } from "@icons/GitHubSvg";
+import { Container } from "@/components/Container";
+import { Button } from "@/components/Button";
+import { GitHubSvg } from "@/icons/GitHubSvg";
 
 const LoginPage: NextPage = () => {
   function handleSignIn() {

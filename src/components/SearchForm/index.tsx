@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 import styles from "./SearchForm.module.scss";
 
-import { SearchSvg } from "@icons/SearchSvg";
+import { SearchSvg } from "@/icons/SearchSvg";
 
 type FormFields = {
   searchProduct: string;

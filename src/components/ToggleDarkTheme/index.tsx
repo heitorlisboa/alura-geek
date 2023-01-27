@@ -2,8 +2,8 @@ import { ActionIcon, useMantineColorScheme } from "@mantine/core";
 
 import styles from "./ToggleDarkTheme.module.scss";
 
-import { MoonSvg } from "@icons/MoonSvg";
-import { SunSvg } from "@icons/SunSvg";
+import { MoonSvg } from "@/icons/MoonSvg";
+import { SunSvg } from "@/icons/SunSvg";
 
 export const ToggleDarkTheme = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();

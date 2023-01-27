@@ -9,13 +9,13 @@ import type {
   NextPage,
 } from "next";
 
-import styles from "@page-styles/Product.module.scss";
+import styles from "@/styles/pages/Product.module.scss";
 
-import { Fallback } from "@components/Fallback";
-import { Container } from "@components/Container";
-import { ProductsCategory } from "@components/ProductsCategory";
-import { formatPrice } from "@src/utils";
-import { prisma } from "@src/lib/prisma";
+import { Fallback } from "@/components/Fallback";
+import { Container } from "@/components/Container";
+import { ProductsCategory } from "@/components/ProductsCategory";
+import { formatPrice } from "@/utils";
+import { prisma } from "@/lib/prisma";
 
 type ProductPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 

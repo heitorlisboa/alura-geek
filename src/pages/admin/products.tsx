@@ -14,14 +14,14 @@ import type {
 } from "next";
 import type { Product } from "@prisma/client";
 
-import styles from "@page-styles/admin/Products.module.scss";
+import styles from "@/styles/pages/admin/Products.module.scss";
 
-import { Container } from "@components/Container";
-import { Button } from "@components/Button";
-import { TrashSvg } from "@icons/TrashSvg";
-import { PencilSvg } from "@icons/PencilSvg";
-import { BrandLink } from "@components/BrandLink";
-import { formatPrice, getBaseUrl } from "@src/utils";
+import { Container } from "@/components/Container";
+import { Button } from "@/components/Button";
+import { TrashSvg } from "@/icons/TrashSvg";
+import { PencilSvg } from "@/icons/PencilSvg";
+import { BrandLink } from "@/components/BrandLink";
+import { formatPrice, getBaseUrl } from "@/utils";
 
 type ManageProductsPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

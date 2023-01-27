@@ -4,11 +4,11 @@ import { showNotification } from "@mantine/notifications";
 
 import styles from "./Footer.module.scss";
 
-import { Container } from "@components/Container";
-import { LogoSvg } from "@src/icons/LogoSvg";
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
-import { getFormErrorMessage } from "@src/utils";
+import { Container } from "@/components/Container";
+import { LogoSvg } from "@/icons/LogoSvg";
+import { Input } from "@/components/Input";
+import { Button } from "@/components/Button";
+import { getFormErrorMessage } from "@/utils";
 
 type ContactFields = {
   name: string;

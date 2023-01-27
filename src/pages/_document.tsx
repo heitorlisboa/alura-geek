@@ -8,7 +8,7 @@ import Document, {
 } from "next/document";
 import { createStylesServer, ServerStyles } from "@mantine/next";
 
-import { emotionCache } from "@src/config/emotion-cache";
+import { emotionCache } from "@/config/emotion-cache";
 
 const stylesServer = createStylesServer(emotionCache);
 

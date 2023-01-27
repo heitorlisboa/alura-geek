@@ -5,12 +5,12 @@ import type {
   NextPage,
 } from "next";
 
-import styles from "@page-styles/Home.module.scss";
+import styles from "@/styles/pages/Home.module.scss";
 
-import { Container } from "@components/Container";
-import { Button } from "@components/Button";
-import { ProductsCategory } from "@components/ProductsCategory";
-import { prisma } from "@src/lib/prisma";
+import { Container } from "@/components/Container";
+import { Button } from "@/components/Button";
+import { ProductsCategory } from "@/components/ProductsCategory";
+import { prisma } from "@/lib/prisma";
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 

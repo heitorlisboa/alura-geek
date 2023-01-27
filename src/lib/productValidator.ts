@@ -1,7 +1,7 @@
 import type {
   ProductRequestToValidate,
   ValidProductRequest,
-} from "@src/types/product";
+} from "@/types/product";
 
 import { Validator } from "./Validator";
 

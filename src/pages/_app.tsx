@@ -10,11 +10,11 @@ import {
 import { NotificationsProvider } from "@mantine/notifications";
 import type { AppProps } from "next/app";
 
-import "@src/styles/global/index.scss";
+import "@/styles/global/index.scss";
 
-import { emotionCache } from "@src/config/emotion-cache";
-import { Header } from "@components/Header";
-import { Footer } from "@components/Footer";
+import { emotionCache } from "@/config/emotion-cache";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");

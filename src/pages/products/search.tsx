@@ -8,11 +8,11 @@ import type {
 } from "next";
 import type { Product } from "@prisma/client";
 
-import styles from "@page-styles/SearchProducts.module.scss";
+import styles from "@/styles/pages/SearchProducts.module.scss";
 
-import { Container } from "@src/components/Container";
-import { ProductItem } from "@src/components/ProductItem";
-import { getBaseUrl } from "@src/utils";
+import { Container } from "@/components/Container";
+import { ProductItem } from "@/components/ProductItem";
+import { getBaseUrl } from "@/utils";
 
 type SearchProductsPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

@@ -9,18 +9,18 @@ import type { Category, Product } from "@prisma/client";
 
 import styles from "./ProductForm.module.scss";
 
-import { FileDropInput } from "@components/FileDropInput";
-import { ImagePlaceholderSvg } from "@icons/ImagePlaceholderSvg";
-import { Select } from "@components/Select";
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
+import { FileDropInput } from "@/components/FileDropInput";
+import { ImagePlaceholderSvg } from "@/icons/ImagePlaceholderSvg";
+import { Select } from "@/components/Select";
+import { Input } from "@/components/Input";
+import { Button } from "@/components/Button";
 import {
   bytesToMegaBytes,
   getFormErrorMessage,
   imgFileToBase64,
   mergeRefs,
-} from "@src/utils";
-import type { ValidProductRequest } from "@src/types/product";
+} from "@/utils";
+import type { ValidProductRequest } from "@/types/product";
 
 type FormFields = {
   productImage: FileList;

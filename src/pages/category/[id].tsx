@@ -8,12 +8,12 @@ import type {
   NextPage,
 } from "next";
 
-import styles from "@page-styles/Category.module.scss";
+import styles from "@/styles/pages/Category.module.scss";
 
-import { Fallback } from "@components/Fallback";
-import { Container } from "@components/Container";
-import { ProductItem } from "@components/ProductItem";
-import { prisma } from "@src/lib/prisma";
+import { Fallback } from "@/components/Fallback";
+import { Container } from "@/components/Container";
+import { ProductItem } from "@/components/ProductItem";
+import { prisma } from "@/lib/prisma";
 
 type CategoryPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 

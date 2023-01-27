@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
-import { handlePrismaError } from "@src/lib/handlePrismaError";
-import { prisma } from "@src/lib/prisma";
+import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
+import { handlePrismaError } from "@/lib/handlePrismaError";
+import { prisma } from "@/lib/prisma";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {

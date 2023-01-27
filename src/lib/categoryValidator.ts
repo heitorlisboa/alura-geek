@@ -1,7 +1,7 @@
 import type {
   CategoryRequestToValidate,
   ValidCategoryRequest,
-} from "@src/types/category";
+} from "@/types/category";
 
 import { Validator } from "./Validator";
 

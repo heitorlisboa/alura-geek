@@ -13,14 +13,14 @@ import type {
 } from "next";
 import type { Category } from "@prisma/client";
 
-import styles from "@page-styles/admin/Categories.module.scss";
+import styles from "@/styles/pages/admin/Categories.module.scss";
 
-import { Container } from "@components/Container";
-import { Button } from "@components/Button";
-import { TrashSvg } from "@icons/TrashSvg";
-import { PencilSvg } from "@icons/PencilSvg";
-import { getBaseUrl } from "@src/utils";
-import type { CategoryWithProducts } from "@src/types/category";
+import { Container } from "@/components/Container";
+import { Button } from "@/components/Button";
+import { TrashSvg } from "@/icons/TrashSvg";
+import { PencilSvg } from "@/icons/PencilSvg";
+import { getBaseUrl } from "@/utils";
+import type { CategoryWithProducts } from "@/types/category";
 
 type ManageCategoriesPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

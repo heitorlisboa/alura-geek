@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 import styles from "./DropdownMenu.module.scss";
 
-import { Button } from "@components/Button";
+import { Button } from "@/components/Button";
 
 type DropdownMenuProps = PropsWithChildren<{
   menuTitle: string;

@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { apiRouteWithAuth } from "@src/middlewares/apiRouteWithAuth";
-import { prisma } from "@src/lib/prisma";
-import { categoryValidator } from "@src/lib/categoryValidator";
-import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
-import { handlePrismaError } from "@src/lib/handlePrismaError";
-import type { CategoryRequestToValidate } from "@src/types/category";
-import { revalidateCategoryPages } from "@src/lib/revalidatePage";
+import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
+import { prisma } from "@/lib/prisma";
+import { categoryValidator } from "@/lib/categoryValidator";
+import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
+import { handlePrismaError } from "@/lib/handlePrismaError";
+import type { CategoryRequestToValidate } from "@/types/category";
+import { revalidateCategoryPages } from "@/lib/revalidatePage";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {

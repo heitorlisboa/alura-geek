@@ -6,15 +6,15 @@ import clsx from "clsx";
 
 import styles from "./Header.module.scss";
 
-import { Container } from "@components/Container";
-import { LogoSvg } from "@icons/LogoSvg";
-import { ToggleDarkTheme } from "@src/components/ToggleDarkTheme";
-import { DropdownMenu } from "@components/DropdownMenu";
-import { Button } from "@components/Button";
-import { SearchForm } from "@components/SearchForm";
-import { SearchSvg } from "@icons/SearchSvg";
-import { CloseSvg } from "@icons/CloseSvg";
-import { useWindowSize } from "@src/hooks/useWindowSize";
+import { Container } from "@/components/Container";
+import { LogoSvg } from "@/icons/LogoSvg";
+import { ToggleDarkTheme } from "@/components/ToggleDarkTheme";
+import { DropdownMenu } from "@/components/DropdownMenu";
+import { Button } from "@/components/Button";
+import { SearchForm } from "@/components/SearchForm";
+import { SearchSvg } from "@/icons/SearchSvg";
+import { CloseSvg } from "@/icons/CloseSvg";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 export const Header: FC = () => {
   // Responsive layout

@@ -5,8 +5,8 @@ import clsx from "clsx";
 
 import styles from "./Input.module.scss";
 
-import { mergeRefs } from "@src/utils";
-import { AnyMutableRef } from "@src/types/misc";
+import { mergeRefs } from "@/utils";
+import { AnyMutableRef } from "@/types/misc";
 
 type InputElement = HTMLInputElement | HTMLTextAreaElement;
 

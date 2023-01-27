@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 import styles from "./FileDropInput.module.scss";
 
-import { changeInputFiles, imgFileToBase64, mergeRefs } from "@src/utils";
+import { changeInputFiles, imgFileToBase64, mergeRefs } from "@/utils";
 
 type FileDropInputProps = {
   name: string;

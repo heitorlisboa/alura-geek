@@ -1,4 +1,4 @@
-import type { AnyMutableRef } from "@src/types/misc";
+import type { AnyMutableRef } from "@/types/misc";
 
 function mergeRefs<T>(...refs: AnyMutableRef<T>[]) {
   const filteredRefs = refs.filter(Boolean);

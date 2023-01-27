@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { createFileList } from "@src/utils/createFileList";
+import { createFileList } from "@/utils/createFileList";
 
 function imgUrlToFileList(
   url: string,

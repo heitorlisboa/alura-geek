@@ -1,16 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { Product } from "@prisma/client";
 
-import { apiRouteWithAuth } from "@src/middlewares/apiRouteWithAuth";
-import { prisma } from "@src/lib/prisma";
-import { cloudinary } from "@src/lib/cloudinary";
-import { productValidator } from "@src/lib/productValidator";
-import { getPublicIdFromUrl } from "@src/lib/getPublicIdFromUrl";
-import { revalidateProductPages } from "@src/lib/revalidatePage";
-import { handleInvalidHttpMethod } from "@src/lib/handleInvalidHttpMethod";
-import { handlePrismaError } from "@src/lib/handlePrismaError";
-import { handleCloudinaryError } from "@src/lib/handleCloudinaryError";
-import type { ProductRequestToValidate } from "@src/types/product";
+import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
+import { prisma } from "@/lib/prisma";
+import { cloudinary } from "@/lib/cloudinary";
+import { productValidator } from "@/lib/productValidator";
+import { getPublicIdFromUrl } from "@/lib/getPublicIdFromUrl";
+import { revalidateProductPages } from "@/lib/revalidatePage";
+import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
+import { handlePrismaError } from "@/lib/handlePrismaError";
+import { handleCloudinaryError } from "@/lib/handleCloudinaryError";
+import type { ProductRequestToValidate } from "@/types/product";
 
 type Query = { id: string };
 

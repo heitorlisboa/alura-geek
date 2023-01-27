@@ -8,9 +8,9 @@ import type {
 } from "next";
 import type { Category } from "@prisma/client";
 
-import { Container } from "@components/Container";
-import { ProductForm } from "@components/ProductForm";
-import { getBaseUrl } from "@src/utils";
+import { Container } from "@/components/Container";
+import { ProductForm } from "@/components/ProductForm";
+import { getBaseUrl } from "@/utils";
 
 type NewProductPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

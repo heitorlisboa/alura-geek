@@ -2,7 +2,7 @@ import Head from "next/head";
 
 import styles from "./Fallback.module.scss";
 
-import { Container } from "@components/Container";
+import { Container } from "@/components/Container";
 
 export const Fallback = () => (
   <>
