@@ -1,6 +1,5 @@
-import { Children, type PropsWithChildren, useState } from "react";
+import { Children, type FC, type PropsWithChildren, useState } from "react";
 import { useClickOutside } from "@mantine/hooks";
-import type { FC } from "react";
 import clsx from "clsx";
 
 import styles from "./DropdownMenu.module.scss";

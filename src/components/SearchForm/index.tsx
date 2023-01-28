@@ -1,6 +1,6 @@
 import Router from "next/router";
-import { useForm } from "react-hook-form";
 import type { FC } from "react";
+import { useForm } from "react-hook-form";
 import clsx from "clsx";
 
 import styles from "./SearchForm.module.scss";

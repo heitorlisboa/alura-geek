@@ -1,6 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import type {
   GetStaticPaths,
   GetStaticPropsContext,
@@ -8,14 +5,17 @@ import type {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 import styles from "@/styles/pages/Product.module.scss";
 
 import { Fallback } from "@/components/Fallback";
 import { Container } from "@/components/Container";
 import { ProductsCategory } from "@/components/ProductsCategory";
-import { formatPrice } from "@/utils";
 import { prisma } from "@/lib/prisma";
+import { formatPrice } from "@/utils";
 
 type ProductPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 

@@ -1,11 +1,10 @@
 import Router from "next/router";
-import axios from "axios";
-import { useRef, useState } from "react";
+import { type FC, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { LoadingOverlay } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import type { FC } from "react";
 import type { Category, Product } from "@prisma/client";
+import axios from "axios";
 
 import styles from "./ProductForm.module.scss";
 

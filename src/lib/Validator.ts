@@ -18,10 +18,7 @@ export class Validator<T extends object, P extends T> {
     allRequired?: false
   ): itemRequest is Partial<P>;
 
-  public validate(
-    itemRequest: T,
-    allRequired: boolean = false
-  ): itemRequest is P {
+  public validate(itemRequest: T, allRequired = false): itemRequest is P {
     const object = allRequired ? this.types : itemRequest;
 
     let key: keyof typeof object;

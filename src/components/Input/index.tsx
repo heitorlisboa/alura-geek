@@ -1,12 +1,19 @@
-import { useRef, forwardRef, useCallback, useEffect } from "react";
-import type { HTMLProps, HTMLInputTypeAttribute, FocusEvent } from "react";
+import {
+  type FocusEvent,
+  forwardRef,
+  type HTMLInputTypeAttribute,
+  type HTMLProps,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import type { ChangeHandler } from "react-hook-form";
 import clsx from "clsx";
 
 import styles from "./Input.module.scss";
 
 import { mergeRefs } from "@/utils";
-import { AnyMutableRef } from "@/types/misc";
+import type { AnyMutableRef } from "@/types/misc";
 
 type InputElement = HTMLInputElement | HTMLTextAreaElement;
 

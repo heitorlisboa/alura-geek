@@ -1,11 +1,10 @@
-import axios from "axios";
-import { useState } from "react";
+import { type ChangeEvent, type FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Checkbox, Modal } from "@mantine/core";
 import { randomId, useListState } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import type { ChangeEvent, FC } from "react";
 import type { Category, Product } from "@prisma/client";
+import axios from "axios";
 
 import styles from "./ProductsSelection.module.scss";
 

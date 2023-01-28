@@ -1,5 +1,5 @@
-import clsx from "clsx";
 import type { FC } from "react";
+import clsx from "clsx";
 
 import styles from "./ArrowRightSvg.module.scss";
 

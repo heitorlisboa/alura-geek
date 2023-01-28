@@ -1,10 +1,10 @@
-import Head from "next/head";
-import { getSession, signIn } from "next-auth/react";
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   NextPage,
 } from "next";
+import Head from "next/head";
+import { getSession, signIn } from "next-auth/react";
 
 import styles from "@/styles/pages/Login.module.scss";
 

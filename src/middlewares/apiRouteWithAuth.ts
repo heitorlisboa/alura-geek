@@ -1,5 +1,5 @@
-import { getSession } from "next-auth/react";
 import type { NextApiHandler } from "next";
+import { getSession } from "next-auth/react";
 
 export function apiRouteWithAuth(handler: NextApiHandler): NextApiHandler {
   return async function (req, res) {

@@ -5,8 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { categoryValidator } from "@/lib/categoryValidator";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
-import type { CategoryRequestToValidate } from "@/types/category";
 import { revalidateCategoryPages } from "@/lib/revalidatePage";
+import type { CategoryRequestToValidate } from "@/types/category";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {

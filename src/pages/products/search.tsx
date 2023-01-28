@@ -1,12 +1,12 @@
-import Head from "next/head";
-import axios from "axios";
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import Head from "next/head";
 import type { Product } from "@prisma/client";
+import axios from "axios";
 
 import styles from "@/styles/pages/SearchProducts.module.scss";
 

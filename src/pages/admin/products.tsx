@@ -1,18 +1,18 @@
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import axios from "axios";
-import { useState } from "react";
-import { Modal } from "@mantine/core";
-import { randomId } from "@mantine/hooks";
-import { showNotification, updateNotification } from "@mantine/notifications";
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { Modal } from "@mantine/core";
+import { randomId } from "@mantine/hooks";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import type { Product } from "@prisma/client";
+import axios from "axios";
 
 import styles from "@/styles/pages/admin/Products.module.scss";
 

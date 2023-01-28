@@ -1,20 +1,20 @@
+import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { parseCookies, setCookie } from "nookies";
 import {
-  MantineProvider,
-  ColorSchemeProvider,
   type ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
 } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import type { AppProps } from "next/app";
 
 import "@/styles/global/index.scss";
 
-import { emotionCache } from "@/config/emotion-cache";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { emotionCache } from "@/config/emotion-cache";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");

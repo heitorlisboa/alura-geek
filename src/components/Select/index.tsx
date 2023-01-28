@@ -1,5 +1,4 @@
-import { forwardRef } from "react";
-import type { PropsWithChildren } from "react";
+import { forwardRef, type PropsWithChildren } from "react";
 import type { ChangeHandler } from "react-hook-form";
 import clsx from "clsx";
 

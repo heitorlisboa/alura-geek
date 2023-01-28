@@ -1,8 +1,9 @@
 import { PrismaClient, type Product } from "@prisma/client";
 import path from "path";
 
+import { cloudinary } from "@/lib/cloudinary";
+
 import seedSource from "./seedSource.json";
-import { cloudinary } from "../../src/lib/cloudinary";
 
 const prisma = new PrismaClient();
 

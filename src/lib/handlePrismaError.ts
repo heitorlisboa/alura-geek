@@ -1,5 +1,5 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import type { NextApiResponse } from "next";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 
 export function handlePrismaError(
   error: unknown,

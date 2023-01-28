@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { useState } from "react";
+import { type FC, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
-import type { FC } from "react";
 import clsx from "clsx";
 
 import styles from "./Header.module.scss";

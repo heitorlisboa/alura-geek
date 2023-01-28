@@ -1,8 +1,17 @@
 {
-  "extends": "next/core-web-vitals",
-  "plugins": ["eslint-plugin-import-helpers"],
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "eslint-plugin-import-helpers"],
   "rules": {
     "@next/next/no-img-element": "off",
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      { "fixStyle": "inline-type-imports" }
+    ],
+    /* For some reason, `import/no-duplicates` doesn't warn every time it
+    should, so using `no-duplicate-imports` is helpful to warn in those cases */
+    "no-duplicate-imports": "warn",
+    "import/no-duplicates": ["warn", { "prefer-inline": true }],
     "import-helpers/order-imports": [
       "warn",
       {
@@ -14,6 +23,10 @@
           ["parent", "sibling", "index"]
         ]
       }
+    ],
+    "sort-imports": [
+      "warn",
+      { "ignoreCase": true, "ignoreDeclarationSort": true }
     ]
   }
 }

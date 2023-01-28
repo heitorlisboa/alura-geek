@@ -1,5 +1,12 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
-import type { ChangeEvent, DragEvent, ReactElement } from "react";
+import {
+  type ChangeEvent,
+  type DragEvent,
+  forwardRef,
+  type ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import type { ChangeHandler } from "react-hook-form";
 import clsx from "clsx";
 
@@ -56,14 +63,14 @@ export const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
       if (fileInputElement)
         changeInputFiles(fileInputElement, event.dataTransfer.files);
 
-      handleDragLeave(event);
+      handleDragLeave();
     }
 
-    function handleDragEnter(event: DragEvent) {
+    function handleDragEnter() {
       dropAreaRef.current?.classList.add(styles.dragOver);
     }
 
-    function handleDragLeave(event: DragEvent) {
+    function handleDragLeave() {
       dropAreaRef.current?.classList.remove(styles.dragOver);
     }
 

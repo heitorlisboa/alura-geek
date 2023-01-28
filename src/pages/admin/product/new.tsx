@@ -1,12 +1,12 @@
-import Head from "next/head";
-import axios from "axios";
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import Head from "next/head";
 import type { Category } from "@prisma/client";
+import axios from "axios";
 
 import { Container } from "@/components/Container";
 import { ProductForm } from "@/components/ProductForm";

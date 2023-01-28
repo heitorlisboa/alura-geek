@@ -1,5 +1,3 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
 import type {
   GetStaticPaths,
   GetStaticPropsContext,
@@ -7,6 +5,8 @@ import type {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 import styles from "@/styles/pages/Category.module.scss";
 
