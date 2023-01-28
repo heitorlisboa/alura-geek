@@ -8,6 +8,7 @@ import type {
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { z } from "zod";
 
 import styles from "@/styles/pages/Product.module.scss";
 
@@ -76,19 +77,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export async function getStaticProps(
-  context: GetStaticPropsContext<{ id: string }>
-) {
-  if (!context.params)
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const paramsSchema = z.object({ id: z.string().uuid() });
+  const paramsParseResult = paramsSchema.safeParse(context.params);
+
+  if (!paramsParseResult.success)
     return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
-  const { id } = context.params;
+  const { id } = paramsParseResult.data;
 
-  const product = await prisma.product.findUnique({
-    where: {
-      id,
-    },
-  });
+  const product = await prisma.product.findUnique({ where: { id } });
 
   if (!product)
     return { notFound: true } satisfies GetStaticPropsResult<unknown>;

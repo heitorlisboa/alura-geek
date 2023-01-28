@@ -7,6 +7,7 @@ import type {
 import Head from "next/head";
 import type { Product } from "@prisma/client";
 import axios from "axios";
+import { z } from "zod";
 
 import styles from "@/styles/pages/SearchProducts.module.scss";
 
@@ -19,7 +20,7 @@ type SearchProductsPageProps = InferGetServerSidePropsType<
 >;
 
 const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
-  query,
+  productSearchQuery,
   productsFound,
 }) => {
   const pageTitleId = "search-products-title";
@@ -27,13 +28,13 @@ const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
   return (
     <>
       <Head>
-        <title>Buscando &quot;{query}&quot;</title>
+        <title>Buscando &quot;{productSearchQuery}&quot;</title>
       </Head>
 
       <main id="main-content">
         <Container className={styles.container}>
           <h2 id={pageTitleId} className={styles.title}>
-            Resultados da busca de &quot;{query}&quot;
+            Resultados da busca de &quot;{productSearchQuery}&quot;
           </h2>
 
           {productsFound.length > 0 ? (
@@ -54,18 +55,23 @@ const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const baseUrl = getBaseUrl(context.req.headers);
-  const query = context.query.q;
+  const querySchema = z.object({ q: z.string().min(1) });
+  const queryParseResult = querySchema.safeParse(context.query);
 
-  if (typeof query !== "string") return { notFound: true };
+  if (!queryParseResult.success)
+    return { notFound: true } satisfies GetServerSidePropsResult<unknown>;
+
+  const productSearchQuery = queryParseResult.data.q;
+
+  const baseUrl = getBaseUrl(context.req.headers);
 
   const productsFound: Product[] = (
-    await axios.get(`${baseUrl}/api/products/search?q=${query}`)
+    await axios.get(`${baseUrl}/api/products/search?q=${productSearchQuery}`)
   ).data;
 
   return {
     props: {
-      query,
+      productSearchQuery,
       productsFound,
     },
   } satisfies GetServerSidePropsResult<unknown>;

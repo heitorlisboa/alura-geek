@@ -7,6 +7,7 @@ import type {
 } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { z } from "zod";
 
 import styles from "@/styles/pages/Category.module.scss";
 
@@ -61,13 +62,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export async function getStaticProps(
-  context: GetStaticPropsContext<{ id: string }>
-) {
-  if (!context.params)
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const paramsSchema = z.object({ id: z.string().uuid() });
+  const paramsParseResult = paramsSchema.safeParse(context.params);
+
+  if (!paramsParseResult.success)
     return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
-  const { id } = context.params;
+  const { id } = paramsParseResult.data;
 
   const category = await prisma.category.findUnique({
     where: { id },

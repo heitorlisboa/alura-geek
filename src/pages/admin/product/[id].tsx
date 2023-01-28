@@ -7,6 +7,7 @@ import type {
 import Head from "next/head";
 import type { Category, Product } from "@prisma/client";
 import axios from "axios";
+import { z } from "zod";
 
 import { Container } from "@/components/Container";
 import { ProductForm } from "@/components/ProductForm";
@@ -50,11 +51,15 @@ const EditProductPage: NextPage<EditProductPageProps> = ({
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  if (!context.params) return { notFound: true };
+  const paramsSchema = z.object({ id: z.string().uuid() });
+  const paramsParseResult = paramsSchema.safeParse(context.params);
+
+  if (!paramsParseResult.success)
+    return { notFound: true } satisfies GetServerSidePropsResult<unknown>;
 
   const baseUrl = getBaseUrl(context.req.headers);
 
-  const { id } = context.params;
+  const { id } = paramsParseResult.data;
 
   const product: Product = (await axios.get(`${baseUrl}/api/product/${id}`))
     .data;
