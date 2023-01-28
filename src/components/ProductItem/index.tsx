@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { FC } from "react";
-import type { Product as IProduct } from "@prisma/client";
+import type { Product } from "@prisma/client";
 
 import styles from "./ProductItem.module.scss";
 
@@ -8,7 +8,7 @@ import { BrandLink } from "@/components/BrandLink";
 import { formatPrice } from "@/utils";
 
 type ProductItemProps = {
-  product: IProduct;
+  product: Product;
 };
 
 export const ProductItem: FC<ProductItemProps> = ({
