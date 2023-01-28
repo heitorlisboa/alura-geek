@@ -4,13 +4,12 @@ import type { Product } from "@prisma/client";
 import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
 import { prisma } from "@/lib/prisma";
 import { cloudinary } from "@/lib/cloudinary";
-import { productValidator } from "@/lib/productValidator";
+import { productCreateSchema } from "@/lib/productSchema";
 import { getPublicIdFromUrl } from "@/lib/getPublicIdFromUrl";
 import { revalidateProductPages } from "@/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
 import { handleCloudinaryError } from "@/lib/handleCloudinaryError";
-import type { ProductRequestToValidate } from "@/types/product";
 
 type Query = { id: string };
 
@@ -62,10 +61,12 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query as Query;
-  const productRequest: Partial<ProductRequestToValidate> = req.body;
+  const productRequest: unknown = req.body;
 
-  const valid = productValidator.validate(productRequest);
-  if (!valid) {
+  const productParseResult = productCreateSchema
+    .partial()
+    .safeParse(productRequest);
+  if (!productParseResult.success) {
     res.status(400).json({
       error: "Produto inválido",
     });
@@ -73,7 +74,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const { name, price, description, base64Image, categoryName } =
-    productRequest;
+    productParseResult.data;
 
   const productWithChanges: Partial<Product> = {
     name,

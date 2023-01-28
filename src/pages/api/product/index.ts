@@ -3,12 +3,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
 import { prisma } from "@/lib/prisma";
 import { cloudinary } from "@/lib/cloudinary";
-import { productValidator } from "@/lib/productValidator";
+import { productCreateSchema } from "@/lib/productSchema";
 import { revalidateProductPages } from "@/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
 import { handleCloudinaryError } from "@/lib/handleCloudinaryError";
-import type { ProductRequestToValidate } from "@/types/product";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
@@ -19,10 +18,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
-  const productRequest: ProductRequestToValidate = req.body;
+  const productRequest: unknown = req.body;
 
-  const valid = productValidator.validate(productRequest, true);
-  if (!valid) {
+  const productParseResult = productCreateSchema.safeParse(productRequest);
+  if (!productParseResult.success) {
     res.status(400).json({
       error: "Produto inválido",
     });
@@ -30,7 +29,7 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const { name, price, description, base64Image, categoryName } =
-    productRequest;
+    productParseResult.data;
 
   const category = await prisma.category.findUnique({
     where: {

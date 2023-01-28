@@ -13,7 +13,7 @@ import { Button } from "@/components/Button";
 import { TrashSvg } from "@/icons/TrashSvg";
 import { MoveFromGroupSvg } from "@/icons/MoveFromGroupSvg";
 import { getFormErrorMessage } from "@/utils";
-import type { ValidProductRequest } from "@/types/product";
+import { type ProductCreateSchema } from "@/lib/productSchema";
 
 type FormFields = { categoryName: string };
 
@@ -147,7 +147,7 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
     try {
       // Product category change request
       const movedProductsPromise = checkedProducts.map(async ({ id }) => {
-        const reqBody: Partial<ValidProductRequest> = { categoryName };
+        const reqBody: Partial<ProductCreateSchema> = { categoryName };
         return (await axios.put(`/api/product/${id}`, reqBody)).data;
       });
       const movedProducts: Product[] = await Promise.all(movedProductsPromise);

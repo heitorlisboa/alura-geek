@@ -19,7 +19,7 @@ import {
   imgFileToBase64,
   mergeRefs,
 } from "@/utils";
-import type { ValidProductRequest } from "@/types/product";
+import { type ProductCreateSchema } from "@/lib/productSchema";
 
 type FormFields = {
   productImage: FileList;
@@ -90,7 +90,7 @@ export const ProductForm: FC<ProductFormProps> = ({
         undefined when empty (they are empty strings), so they need to have a
         backup value as undefined, otherwise this would accidentally change the
         values to empty instead of simply not changing them */
-        const reqBody: Partial<ValidProductRequest> = {
+        const reqBody: Partial<ProductCreateSchema> = {
           name: data.productName || undefined,
           price: data.productPrice ? parseFloat(data.productPrice) : undefined,
           description: data.productDescription || undefined,

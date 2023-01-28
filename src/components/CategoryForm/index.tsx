@@ -11,7 +11,7 @@ import styles from "./CategoryForm.module.scss";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { getFormErrorMessage } from "@/utils";
-import type { ValidCategoryRequest } from "@/types/category";
+import { type CategoryCreateSchema } from "@/lib/categorySchema";
 
 type FormFields = {
   categoryName: string;
@@ -42,7 +42,7 @@ export const CategoryForm: FC<CategoryFormProps> = ({
       /* This field is not undefined when empty (it is an empty string), so it
       needs a backup value as undefined, otherwise this would accidentally
       change its value to empty instead of simply not changing it */
-      const reqBody: Partial<ValidCategoryRequest> = {
+      const reqBody: Partial<CategoryCreateSchema> = {
         name: data.categoryName || undefined,
       };
 

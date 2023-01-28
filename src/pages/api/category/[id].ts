@@ -2,11 +2,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
 import { prisma } from "@/lib/prisma";
-import { categoryValidator } from "@/lib/categoryValidator";
+import { categoryCreateSchema } from "@/lib/categorySchema";
 import { revalidateCategoryPages } from "@/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
-import type { CategoryRequestToValidate } from "@/types/category";
 
 type Query = { id: string };
 
@@ -57,17 +56,19 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query as Query;
-  const categoryRequest: CategoryRequestToValidate = req.body;
+  const categoryRequest: unknown = req.body;
 
-  const valid = categoryValidator.validate(categoryRequest);
-  if (!valid) {
+  const categoryParseResult = categoryCreateSchema
+    .partial()
+    .safeParse(categoryRequest);
+  if (!categoryParseResult.success) {
     res.status(400).json({
       error: "Categoria inválida",
     });
     return;
   }
 
-  const { name } = categoryRequest;
+  const { name } = categoryParseResult.data;
 
   try {
     const category = await prisma.category.update({
@@ -79,9 +80,9 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
-    const revalidated = await revalidateCategoryPages(res, category);
+    const revalidatedPages = await revalidateCategoryPages(res, category);
 
-    res.status(200).json({ ...category, ...revalidated });
+    res.status(200).json({ ...category, ...revalidatedPages });
   } catch (error) {
     handlePrismaError(error, res, "Categoria");
   }
