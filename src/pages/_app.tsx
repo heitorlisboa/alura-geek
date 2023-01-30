@@ -12,6 +12,7 @@ import { NotificationsProvider } from "@mantine/notifications";
 
 import "@/styles/global/index.scss";
 
+import "@/config/zod";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { emotionCache } from "@/config/emotion-cache";
