@@ -9,3 +9,7 @@ export const productCreateSchema = z.object({
 });
 
 export type ProductCreateSchema = z.infer<typeof productCreateSchema>;
+
+export const productUpdateSchema = productCreateSchema.partial();
+
+export type ProductUpdateSchema = z.infer<typeof productUpdateSchema>;

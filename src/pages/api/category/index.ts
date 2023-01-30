@@ -6,6 +6,7 @@ import { categoryCreateSchema } from "@/lib/categorySchema";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
 import { revalidateCategoryPages } from "@/lib/revalidatePage";
+import { formatZodError } from "@/utils/formatZodError";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
@@ -21,7 +22,7 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   const categoryParseResult = categoryCreateSchema.safeParse(categoryRequest);
   if (!categoryParseResult.success) {
     res.status(400).json({
-      error: "Categoria inválida",
+      error: formatZodError(categoryParseResult.error),
     });
     return;
   }

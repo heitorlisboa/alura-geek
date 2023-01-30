@@ -8,6 +8,7 @@ import { revalidateProductPages } from "@/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
 import { handleCloudinaryError } from "@/lib/handleCloudinaryError";
+import { formatZodError } from "@/utils/formatZodError";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
@@ -23,7 +24,7 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   const productParseResult = productCreateSchema.safeParse(productRequest);
   if (!productParseResult.success) {
     res.status(400).json({
-      error: "Produto inválido",
+      error: formatZodError(productParseResult.error),
     });
     return;
   }

@@ -2,10 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
 import { prisma } from "@/lib/prisma";
-import { categoryCreateSchema } from "@/lib/categorySchema";
+import { categoryUpdateSchema } from "@/lib/categorySchema";
 import { revalidateCategoryPages } from "@/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
+import { formatZodError } from "@/utils/formatZodError";
 
 type Query = { id: string };
 
@@ -58,12 +59,10 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query as Query;
   const categoryRequest: unknown = req.body;
 
-  const categoryParseResult = categoryCreateSchema
-    .partial()
-    .safeParse(categoryRequest);
+  const categoryParseResult = categoryUpdateSchema.safeParse(categoryRequest);
   if (!categoryParseResult.success) {
     res.status(400).json({
-      error: "Categoria inválida",
+      error: formatZodError(categoryParseResult.error),
     });
     return;
   }

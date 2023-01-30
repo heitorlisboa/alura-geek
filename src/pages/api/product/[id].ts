@@ -4,12 +4,13 @@ import type { Product } from "@prisma/client";
 import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
 import { prisma } from "@/lib/prisma";
 import { cloudinary } from "@/lib/cloudinary";
-import { productCreateSchema } from "@/lib/productSchema";
+import { productUpdateSchema } from "@/lib/productSchema";
 import { getPublicIdFromUrl } from "@/lib/getPublicIdFromUrl";
 import { revalidateProductPages } from "@/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
 import { handleCloudinaryError } from "@/lib/handleCloudinaryError";
+import { formatZodError } from "@/utils/formatZodError";
 
 type Query = { id: string };
 
@@ -63,12 +64,10 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query as Query;
   const productRequest: unknown = req.body;
 
-  const productParseResult = productCreateSchema
-    .partial()
-    .safeParse(productRequest);
+  const productParseResult = productUpdateSchema.safeParse(productRequest);
   if (!productParseResult.success) {
     res.status(400).json({
-      error: "Produto inválido",
+      error: formatZodError(productParseResult.error),
     });
     return;
   }
@@ -133,7 +132,7 @@ async function handlePutOrPatch(req: NextApiRequest, res: NextApiResponse) {
       const revalidated = await revalidateProductPages(res, product);
       const jsonResponse = { ...product, ...revalidated };
 
-      if (base64Image) {
+      if (productWithChanges.imageUrl) {
         try {
           const imagePublicId = getPublicIdFromUrl(productFound.imageUrl);
           cloudinary.uploader.destroy(imagePublicId, {
