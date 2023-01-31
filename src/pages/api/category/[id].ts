@@ -6,7 +6,7 @@ import { categoryUpdateSchema } from "@/lib/categorySchema";
 import { revalidateCategoryPages } from "@/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
-import { formatZodError } from "@/utils/formatZodError";
+import { formatZodError } from "@/utils";
 
 type Query = { id: string };
 

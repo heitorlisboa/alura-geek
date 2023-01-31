@@ -8,7 +8,7 @@ import { revalidateProductPages } from "@/lib/revalidatePage";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
 import { handleCloudinaryError } from "@/lib/handleCloudinaryError";
-import { formatZodError } from "@/utils/formatZodError";
+import { formatZodError } from "@/utils";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {

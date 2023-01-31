@@ -6,7 +6,7 @@ import { categoryCreateSchema } from "@/lib/categorySchema";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";
 import { revalidateCategoryPages } from "@/lib/revalidatePage";
-import { formatZodError } from "@/utils/formatZodError";
+import { formatZodError } from "@/utils";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
