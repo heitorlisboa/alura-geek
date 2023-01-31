@@ -1,6 +1,7 @@
 import Router from "next/router";
 import { type FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingOverlay } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import type { Category } from "@prisma/client";
@@ -10,42 +11,39 @@ import styles from "./CategoryForm.module.scss";
 
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
-import { getFormErrorMessage } from "@/utils";
-import { type CategoryCreateSchema } from "@/lib/categorySchema";
-
-type FormFields = {
-  categoryName: string;
-};
+import {
+  categoryCreateSchema,
+  type CategoryUpdateSchema,
+  categoryUpdateSchema,
+} from "@/lib/categorySchema";
 
 type CategoryFormProps = {
   action: "create" | "update";
-  initialValues?: Partial<FormFields>;
+  initialValues?: CategoryUpdateSchema;
 };
 
 export const CategoryForm: FC<CategoryFormProps> = ({
   action,
   initialValues,
 }) => {
+  const formSchema =
+    action === "create" ? categoryCreateSchema : categoryUpdateSchema;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormFields>({ defaultValues: initialValues });
+  } = useForm<CategoryUpdateSchema>({
+    defaultValues: initialValues,
+    resolver: zodResolver(formSchema),
+  });
 
   const [loading, setLoading] = useState(false);
 
-  const required = action === "create";
-
-  async function handleCategorySubmit(data: Partial<FormFields>) {
+  async function handleCategorySubmit(data: CategoryUpdateSchema) {
     try {
       const apiRoute = "/api/category";
-      /* This field is not undefined when empty (it is an empty string), so it
-      needs a backup value as undefined, otherwise this would accidentally
-      change its value to empty instead of simply not changing it */
-      const reqBody: Partial<CategoryCreateSchema> = {
-        name: data.categoryName || undefined,
-      };
-
+      const reqBody: CategoryUpdateSchema = { name: data.name };
       const categoryId = Router.query.id as string;
 
       // Setting the loading animation
@@ -85,8 +83,8 @@ export const CategoryForm: FC<CategoryFormProps> = ({
           label="Nome da categoria"
           inputType="text"
           labelVisible
-          errorMessage={getFormErrorMessage(errors.categoryName)}
-          {...register("categoryName", { required })}
+          errorMessage={errors.name?.message}
+          {...register("name")}
         />
 
         <Button as="button" buttonType="submit" variant="contained">

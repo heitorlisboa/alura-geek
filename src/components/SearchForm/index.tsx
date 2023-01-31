@@ -19,7 +19,8 @@ export const SearchForm: FC<SearchFormProps> = ({ className }) => {
   const { register, handleSubmit } = useForm<FormFields>();
 
   function handleSearch({ searchProduct }: FormFields) {
-    Router.push(`/products/search?q=${searchProduct}`);
+    if (searchProduct !== "")
+      Router.push(`/products/search?q=${searchProduct}`);
   }
 
   return (

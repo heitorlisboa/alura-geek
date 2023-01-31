@@ -1,10 +1,12 @@
 import { type ChangeEvent, type FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox, Modal } from "@mantine/core";
 import { randomId, useListState } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import type { Category, Product } from "@prisma/client";
 import axios from "axios";
+import { z } from "zod";
 
 import styles from "./ProductsSelection.module.scss";
 
@@ -12,8 +14,7 @@ import { Select } from "@/components/Select";
 import { Button } from "@/components/Button";
 import { TrashSvg } from "@/icons/TrashSvg";
 import { MoveFromGroupSvg } from "@/icons/MoveFromGroupSvg";
-import { getFormErrorMessage } from "@/utils";
-import { type ProductCreateSchema } from "@/lib/productSchema";
+import { type ProductUpdateSchema } from "@/lib/productSchema";
 
 type FormFields = { categoryName: string };
 
@@ -34,11 +35,16 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
   const [moveProductModalOpened, setMoveProductModalOpened] = useState(false);
 
   // Product category change form
+  const formSchema = z.object({
+    categoryName: z.string().min(1, "Obrigatório"),
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormFields>();
+  } = useForm<FormFields>({
+    resolver: zodResolver(formSchema),
+  });
 
   // Products management states and functions
   const [products, setProducts] = useState(initialProducts);
@@ -147,7 +153,7 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
     try {
       // Product category change request
       const movedProductsPromise = checkedProducts.map(async ({ id }) => {
-        const reqBody: Partial<ProductCreateSchema> = { categoryName };
+        const reqBody: ProductUpdateSchema = { categoryName };
         return (await axios.put(`/api/product/${id}`, reqBody)).data;
       });
       const movedProducts: Product[] = await Promise.all(movedProductsPromise);
@@ -199,8 +205,8 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
           <Select
             id="category-to-move-to"
             label="Categoria"
-            errorMessage={getFormErrorMessage(errors.categoryName)}
-            {...register("categoryName", { required: true })}
+            errorMessage={errors.categoryName?.message}
+            {...register("categoryName")}
           >
             <option value="">Selecione uma categoria</option>
             {otherCategories.map(({ id, name }) => (

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { showNotification } from "@mantine/notifications";
+import { z } from "zod";
 
 import styles from "./Footer.module.scss";
 
@@ -8,21 +10,27 @@ import { Container } from "@/components/Container";
 import { LogoSvg } from "@/icons/LogoSvg";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
-import { getFormErrorMessage } from "@/utils";
-
-type ContactFields = {
-  name: string;
-  message: string;
-};
 
 export const Footer = () => {
+  type ContactFormSchema = z.infer<typeof contactFormSchema>;
+
+  const contactFormSchema = z.object({
+    name: z.string().min(1, "Obrigatório").max(40, "Máximo de 40 caracteres"),
+    message: z
+      .string()
+      .min(1, "Obrigatório")
+      .max(120, "Máximo de 120 caracteres"),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ContactFields>();
+  } = useForm<ContactFormSchema>({
+    resolver: zodResolver(contactFormSchema),
+  });
 
-  function handleContactMessage(data: ContactFields) {
+  function handleContactMessage(data: ContactFormSchema) {
     showNotification({
       color: "green",
       message: "Mensagem enviada com sucesso",
@@ -86,14 +94,8 @@ export const Footer = () => {
                 label="Nome"
                 inputType="text"
                 labelVisible
-                errorMessage={getFormErrorMessage(errors.name)}
-                {...register("name", {
-                  required: true,
-                  maxLength: {
-                    value: 40,
-                    message: "Máximo de 40 caracteres",
-                  },
-                })}
+                errorMessage={errors.name?.message}
+                {...register("name")}
               />
 
               <Input
@@ -101,14 +103,8 @@ export const Footer = () => {
                 id="message"
                 label="Mensagem"
                 placeholder="Escreva sua mensagem"
-                errorMessage={getFormErrorMessage(errors.message)}
-                {...register("message", {
-                  required: true,
-                  maxLength: {
-                    value: 120,
-                    message: "Máximo de 120 caracteres",
-                  },
-                })}
+                errorMessage={errors.message?.message}
+                {...register("message")}
               />
 
               <Button

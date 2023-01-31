@@ -30,10 +30,7 @@ const EditCategoryPage: NextPage<EditCategoryPageProps> = ({
 
     <main id="main-content" className="relative">
       <Container>
-        <CategoryForm
-          action="update"
-          initialValues={{ categoryName: category.name }}
-        />
+        <CategoryForm action="update" initialValues={{ name: category.name }} />
         <ProductsSelection
           initialProducts={category.products}
           otherCategories={otherCategories}

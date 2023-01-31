@@ -1,6 +1,7 @@
 import Router from "next/router";
 import { type FC, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingOverlay } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import type { Category, Product } from "@prisma/client";
@@ -13,32 +14,22 @@ import { ImagePlaceholderSvg } from "@/icons/ImagePlaceholderSvg";
 import { Select } from "@/components/Select";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
+import { imgFileToBase64, mergeRefs } from "@/utils";
 import {
-  bytesToMegaBytes,
-  getFormErrorMessage,
-  imgFileToBase64,
-  mergeRefs,
-} from "@/utils";
-import { type ProductCreateSchema } from "@/lib/productSchema";
+  productCreateFormSchema,
+  type ProductUpdateFormSchema,
+  productUpdateFormSchema,
+  type ProductUpdateSchema,
+} from "@/lib/productSchema";
 
-type FormFields = {
-  productImage: FileList;
-  productName: string;
-  productPrice: string;
-  productDescription: string;
-  productCategory: string;
+type FormInitialValues = Omit<ProductUpdateFormSchema, "imageFileList"> & {
+  imageUrl?: string;
 };
-
-type InitialFormValues = Partial<
-  Omit<FormFields, "productImage"> & {
-    productImageUrl: string;
-  }
->;
 
 type ProductFormProps = {
   categories: Category[];
   action: "create" | "update";
-  initialValues?: InitialFormValues;
+  initialValues?: FormInitialValues;
 };
 
 export const ProductForm: FC<ProductFormProps> = ({
@@ -46,38 +37,33 @@ export const ProductForm: FC<ProductFormProps> = ({
   action,
   initialValues = {},
 }) => {
-  const { productImageUrl, ...defaultValues } = initialValues;
+  const formSchema =
+    action === "create" ? productCreateFormSchema : productUpdateFormSchema;
+
+  const { imageUrl: productImageUrl, ...defaultValues } = initialValues;
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormFields>({ defaultValues });
+  } = useForm<ProductUpdateFormSchema>({
+    defaultValues,
+    resolver: zodResolver(formSchema),
+  });
 
   const [loading, setLoading] = useState(false);
 
-  const required = action === "create";
-
   const fileDropInputRef = useRef<HTMLInputElement>(null);
 
-  const fileDropInputFormRegistration = register("productImage", {
-    required,
-    validate: {
-      onlyOneImage: (files) => files.length <= 1,
-      mustBeImage: (files) => files[0]?.type.startsWith("image/"),
-      lessThan5Mb: (files) => files[0] && bytesToMegaBytes(files[0].size) <= 5,
-    },
-  });
+  const fileDropInputFormRegistration = register("imageFileList");
 
   const fileDropInputProps = {
     ...fileDropInputFormRegistration,
     ref: mergeRefs(fileDropInputRef, fileDropInputFormRegistration.ref),
   };
 
-  async function handleProductSubmit(data: Partial<FormFields>) {
-    /* If the file list exists and has any files, call the image converter
-    function */
-    if (data.productImage && data.productImage.length > 0) {
-      const imageBlob = Array.from(data.productImage)[0];
+  async function handleProductSubmit(data: ProductUpdateFormSchema) {
+    if (data.imageFileList) {
+      const imageBlob = Array.from(data.imageFileList)[0];
       imgFileToBase64(imageBlob, callback, handleReadError);
     } else {
       callback();
@@ -86,16 +72,12 @@ export const ProductForm: FC<ProductFormProps> = ({
     async function callback(base64EncodedImage?: string | ArrayBuffer | null) {
       try {
         const apiRoute = "/api/product";
-        /* None of the fields, except for the image and the category name, are
-        undefined when empty (they are empty strings), so they need to have a
-        backup value as undefined, otherwise this would accidentally change the
-        values to empty instead of simply not changing them */
-        const reqBody: Partial<ProductCreateSchema> = {
-          name: data.productName || undefined,
-          price: data.productPrice ? parseFloat(data.productPrice) : undefined,
-          description: data.productDescription || undefined,
+        const reqBody: ProductUpdateSchema = {
+          name: data.name,
+          price: data.price,
+          description: data.description,
           base64Image: base64EncodedImage as string | undefined,
-          categoryName: data.productCategory,
+          categoryName: data.categoryName,
         };
 
         const productId = Router.query.id as string;
@@ -145,7 +127,7 @@ export const ProductForm: FC<ProductFormProps> = ({
           className={styles.fileInput}
           description="Arraste ou clique para adicionar uma imagem para o produto"
           accept="image/*"
-          errorMessage={getFormErrorMessage(errors.productImage)}
+          errorMessage={errors.imageFileList?.message}
           placeholderImage={productImageUrl}
           Icon={<ImagePlaceholderSvg />}
           {...fileDropInputProps}
@@ -154,9 +136,9 @@ export const ProductForm: FC<ProductFormProps> = ({
         <Select
           id="product-category"
           label="Categoria do produto"
-          errorMessage={getFormErrorMessage(errors.productCategory)}
+          errorMessage={errors.categoryName?.message}
           labelVisible
-          {...register("productCategory", { required })}
+          {...register("categoryName")}
         >
           <option value="">Selecione uma categoria</option>
           {categories.map(({ id, name }) => (
@@ -171,14 +153,8 @@ export const ProductForm: FC<ProductFormProps> = ({
           label="Nome do produto"
           inputType="text"
           labelVisible
-          errorMessage={getFormErrorMessage(errors.productName)}
-          {...register("productName", {
-            required,
-            maxLength: {
-              value: 50,
-              message: "Máximo de 50 caracteres",
-            },
-          })}
+          errorMessage={errors.name?.message}
+          {...register("name")}
         />
 
         <Input
@@ -187,23 +163,17 @@ export const ProductForm: FC<ProductFormProps> = ({
           inputType="number"
           step={0.01}
           labelVisible
-          errorMessage={getFormErrorMessage(errors.productPrice)}
-          {...register("productPrice", { required })}
+          errorMessage={errors.price?.message}
+          {...register("price")}
         />
 
         <Input
           as="textarea"
           id="product-description"
           label="Descrição do produto"
-          errorMessage={getFormErrorMessage(errors.productDescription)}
+          errorMessage={errors.description?.message}
           labelVisible
-          {...register("productDescription", {
-            required,
-            maxLength: {
-              value: 300,
-              message: "Máximo de 300 caracteres",
-            },
-          })}
+          {...register("description")}
         />
 
         <Button as="button" buttonType="submit">

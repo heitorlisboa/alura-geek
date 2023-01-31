@@ -37,11 +37,11 @@ const EditProductPage: NextPage<EditProductPageProps> = ({
             categories={categories}
             action="update"
             initialValues={{
-              productImageUrl: product.imageUrl,
-              productCategory: productCategory.name,
-              productName: product.name,
-              productPrice: product.price.toString(),
-              productDescription: product.description,
+              name: product.name,
+              price: product.price,
+              description: product.description,
+              imageUrl: product.imageUrl,
+              categoryName: productCategory.name,
             }}
           />
         </Container>
