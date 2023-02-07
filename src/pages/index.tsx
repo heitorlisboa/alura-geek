@@ -14,7 +14,7 @@ import { prisma } from "@/lib/prisma";
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const HomePage: NextPage<HomePageProps> = ({ products, categories }) => (
+const HomePage: NextPage<HomePageProps> = ({ categories }) => (
   <>
     <Head>
       <title>AluraGeek - Página inicial</title>
@@ -42,16 +42,13 @@ const HomePage: NextPage<HomePageProps> = ({ products, categories }) => (
       </section>
 
       {categories.map((category) => {
-        const categoryProducts = products.filter(
-          (product) => product.categoryId === category.id
-        );
-        if (categoryProducts.length > 0) {
+        if (category.products.length > 0) {
           return (
             <ProductsCategory
               key={category.id}
               title={category.name}
               categoryLinkHref={`/category/${category.id}`}
-              products={categoryProducts}
+              products={category.products}
             />
           );
         }
@@ -61,14 +58,17 @@ const HomePage: NextPage<HomePageProps> = ({ products, categories }) => (
 );
 
 export async function getStaticProps() {
-  const products = await prisma.product.findMany({
-    orderBy: { updatedAt: "desc" },
+  const categories = await prisma.category.findMany({
+    include: {
+      products: {
+        take: 6,
+        orderBy: { updatedAt: "desc" },
+      },
+    },
   });
-  const categories = await prisma.category.findMany();
 
   return {
     props: {
-      products,
       categories,
     },
     revalidate: 60 * 60, // 1 hour
