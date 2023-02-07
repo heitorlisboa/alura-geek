@@ -28,7 +28,7 @@ const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
   return (
     <>
       <Head>
-        <title>Buscando &quot;{productSearchQuery}&quot;</title>
+        <title>{`Buscando "${productSearchQuery}"`}</title>
       </Head>
 
       <main id="main-content">

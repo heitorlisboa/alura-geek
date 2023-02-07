@@ -28,7 +28,7 @@ const CategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
   return (
     <>
       <Head>
-        <title>Categoria {category.name}</title>
+        <title>{`Categoria ${category.name}`}</title>
       </Head>
 
       <main id="main-content">
