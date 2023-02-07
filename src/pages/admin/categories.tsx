@@ -93,7 +93,7 @@ const ManageCategoriesPage: NextPage<ManageCategoriesPageProps> = ({
       <main id="main-content">
         <Container className={styles.container}>
           <Modal
-            title="Tem certeza que quer excluir essa categoria?"
+            title="Tem certeza que quer excluir essa categoria? Seus produtos (se houverem) também serão excluídos."
             opened={modalOpened}
             onClose={handleCloseModal}
             closeButtonLabel="Cancelar de deleção de categoria"
