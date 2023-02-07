@@ -42,13 +42,9 @@ const HomePage: NextPage<HomePageProps> = ({ products, categories }) => (
       </section>
 
       {categories.map((category) => {
-        const categoryProducts = products
-          .filter((product) => product.categoryId === category.id)
-          .map((product) => ({
-            ...product,
-            createdAt: new Date(product.createdAt),
-            updatedAt: new Date(product.updatedAt),
-          }));
+        const categoryProducts = products.filter(
+          (product) => product.categoryId === category.id
+        );
         if (categoryProducts.length > 0) {
           return (
             <ProductsCategory
@@ -65,13 +61,9 @@ const HomePage: NextPage<HomePageProps> = ({ products, categories }) => (
 );
 
 export async function getStaticProps() {
-  const products = (
-    await prisma.product.findMany({ orderBy: { updatedAt: "desc" } })
-  ).map((product) => ({
-    ...product,
-    createdAt: product.createdAt.toISOString(),
-    updatedAt: product.updatedAt.toISOString(),
-  }));
+  const products = await prisma.product.findMany({
+    orderBy: { updatedAt: "desc" },
+  });
   const categories = await prisma.category.findMany();
 
   return {

@@ -92,9 +92,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   if (!product)
     return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
-  product.createdAt = product.createdAt.toISOString() as any;
-  product.updatedAt = product.updatedAt.toISOString() as any;
-
   const category = await prisma.category.findUnique({
     where: { id: product.categoryId },
     include: { products: { orderBy: { updatedAt: "desc" } } },
@@ -102,12 +99,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   if (!category)
     return { notFound: true } satisfies GetStaticPropsResult<unknown>;
-
-  category.products = category.products.map((product) => ({
-    ...product,
-    createdAt: product.createdAt.toISOString(),
-    updatedAt: product.updatedAt.toISOString(),
-  })) as any;
 
   return {
     props: {

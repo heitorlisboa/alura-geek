@@ -79,12 +79,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   if (!category)
     return { notFound: true } satisfies GetStaticPropsResult<unknown>;
 
-  category.products = category.products.map((product) => ({
-    ...product,
-    createdAt: product.createdAt.toISOString(),
-    updatedAt: product.updatedAt.toISOString(),
-  })) as any;
-
   return {
     props: {
       category,
