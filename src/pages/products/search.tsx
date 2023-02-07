@@ -37,8 +37,12 @@ const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
 
           {productsFound.length > 0 ? (
             <ul className={styles.productList} aria-labelledby={pageTitleId}>
-              {productsFound.map((product) => (
-                <ProductItem key={product.id} product={product} />
+              {productsFound.map((product, index) => (
+                <ProductItem
+                  key={product.id}
+                  product={product}
+                  priority={index < 6 * 2 /* 2 rows of 6 items on desktop */}
+                />
               ))}
             </ul>
           ) : (

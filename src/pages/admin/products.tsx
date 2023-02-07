@@ -113,7 +113,7 @@ const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
           </header>
 
           <ul className={styles.productList} aria-labelledby={pageTitleId}>
-            {products.map((product) => (
+            {products.map((product, index) => (
               <li className={styles.product} key={product.id}>
                 <Image
                   className={styles.productImage}
@@ -121,6 +121,7 @@ const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
                   alt={`Foto de ${product.name}`}
                   width={250}
                   height={250}
+                  priority={index < 6 * 2 /* 2 rows of 6 items on desktop */}
                 />
 
                 <div className={styles.productButtons}>

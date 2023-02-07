@@ -57,6 +57,7 @@ const ProductPage: NextPage<ProductPageProps> = ({ product, category }) => {
         <ProductsCategory
           title="Produtos similares"
           products={category.products}
+          priority
         />
       </main>
     </>

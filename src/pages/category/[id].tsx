@@ -37,8 +37,12 @@ const CategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
             {category.name}
           </h2>
           <ul className={styles.productList} aria-labelledby={categoryTitleId}>
-            {category.products.map((product) => (
-              <ProductItem key={product.id} product={product} />
+            {category.products.map((product, index) => (
+              <ProductItem
+                key={product.id}
+                product={product}
+                priority={index < 6 * 2 /* 2 rows of 6 items on desktop */}
+              />
             ))}
           </ul>
         </Container>

@@ -41,7 +41,7 @@ const HomePage: NextPage<HomePageProps> = ({ categories }) => (
         </Container>
       </section>
 
-      {categories.map((category) => {
+      {categories.map((category, index) => {
         if (category.products.length > 0) {
           return (
             <ProductsCategory
@@ -49,6 +49,7 @@ const HomePage: NextPage<HomePageProps> = ({ categories }) => (
               title={category.name}
               categoryLinkHref={`/category/${category.id}`}
               products={category.products}
+              priority={index < 2 /* 2 rows on desktop */}
             />
           );
         }

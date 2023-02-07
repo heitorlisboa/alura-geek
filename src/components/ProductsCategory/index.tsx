@@ -13,12 +13,14 @@ type ProductsCategoryProps = {
   title: string;
   products: Product[];
   categoryLinkHref?: string;
+  priority?: boolean;
 };
 
 export const ProductsCategory: FC<ProductsCategoryProps> = ({
   title,
   categoryLinkHref,
   products,
+  priority = false,
 }) => {
   const windowSize = useWindowSize();
   const numberOfProducts = windowSize < 1024 ? 4 : 6;
@@ -45,7 +47,11 @@ export const ProductsCategory: FC<ProductsCategoryProps> = ({
           aria-label={`Produtos da categoria ${title}`}
         >
           {products.slice(0, numberOfProducts).map((product) => (
-            <ProductItem key={product.id} product={product} />
+            <ProductItem
+              key={product.id}
+              product={product}
+              priority={priority}
+            />
           ))}
         </ul>
       </Container>

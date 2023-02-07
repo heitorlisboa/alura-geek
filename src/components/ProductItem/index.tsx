@@ -9,10 +9,12 @@ import { formatPrice } from "@/utils";
 
 type ProductItemProps = {
   product: Product;
+  priority?: boolean;
 };
 
 export const ProductItem: FC<ProductItemProps> = ({
   product: { id, name, price, imageUrl },
+  priority = false,
 }) => (
   <li className={styles.product}>
     <Image
@@ -21,6 +23,7 @@ export const ProductItem: FC<ProductItemProps> = ({
       alt={`Foto de ${name}`}
       width={300}
       height={300}
+      priority={priority}
     />
 
     <h4 className={styles.productTitle}>{name}</h4>
