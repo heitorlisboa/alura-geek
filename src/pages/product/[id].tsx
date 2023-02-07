@@ -40,6 +40,7 @@ const ProductPage: NextPage<ProductPageProps> = ({ product, category }) => {
               alt={product.name}
               width={600}
               height={400}
+              quality={100}
               priority
             />
 
