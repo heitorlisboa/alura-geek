@@ -5,13 +5,12 @@ import type {
   NextPage,
 } from "next";
 import Head from "next/head";
-import type { Category, Product } from "@prisma/client";
-import axios from "axios";
+import type { Category } from "@prisma/client";
 import { z } from "zod";
 
 import { Container } from "@/components/Container";
 import { ProductForm } from "@/components/ProductForm";
-import { getBaseUrl } from "@/utils";
+import { prisma } from "@/lib/prisma";
 
 type EditProductPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -57,14 +56,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!paramsParseResult.success)
     return { notFound: true } satisfies GetServerSidePropsResult<unknown>;
 
-  const baseUrl = getBaseUrl();
-
   const { id } = paramsParseResult.data;
 
-  const product: Product = (await axios.get(`${baseUrl}/api/product/${id}`))
-    .data;
-  const categories: Category[] = (await axios.get(`${baseUrl}/api/categories`))
-    .data;
+  const product = await prisma.product.findUnique({ where: { id } });
+
+  if (!product)
+    return { notFound: true } satisfies GetServerSidePropsResult<unknown>;
+
+  const categories = await prisma.category.findMany();
 
   return {
     props: {

@@ -20,7 +20,8 @@ import { Button } from "@/components/Button";
 import { TrashSvg } from "@/icons/TrashSvg";
 import { PencilSvg } from "@/icons/PencilSvg";
 import { BrandLink } from "@/components/BrandLink";
-import { formatPrice, getBaseUrl } from "@/utils";
+import { formatPrice } from "@/utils";
+import { prisma } from "@/lib/prisma";
 
 type ManageProductsPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -155,11 +156,9 @@ const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
 };
 
 export async function getServerSideProps() {
-  const baseUrl = getBaseUrl();
-
-  const initialProducts: Product[] = (
-    await axios.get(`${baseUrl}/api/products`)
-  ).data;
+  const initialProducts = await prisma.product.findMany({
+    orderBy: { updatedAt: "desc" },
+  });
 
   return {
     props: {

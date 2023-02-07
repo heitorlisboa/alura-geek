@@ -18,8 +18,7 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { TrashSvg } from "@/icons/TrashSvg";
 import { PencilSvg } from "@/icons/PencilSvg";
-import { getBaseUrl } from "@/utils";
-import type { CategoryWithProducts } from "@/types/category";
+import { prisma } from "@/lib/prisma";
 
 type ManageCategoriesPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -153,11 +152,9 @@ const ManageCategoriesPage: NextPage<ManageCategoriesPageProps> = ({
 };
 
 export async function getServerSideProps() {
-  const baseUrl = getBaseUrl();
-
-  const initialCategories: CategoryWithProducts[] = (
-    await axios.get(`${baseUrl}/api/categories?withProducts=true`)
-  ).data;
+  const initialCategories = await prisma.category.findMany({
+    include: { products: { orderBy: { updatedAt: "desc" } } },
+  });
 
   return {
     props: {

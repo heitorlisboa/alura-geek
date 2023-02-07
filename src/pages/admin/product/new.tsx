@@ -4,12 +4,10 @@ import type {
   NextPage,
 } from "next";
 import Head from "next/head";
-import type { Category } from "@prisma/client";
-import axios from "axios";
 
 import { Container } from "@/components/Container";
 import { ProductForm } from "@/components/ProductForm";
-import { getBaseUrl } from "@/utils";
+import { prisma } from "@/lib/prisma";
 
 type NewProductPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -30,10 +28,7 @@ const NewProductPage: NextPage<NewProductPageProps> = ({ categories }) => (
 );
 
 export async function getServerSideProps() {
-  const baseUrl = getBaseUrl();
-
-  const categories: Category[] = (await axios.get(`${baseUrl}/api/categories`))
-    .data;
+  const categories = await prisma.category.findMany();
 
   return {
     props: {

@@ -5,15 +5,12 @@ import type {
   NextPage,
 } from "next";
 import Head from "next/head";
-import type { Category } from "@prisma/client";
-import axios from "axios";
 import { z } from "zod";
 
 import { Container } from "@/components/Container";
 import { CategoryForm } from "@/components/CategoryForm";
 import { ProductsSelection } from "@/components/ProductsSelection";
-import { getBaseUrl } from "@/utils";
-import type { CategoryWithProducts } from "@/types/category";
+import { prisma } from "@/lib/prisma";
 
 type EditCategoryPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -47,22 +44,24 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!paramsParseResult.success)
     return { notFound: true } satisfies GetServerSidePropsResult<unknown>;
 
-  const baseUrl = getBaseUrl();
-
   const { id } = paramsParseResult.data;
 
-  const category: CategoryWithProducts = (
-    await axios.get(`${baseUrl}/api/category/${id}`)
-  ).data;
-  const categories: Category[] = (await axios.get(`${baseUrl}/api/categories`))
-    .data;
+  const category = await prisma.category.findUnique({
+    where: { id },
+    include: { products: { orderBy: { updatedAt: "desc" } } },
+  });
+
+  if (!category)
+    return { notFound: true } satisfies GetServerSidePropsResult<unknown>;
+
+  const otherCategories = await prisma.category.findMany({
+    where: { NOT: { id: category.id } },
+  });
 
   return {
     props: {
       category,
-      otherCategories: categories.filter(
-        (currentCategory) => currentCategory.id !== category.id
-      ),
+      otherCategories,
     },
   } satisfies GetServerSidePropsResult<unknown>;
 }

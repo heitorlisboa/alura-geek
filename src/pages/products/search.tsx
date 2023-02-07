@@ -5,15 +5,13 @@ import type {
   NextPage,
 } from "next";
 import Head from "next/head";
-import type { Product } from "@prisma/client";
-import axios from "axios";
 import { z } from "zod";
 
 import styles from "@/styles/pages/SearchProducts.module.scss";
 
 import { Container } from "@/components/Container";
 import { ProductItem } from "@/components/ProductItem";
-import { getBaseUrl } from "@/utils";
+import { prisma } from "@/lib/prisma";
 
 type SearchProductsPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -63,11 +61,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const productSearchQuery = queryParseResult.data.q;
 
-  const baseUrl = getBaseUrl();
-
-  const productsFound: Product[] = (
-    await axios.get(`${baseUrl}/api/products/search?q=${productSearchQuery}`)
-  ).data;
+  const productsFound = await prisma.product.findMany({
+    where: {
+      OR: [
+        { name: { contains: productSearchQuery } },
+        { category: { name: { contains: productSearchQuery } } },
+      ],
+    },
+    orderBy: { updatedAt: "desc" },
+  });
 
   return {
     props: {
