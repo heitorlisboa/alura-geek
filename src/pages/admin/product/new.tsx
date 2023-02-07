@@ -1,5 +1,4 @@
 import type {
-  GetServerSidePropsContext,
   GetServerSidePropsResult,
   InferGetServerSidePropsType,
   NextPage,
@@ -30,8 +29,8 @@ const NewProductPage: NextPage<NewProductPageProps> = ({ categories }) => (
   </>
 );
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const baseUrl = getBaseUrl(context.req.headers);
+export async function getServerSideProps() {
+  const baseUrl = getBaseUrl();
 
   const categories: Category[] = (await axios.get(`${baseUrl}/api/categories`))
     .data;

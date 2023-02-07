@@ -63,7 +63,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const productSearchQuery = queryParseResult.data.q;
 
-  const baseUrl = getBaseUrl(context.req.headers);
+  const baseUrl = getBaseUrl();
 
   const productsFound: Product[] = (
     await axios.get(`${baseUrl}/api/products/search?q=${productSearchQuery}`)

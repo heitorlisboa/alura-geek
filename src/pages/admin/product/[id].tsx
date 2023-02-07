@@ -57,7 +57,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!paramsParseResult.success)
     return { notFound: true } satisfies GetServerSidePropsResult<unknown>;
 
-  const baseUrl = getBaseUrl(context.req.headers);
+  const baseUrl = getBaseUrl();
 
   const { id } = paramsParseResult.data;
 

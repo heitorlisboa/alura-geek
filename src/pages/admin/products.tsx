@@ -1,5 +1,4 @@
 import type {
-  GetServerSidePropsContext,
   GetServerSidePropsResult,
   InferGetServerSidePropsType,
   NextPage,
@@ -155,8 +154,8 @@ const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
   );
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const baseUrl = getBaseUrl(context.req.headers);
+export async function getServerSideProps() {
+  const baseUrl = getBaseUrl();
 
   const initialProducts: Product[] = (
     await axios.get(`${baseUrl}/api/products`)
