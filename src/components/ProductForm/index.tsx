@@ -62,54 +62,52 @@ export const ProductForm: FC<ProductFormProps> = ({
   };
 
   async function handleProductSubmit(data: ProductUpdateFormSchema) {
+    let base64EncodedImage = undefined;
+
     if (data.imageFileList) {
       const imageBlob = Array.from(data.imageFileList)[0];
-      imgFileToBase64(imageBlob, callback, handleReadError);
-    } else {
-      callback();
-    }
-
-    async function callback(base64EncodedImage?: string | ArrayBuffer | null) {
       try {
-        const apiRoute = "/api/product";
-        const reqBody: ProductUpdateSchema = {
-          name: data.name,
-          price: data.price,
-          description: data.description,
-          base64Image: base64EncodedImage as string | undefined,
-          categoryName: data.categoryName,
-        };
-
-        const productId = Router.query.id as string;
-
-        // Setting the loading animation
-        setLoading(true);
-        // Doing the create/update request
-        const { data: product }: { data: Product } =
-          action === "create"
-            ? await axios.post(apiRoute, reqBody)
-            : await axios.put(`${apiRoute}/${productId}`, reqBody);
-
-        // Redirecting to the created/updated product page
-        Router.push(`/product/${product.id}`);
-      } catch (error: any) {
-        // Removing the loading animation
-        setLoading(false);
+        base64EncodedImage = (await imgFileToBase64(imageBlob))?.toString();
+      } catch (error) {
         // Error notification
-        const keyword = action === "create" ? "adicionar" : "atualizar";
         showNotification({
           color: "red",
-          title: error.response.data.error || `Erro ao ${keyword} produto`,
-          message: error.response.data.message || "Erro desconhecido",
+          message: "Erro ao processar imagem",
         });
       }
     }
 
-    function handleReadError() {
+    try {
+      const apiRoute = "/api/product";
+      const reqBody: ProductUpdateSchema = {
+        name: data.name,
+        price: data.price,
+        description: data.description,
+        base64Image: base64EncodedImage,
+        categoryName: data.categoryName,
+      };
+
+      const productId = Router.query.id as string;
+
+      // Setting the loading animation
+      setLoading(true);
+      // Doing the create/update request
+      const { data: product }: { data: Product } =
+        action === "create"
+          ? await axios.post(apiRoute, reqBody)
+          : await axios.put(`${apiRoute}/${productId}`, reqBody);
+
+      // Redirecting to the created/updated product page
+      Router.push(`/product/${product.id}`);
+    } catch (error: any) {
+      // Removing the loading animation
+      setLoading(false);
       // Error notification
+      const keyword = action === "create" ? "adicionar" : "atualizar";
       showNotification({
         color: "red",
-        message: "Erro ao processar imagem",
+        title: error.response.data.error || `Erro ao ${keyword} produto`,
+        message: error.response.data.message || "Erro desconhecido",
       });
     }
   }

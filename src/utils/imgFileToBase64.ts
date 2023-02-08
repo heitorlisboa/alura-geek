@@ -1,15 +1,15 @@
 export function imgFileToBase64(
-  file: File,
-  callback: (base64EncodedImage: string | ArrayBuffer | null) => void,
-  errorHandler?: () => void
-) {
-  const reader = new FileReader();
+  file: File
+): Promise<string | ArrayBuffer | null> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
 
-  reader.onload = function () {
-    const base64EncodedImage = reader.result;
-    callback(base64EncodedImage);
-  };
-  reader.onerror = errorHandler || null;
+    reader.onload = () => {
+      const base64EncodedImage = reader.result;
+      resolve(base64EncodedImage);
+    };
+    reader.onerror = (event) => reject(event);
 
-  reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
+  });
 }

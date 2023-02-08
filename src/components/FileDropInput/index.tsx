@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import type { ChangeHandler } from "react-hook-form";
+import { showNotification } from "@mantine/notifications";
 import clsx from "clsx";
 
 import styles from "./FileDropInput.module.scss";
@@ -104,12 +105,19 @@ export const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
       }
     }
 
-    function showImage(file: File) {
+    async function showImage(file: File) {
       const dropAreaElement = dropAreaRef.current;
       if (dropAreaElement) {
-        imgFileToBase64(file, (base64EncodedImage) => {
+        try {
+          const base64EncodedImage = await imgFileToBase64(file);
           dropAreaElement.style.backgroundImage = `url(${base64EncodedImage})`;
-        });
+        } catch (error) {
+          // Error notification
+          showNotification({
+            color: "red",
+            message: "Erro ao processar imagem",
+          });
+        }
       }
     }
 
