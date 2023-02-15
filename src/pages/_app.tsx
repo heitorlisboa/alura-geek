@@ -1,6 +1,7 @@
-import type { AppProps } from "next/app";
+import type { AppType } from "next/app";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { parseCookies, setCookie } from "nookies";
 import {
@@ -16,8 +17,12 @@ import "@/config/zod";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { emotionCache } from "@/config/emotion-cache";
+import { trpc } from "@/utils/trpc";
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+const MyApp: AppType<{ session: Session | null }> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
 
   function toggleColorScheme(value?: ColorScheme) {
@@ -99,6 +104,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       </MantineProvider>
     </ColorSchemeProvider>
   );
-}
+};
 
-export default MyApp;
+export default trpc.withTRPC(MyApp);

@@ -15,7 +15,7 @@ import styles from "@/styles/pages/Product.module.scss";
 import { Fallback } from "@/components/Fallback";
 import { Container } from "@/components/Container";
 import { ProductsCategory } from "@/components/ProductsCategory";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 import { formatPrice } from "@/utils";
 
 type ProductPageProps = InferGetStaticPropsType<typeof getStaticProps>;

@@ -10,7 +10,7 @@ import { z } from "zod";
 import { Container } from "@/components/Container";
 import { CategoryForm } from "@/components/CategoryForm";
 import { ProductsSelection } from "@/components/ProductsSelection";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 
 type EditCategoryPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

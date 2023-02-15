@@ -14,7 +14,7 @@ import styles from "@/styles/pages/Category.module.scss";
 import { Fallback } from "@/components/Fallback";
 import { Container } from "@/components/Container";
 import { ProductItem } from "@/components/ProductItem";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 
 type CategoryPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 

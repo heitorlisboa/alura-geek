@@ -18,7 +18,7 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { TrashSvg } from "@/icons/TrashSvg";
 import { PencilSvg } from "@/icons/PencilSvg";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 
 type ManageCategoriesPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

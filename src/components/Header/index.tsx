@@ -93,7 +93,7 @@ export const Header: FC = () => {
         {mobile && (
           <div
             className={clsx(styles.searchFormWrapper, {
-              [styles.active]: searchBarIsOpen,
+              [styles.active as string]: searchBarIsOpen,
             })}
           >
             <SearchForm className={styles.searchForm} />

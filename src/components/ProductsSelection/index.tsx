@@ -252,7 +252,7 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
         <Checkbox
           key={product.id}
           label={product.name}
-          checked={values[index].checked}
+          checked={values[index]?.checked}
           onChange={(event) => {
             handleChangeSingleProductCheckbox(index, event);
           }}

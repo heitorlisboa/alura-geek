@@ -7,7 +7,7 @@ import Head from "next/head";
 
 import { Container } from "@/components/Container";
 import { ProductForm } from "@/components/ProductForm";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 
 type NewProductPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

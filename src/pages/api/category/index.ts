@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 import { categoryCreateSchema } from "@/lib/categorySchema";
 import { handleInvalidHttpMethod } from "@/lib/handleInvalidHttpMethod";
 import { handlePrismaError } from "@/lib/handlePrismaError";

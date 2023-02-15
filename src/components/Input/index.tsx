@@ -68,8 +68,8 @@ export const Input = forwardRef<InputElement, InputProps>(
     const inputRef = useRef<InputElement>(null);
     const inputMergedRefs = mergeRefs(inputRef, ref);
     const groupedClassNames = clsx(styles[as], {
-      [styles.withLabelVisible]: labelVisible,
-      [styles.withError]: errorMessage,
+      [styles.withLabelVisible as string]: labelVisible,
+      [styles.withError as string]: errorMessage,
     });
 
     const generalAttrs: HTMLProps<InputElement> = {
@@ -101,13 +101,13 @@ export const Input = forwardRef<InputElement, InputProps>(
     };
 
     function handleFocus() {
-      labelRef.current?.classList.add(styles.labelFocused);
+      labelRef.current?.classList.add(styles.labelFocused as string);
     }
 
     function handleBlur(event: FocusEvent<InputElement>) {
       const elementIsEmpty = !event.target.value;
       if (elementIsEmpty)
-        labelRef.current?.classList.remove(styles.labelFocused);
+        labelRef.current?.classList.remove(styles.labelFocused as string);
     }
 
     useEffect(() => {

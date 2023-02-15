@@ -64,8 +64,8 @@ export const ProductForm: FC<ProductFormProps> = ({
   async function handleProductSubmit(data: ProductUpdateFormSchema) {
     let base64EncodedImage = undefined;
 
-    if (data.imageFileList) {
-      const imageBlob = Array.from(data.imageFileList)[0];
+    if (data.imageFileList?.[0]) {
+      const imageBlob = data.imageFileList[0];
       try {
         base64EncodedImage = (await imgFileToBase64(imageBlob))?.toString();
       } catch (error) {

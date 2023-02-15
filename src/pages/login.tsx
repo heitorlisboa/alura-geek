@@ -4,13 +4,14 @@ import type {
   NextPage,
 } from "next";
 import Head from "next/head";
-import { getSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 import styles from "@/styles/pages/Login.module.scss";
 
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { GitHubSvg } from "@/icons/GitHubSvg";
+import { getServerAuthSession } from "@/server/common/get-server-auth-session";
 
 const LoginPage: NextPage = () => {
   function handleSignIn() {
@@ -44,7 +45,7 @@ const LoginPage: NextPage = () => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context);
+  const session = await getServerAuthSession(context);
 
   if (session) {
     return {

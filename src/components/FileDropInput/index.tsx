@@ -68,11 +68,11 @@ export const FileDropInput = forwardRef<HTMLInputElement, FileDropInputProps>(
     }
 
     function handleDragEnter() {
-      dropAreaRef.current?.classList.add(styles.dragOver);
+      dropAreaRef.current?.classList.add(styles.dragOver as string);
     }
 
     function handleDragLeave() {
-      dropAreaRef.current?.classList.remove(styles.dragOver);
+      dropAreaRef.current?.classList.remove(styles.dragOver as string);
     }
 
     function handleDragOver(event: DragEvent) {

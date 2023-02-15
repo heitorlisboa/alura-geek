@@ -21,7 +21,7 @@ import { TrashSvg } from "@/icons/TrashSvg";
 import { PencilSvg } from "@/icons/PencilSvg";
 import { BrandLink } from "@/components/BrandLink";
 import { formatPrice } from "@/utils";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 
 type ManageProductsPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

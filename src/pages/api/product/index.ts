@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 import { cloudinary } from "@/lib/cloudinary";
 import { productCreateSchema } from "@/lib/productSchema";
 import { revalidateProductPages } from "@/lib/revalidatePage";

@@ -11,7 +11,7 @@ import styles from "@/styles/pages/SearchProducts.module.scss";
 
 import { Container } from "@/components/Container";
 import { ProductItem } from "@/components/ProductItem";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 
 type SearchProductsPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

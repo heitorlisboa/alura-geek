@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { Product } from "@prisma/client";
 
 import { apiRouteWithAuth } from "@/middlewares/apiRouteWithAuth";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 import { cloudinary } from "@/lib/cloudinary";
 import { productUpdateSchema } from "@/lib/productSchema";
 import { getPublicIdFromUrl } from "@/lib/getPublicIdFromUrl";

@@ -10,7 +10,7 @@ import { z } from "zod";
 
 import { Container } from "@/components/Container";
 import { ProductForm } from "@/components/ProductForm";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db/client";
 
 type EditProductPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

@@ -33,8 +33,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     ref
   ) => {
     const groupedClassNames = clsx(styles.select, {
-      [styles.withError]: errorMessage,
-      [styles.withLabelVisible]: labelVisible,
+      [styles.withError as string]: errorMessage,
+      [styles.withLabelVisible as string]: labelVisible,
     });
 
     return (
