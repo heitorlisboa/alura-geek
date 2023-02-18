@@ -5,8 +5,8 @@ import { Checkbox, Modal } from "@mantine/core";
 import { randomId, useListState } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import type { Category, Product } from "@prisma/client";
-import axios from "axios";
 import { z } from "zod";
+import { TRPCClientError } from "@trpc/client";
 
 import styles from "./ProductsSelection.module.scss";
 
@@ -14,7 +14,7 @@ import { Select } from "@/components/Select";
 import { Button } from "@/components/Button";
 import { TrashSvg } from "@/icons/TrashSvg";
 import { MoveFromGroupSvg } from "@/icons/MoveFromGroupSvg";
-import { type ProductUpdateSchema } from "@/lib/productSchema";
+import { trpc } from "@/utils";
 
 type FormFields = { categoryName: string };
 
@@ -46,14 +46,18 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
     resolver: zodResolver(formSchema),
   });
 
+  // tRPC mutations
+  const productDeleteMutation = trpc.product.delete.useMutation();
+  const productUpdateMutation = trpc.product.update.useMutation();
+
   // Products management states and functions
   const [products, setProducts] = useState(initialProducts);
   const [values, handlers] = useListState(
     products.map((product) => ({ id: product.id, checked: false }))
   );
-  /* If `values` is empty, the `every` method will return true. So first we
-    need to check if it has any items to prevent the variable from being true
-    when the list is empty */
+  /* If `values` is empty, the `every` method will return true. So first we need
+  to check if it has any items to prevent the variable from being true when the
+  list is empty */
   const allChecked =
     values.length > 0 && values.every((value) => value.checked);
   const anyIsChecked = values.some((value) => value.checked);
@@ -75,18 +79,18 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
   function removeProductsFromStates<T extends { id: string }>(
     productsToRemove: T[]
   ) {
-    /* Removing the checked products from the list state and from the
-      `product` state */
+    /* Removing the checked products from the list state and from the `product`
+    state */
     function setStateAction<T extends { id: string }>(prevState: T[]) {
       return prevState.filter(
         (value) => !productsToRemove.some((product) => product.id === value.id)
       );
     }
-    /* Note that these set state actions need to be in this exact order
-      because if you remove the products from the list state first, you'll get
-      an error when rendering the products, so first you need the component to
-      be deleted (which depends on the `products` state), and then you'll be
-      able to dele from the list state */
+    /* Note that these set state actions need to be in this exact order because
+    if you remove the products from the list state first, you'll get an error
+    when rendering the products, so first you need the component to be deleted
+    (which depends on the `products` state), and then you'll be able to dele
+    from the list state */
     setProducts(setStateAction);
     handlers.setState(setStateAction);
   }
@@ -108,11 +112,13 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
 
     try {
       // Product category deletion request
-      const deletedProductsPromise = checkedProducts.map(
-        async ({ id }) => (await axios.delete(`/api/product/${id}`)).data
-      );
-      const deletedProducts: Product[] = await Promise.all(
-        deletedProductsPromise
+      const deletedProducts = await Promise.all(
+        checkedProducts.map(
+          async ({ id }) =>
+            (
+              await productDeleteMutation.mutateAsync({ id })
+            ).product
+        )
       );
       // Removing the products from the states
       removeProductsFromStates(deletedProducts);
@@ -122,13 +128,15 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
         color: "green",
         message: "Produto(s) deletado(s) com sucesso",
       });
-    } catch (error: any) {
+    } catch (error) {
       // Error notification
       updateNotification({
         id: notificationId,
         color: "red",
-        title: error.response.data.error || "Erro ao deletar produto(s)",
-        message: error.response.data.message || "Erro desconhecido",
+        message:
+          error instanceof TRPCClientError
+            ? error.message
+            : "Erro desconhecido",
       });
     }
   }
@@ -152,11 +160,14 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
 
     try {
       // Product category change request
-      const movedProductsPromise = checkedProducts.map(async ({ id }) => {
-        const reqBody: ProductUpdateSchema = { categoryName };
-        return (await axios.put(`/api/product/${id}`, reqBody)).data;
-      });
-      const movedProducts: Product[] = await Promise.all(movedProductsPromise);
+      const movedProducts = await Promise.all(
+        checkedProducts.map(
+          async ({ id }) =>
+            (
+              await productUpdateMutation.mutateAsync({ id, categoryName })
+            ).product
+        )
+      );
       // Removing the products from the states
       removeProductsFromStates(movedProducts);
       // Success notification
@@ -165,13 +176,15 @@ export const ProductsSelection: FC<ProductsSelectionProps> = ({
         color: "green",
         message: "Produto(s) movidos(s) com sucesso",
       });
-    } catch (error: any) {
+    } catch (error) {
       // Error notification
       updateNotification({
         id: notificationId,
         color: "red",
-        title: error.response.data.error || "Erro ao mover produto(s)",
-        message: error.response.data.message || "Erro desconhecido",
+        message:
+          error instanceof TRPCClientError
+            ? error.message
+            : "Erro desconhecido",
       });
     }
   }

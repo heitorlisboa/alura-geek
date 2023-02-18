@@ -9,8 +9,7 @@ import { useState } from "react";
 import { Accordion, Modal } from "@mantine/core";
 import { randomId } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import type { Category } from "@prisma/client";
-import axios from "axios";
+import { TRPCClientError } from "@trpc/client";
 
 import styles from "@/styles/pages/admin/Categories.module.scss";
 
@@ -19,6 +18,7 @@ import { Button } from "@/components/Button";
 import { TrashSvg } from "@/icons/TrashSvg";
 import { PencilSvg } from "@/icons/PencilSvg";
 import { prisma } from "@/server/db/client";
+import { trpc } from "@/utils";
 
 type ManageCategoriesPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -28,6 +28,8 @@ const ManageCategoriesPage: NextPage<ManageCategoriesPageProps> = ({
   initialCategories,
 }) => {
   const pageTitleId = "admin-all-categories-title";
+
+  const categoryDeleteMutation = trpc.category.delete.useMutation();
 
   const [categories, setCategories] = useState(initialCategories);
   const [modalOpened, setModalOpened] = useState(false);
@@ -43,7 +45,7 @@ const ManageCategoriesPage: NextPage<ManageCategoriesPageProps> = ({
     setCategoryIdToDelete("");
   }
 
-  function handleDeleteCategory() {
+  async function handleDeleteCategory() {
     // Closing the modal after confirming the action
     handleCloseModal();
 
@@ -56,31 +58,35 @@ const ManageCategoriesPage: NextPage<ManageCategoriesPageProps> = ({
       autoClose: false,
       disallowClose: true,
     });
-    // Category deletion request
-    axios
-      .delete(`/api/category/${categoryIdToDelete}`)
-      .then(({ data: deletedCategory }: { data: Category }) => {
-        // Removing the category from the `categories` state
-        setCategories((prevState) =>
-          prevState.filter((category) => category.id !== deletedCategory.id)
-        );
 
-        // Success notification
-        updateNotification({
-          id: notificationId,
-          color: "green",
-          message: "Categoria deletada com sucesso!",
-        });
-      })
-      .catch((err) => {
-        // Error notification
-        updateNotification({
-          id: notificationId,
-          color: "red",
-          title: err.response.data.error || "Erro ao deletar categoria",
-          message: err.response.data.message || "Erro desconhecido",
-        });
+    try {
+      // Category deletion request
+      const deletedCategory = (
+        await categoryDeleteMutation.mutateAsync({ id: categoryIdToDelete })
+      ).category;
+
+      // Removing the category from the `categories` state
+      setCategories((prevState) =>
+        prevState.filter((category) => category.id !== deletedCategory.id)
+      );
+
+      // Success notification
+      updateNotification({
+        id: notificationId,
+        color: "green",
+        message: "Categoria deletada com sucesso!",
       });
+    } catch (error) {
+      // Error notification
+      updateNotification({
+        id: notificationId,
+        color: "red",
+        message:
+          error instanceof TRPCClientError
+            ? error.message
+            : "Erro desconhecido",
+      });
+    }
   }
 
   return (

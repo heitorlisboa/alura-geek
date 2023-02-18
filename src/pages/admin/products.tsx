@@ -10,8 +10,7 @@ import { useState } from "react";
 import { Modal } from "@mantine/core";
 import { randomId } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import type { Product } from "@prisma/client";
-import axios from "axios";
+import { TRPCClientError } from "@trpc/client";
 
 import styles from "@/styles/pages/admin/Products.module.scss";
 
@@ -20,8 +19,8 @@ import { Button } from "@/components/Button";
 import { TrashSvg } from "@/icons/TrashSvg";
 import { PencilSvg } from "@/icons/PencilSvg";
 import { BrandLink } from "@/components/BrandLink";
-import { formatPrice } from "@/utils";
 import { prisma } from "@/server/db/client";
+import { formatPrice, trpc } from "@/utils";
 
 type ManageProductsPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -31,6 +30,8 @@ const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
   initialProducts,
 }) => {
   const pageTitleId = "admin-all-products-title";
+
+  const productDeleteMutation = trpc.product.delete.useMutation();
 
   const [products, setProducts] = useState(initialProducts);
   const [modalOpened, setModalOpened] = useState(false);
@@ -46,7 +47,7 @@ const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
     setProductIdToDelete("");
   }
 
-  function handleDeleteProduct() {
+  async function handleDeleteProduct() {
     // Closing the modal after confirming the action
     handleCloseModal();
 
@@ -59,31 +60,35 @@ const ManageProductsPage: NextPage<ManageProductsPageProps> = ({
       autoClose: false,
       disallowClose: true,
     });
-    // Product deletion request
-    axios
-      .delete(`/api/product/${productIdToDelete}`)
-      .then(({ data: deletedProduct }: { data: Product }) => {
-        // Removing the product from the `products` state
-        setProducts((prevState) =>
-          prevState.filter((product) => product.id !== deletedProduct.id)
-        );
 
-        // Success notification
-        updateNotification({
-          id: notificationId,
-          color: "green",
-          message: "Produto deletado com sucesso!",
-        });
-      })
-      .catch((err) => {
-        // Error notification
-        updateNotification({
-          id: notificationId,
-          color: "red",
-          title: err.response.data.error || "Erro ao deletar produto",
-          message: err.response.data.message || "Erro desconhecido",
-        });
+    try {
+      // Product deletion request
+      const deletedProduct = (
+        await productDeleteMutation.mutateAsync({ id: productIdToDelete })
+      ).product;
+
+      // Removing the product from the `products` state
+      setProducts((prevState) =>
+        prevState.filter((product) => product.id !== deletedProduct.id)
+      );
+
+      // Success notification
+      updateNotification({
+        id: notificationId,
+        color: "green",
+        message: "Produto deletado com sucesso!",
       });
+    } catch (error) {
+      // Error notification
+      updateNotification({
+        id: notificationId,
+        color: "red",
+        message:
+          error instanceof TRPCClientError
+            ? error.message
+            : "Erro desconhecido",
+      });
+    }
   }
 
   return (

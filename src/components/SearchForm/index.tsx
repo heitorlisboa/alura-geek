@@ -8,7 +8,7 @@ import styles from "./SearchForm.module.scss";
 import { SearchSvg } from "@/icons/SearchSvg";
 
 type FormFields = {
-  searchProduct: string;
+  productSearch: string;
 };
 
 type SearchFormProps = {
@@ -18,9 +18,11 @@ type SearchFormProps = {
 export const SearchForm: FC<SearchFormProps> = ({ className }) => {
   const { register, handleSubmit } = useForm<FormFields>();
 
-  function handleSearch({ searchProduct }: FormFields) {
-    if (searchProduct !== "")
-      Router.push(`/products/search?q=${searchProduct}`);
+  function handleSearch({ productSearch }: FormFields) {
+    const trimmedProductSearch = productSearch.trim();
+    if (trimmedProductSearch === "") return;
+
+    Router.push(`/products/search?q=${trimmedProductSearch}`);
   }
 
   return (
@@ -39,7 +41,7 @@ export const SearchForm: FC<SearchFormProps> = ({ className }) => {
         role="searchbox"
         title="O que deseja encontrar?"
         placeholder="O que deseja encontrar?"
-        {...register("searchProduct")}
+        {...register("productSearch")}
       />
       <button className={styles.searchButton} type="submit">
         <span className="sr-only">Pesquisar</span>

@@ -15,3 +15,12 @@ export default createNextApiHandler({
         }
       : undefined,
 });
+
+export const config = {
+  api: {
+    bodyParser: {
+      // Necessary for uploading bigger product images
+      sizeLimit: "6mb",
+    },
+  },
+};

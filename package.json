@@ -28,7 +28,6 @@
     "@trpc/next": "^10.11.1",
     "@trpc/react-query": "^10.11.1",
     "@trpc/server": "^10.11.1",
-    "axios": "^1.2.3",
     "cloudinary": "^1.33.0",
     "clsx": "^1.2.1",
     "next": "^13.1.5",

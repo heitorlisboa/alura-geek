@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingOverlay } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import type { Category, Product } from "@prisma/client";
-import axios from "axios";
+import type { Category } from "@prisma/client";
+import { TRPCClientError } from "@trpc/client";
 
 import styles from "./ProductForm.module.scss";
 
@@ -14,12 +14,11 @@ import { ImagePlaceholderSvg } from "@/icons/ImagePlaceholderSvg";
 import { Select } from "@/components/Select";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
-import { imgFileToBase64, mergeRefs } from "@/utils";
+import { imgFileToBase64, mergeRefs, trpc } from "@/utils";
 import {
   productCreateFormSchema,
   type ProductUpdateFormSchema,
   productUpdateFormSchema,
-  type ProductUpdateSchema,
 } from "@/lib/productSchema";
 
 type FormInitialValues = Omit<ProductUpdateFormSchema, "imageFileList"> & {
@@ -50,6 +49,9 @@ export const ProductForm: FC<ProductFormProps> = ({
     resolver: zodResolver(formSchema),
   });
 
+  const productCreateMutation = trpc.product.create.useMutation();
+  const productUpdateMutation = trpc.product.update.useMutation();
+
   const [loading, setLoading] = useState(false);
 
   const fileDropInputRef = useRef<HTMLInputElement>(null);
@@ -64,50 +66,54 @@ export const ProductForm: FC<ProductFormProps> = ({
   async function handleProductSubmit(data: ProductUpdateFormSchema) {
     let base64EncodedImage = undefined;
 
-    if (data.imageFileList?.[0]) {
-      const imageBlob = data.imageFileList[0];
+    const imageBlob = data.imageFileList?.[0];
+    if (imageBlob) {
       try {
         base64EncodedImage = (await imgFileToBase64(imageBlob))?.toString();
       } catch (error) {
         // Error notification
-        showNotification({
-          color: "red",
-          message: "Erro ao processar imagem",
-        });
+        showNotification({ color: "red", message: "Erro ao processar imagem" });
       }
     }
 
     try {
-      const apiRoute = "/api/product";
-      const reqBody: ProductUpdateSchema = {
-        name: data.name,
-        price: data.price,
-        description: data.description,
-        base64Image: base64EncodedImage,
-        categoryName: data.categoryName,
-      };
-
       const productId = Router.query.id as string;
 
       // Setting the loading animation
       setLoading(true);
+
       // Doing the create/update request
-      const { data: product }: { data: Product } =
+      const { product } =
         action === "create"
-          ? await axios.post(apiRoute, reqBody)
-          : await axios.put(`${apiRoute}/${productId}`, reqBody);
+          ? await productCreateMutation.mutateAsync({
+              name: data.name as string,
+              price: data.price as number,
+              description: data.description as string,
+              base64Image: base64EncodedImage as string,
+              categoryName: data.categoryName as string,
+            })
+          : await productUpdateMutation.mutateAsync({
+              id: productId,
+              name: data.name,
+              price: data.price,
+              description: data.description,
+              base64Image: base64EncodedImage,
+              categoryName: data.categoryName,
+            });
 
       // Redirecting to the created/updated product page
       Router.push(`/product/${product.id}`);
-    } catch (error: any) {
+    } catch (error) {
       // Removing the loading animation
       setLoading(false);
+
       // Error notification
-      const keyword = action === "create" ? "adicionar" : "atualizar";
       showNotification({
         color: "red",
-        title: error.response.data.error || `Erro ao ${keyword} produto`,
-        message: error.response.data.message || "Erro desconhecido",
+        message:
+          error instanceof TRPCClientError
+            ? error.message
+            : "Erro desconhecido",
       });
     }
   }

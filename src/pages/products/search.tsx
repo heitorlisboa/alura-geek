@@ -57,7 +57,12 @@ const SearchProductsPage: NextPage<SearchProductsPageProps> = ({
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const querySchema = z.object({ q: z.string().min(1) });
+  const querySchema = z.object({
+    q: z.preprocess(
+      (value) => (typeof value === "string" ? value.trim() : value),
+      z.string().min(1)
+    ),
+  });
   const queryParseResult = querySchema.safeParse(context.query);
 
   if (!queryParseResult.success)

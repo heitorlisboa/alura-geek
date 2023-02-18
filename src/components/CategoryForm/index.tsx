@@ -4,18 +4,19 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingOverlay } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import type { Category } from "@prisma/client";
-import axios from "axios";
+import { TRPCClientError } from "@trpc/client";
 
 import styles from "./CategoryForm.module.scss";
 
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import {
+  type CategoryCreateSchema,
   categoryCreateSchema,
   type CategoryUpdateSchema,
   categoryUpdateSchema,
 } from "@/lib/categorySchema";
+import { trpc } from "@/utils";
 
 type CategoryFormProps = {
   action: "create" | "update";
@@ -38,33 +39,42 @@ export const CategoryForm: FC<CategoryFormProps> = ({
     resolver: zodResolver(formSchema),
   });
 
+  const categoryCreateMutation = trpc.category.create.useMutation();
+  const categoryUpdateMutation = trpc.category.update.useMutation();
+
   const [loading, setLoading] = useState(false);
 
   async function handleCategorySubmit(data: CategoryUpdateSchema) {
     try {
-      const apiRoute = "/api/category";
-      const reqBody: CategoryUpdateSchema = { name: data.name };
       const categoryId = Router.query.id as string;
 
       // Setting the loading animation
       setLoading(true);
-      // Doing the create/update request
-      const { data: category }: { data: Category } =
+
+      // Doing the create or update request
+      const { category } =
         action === "create"
-          ? await axios.post(apiRoute, reqBody)
-          : await axios.put(`${apiRoute}/${categoryId}`, reqBody);
+          ? await categoryCreateMutation.mutateAsync({
+              name: data.name as CategoryCreateSchema["name"],
+            })
+          : await categoryUpdateMutation.mutateAsync({
+              id: categoryId,
+              name: data.name,
+            });
 
       // Redirecting to the created/updated product page
       Router.push(`/category/${category.id}`);
-    } catch (error: any) {
+    } catch (error) {
       // Removing the loading animation
       setLoading(false);
+
       // Error notification
-      const keyword = action === "create" ? "adicionar" : "atualizar";
       showNotification({
         color: "red",
-        title: error.response.data.error || `Erro ao ${keyword} categoria`,
-        message: error.response.data.message || "Erro desconhecido",
+        message:
+          error instanceof TRPCClientError
+            ? error.message
+            : "Erro desconhecido",
       });
     }
   }
