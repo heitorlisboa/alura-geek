@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { type FC, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
-import clsx from "clsx";
 
 import styles from "./Header.module.scss";
 
@@ -13,22 +12,17 @@ import { Button } from "@/components/Button";
 import { SearchForm } from "@/components/SearchForm";
 import { SearchSvg } from "@/icons/SearchSvg";
 import { CloseSvg } from "@/icons/CloseSvg";
-import { useWindowSize } from "@/hooks/useWindowSize";
 
 export const Header: FC = () => {
-  // Responsive layout
-  const windowSize = useWindowSize();
-  const mobile = windowSize < 768;
-
   // Mobile search bar interaction
-  const [searchBarIsOpen, setSearchBarIsOpen] = useState(false);
+  const [mobileSearchBarIsOpen, setMobileSearchBarIsOpen] = useState(false);
 
   function openSearchBar() {
-    setSearchBarIsOpen(true);
+    setMobileSearchBarIsOpen(true);
   }
 
   function closeSearchBar() {
-    setSearchBarIsOpen(false);
+    setMobileSearchBarIsOpen(false);
   }
 
   // Authentication
@@ -53,7 +47,7 @@ export const Header: FC = () => {
             </Link>
           </h1>
 
-          {!mobile && <SearchForm />}
+          <SearchForm className={styles.desktopSearchForm} />
         </div>
 
         <div className={styles.buttonsWrapper}>
@@ -82,21 +76,20 @@ export const Header: FC = () => {
             </Button>
           )}
 
-          {mobile && (
-            <button type="submit" onClick={openSearchBar}>
-              <span className="sr-only">Abrir barra de pesquisa</span>
-              <SearchSvg className={styles.searchIcon} />
-            </button>
-          )}
+          <button
+            className={styles.mobileOpenSearchBarButton}
+            type="submit"
+            onClick={openSearchBar}
+          >
+            <span className="sr-only">Abrir barra de pesquisa</span>
+            <SearchSvg className={styles.mobileSearchIcon} />
+          </button>
         </div>
 
-        {mobile && (
-          <div
-            className={clsx(styles.searchFormWrapper, {
-              [styles.active as string]: searchBarIsOpen,
-            })}
-          >
-            <SearchForm className={styles.searchForm} />
+        {/* TODO: Refactor this to use a modal from Radix UI */}
+        {mobileSearchBarIsOpen && (
+          <div className={styles.mobileSearchFormWrapper}>
+            <SearchForm className={styles.mobileSearchForm} />
             <button onClick={closeSearchBar}>
               <span className="sr-only">Fechar barra de pesquisa</span>
               <CloseSvg />

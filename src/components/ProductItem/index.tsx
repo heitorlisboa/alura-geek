@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { FC } from "react";
 import type { Product } from "@prisma/client";
+import clsx from "clsx";
 
 import styles from "./ProductItem.module.scss";
 
@@ -10,13 +11,19 @@ import { formatPrice } from "@/utils";
 type ProductItemProps = {
   product: Product;
   priority?: boolean;
+  shouldHideOnMobile?: boolean;
 };
 
 export const ProductItem: FC<ProductItemProps> = ({
   product: { id, name, price, imageUrl },
   priority = false,
+  shouldHideOnMobile = false,
 }) => (
-  <li className={styles.product}>
+  <li
+    className={clsx(styles.product, {
+      [styles.mobileHidden as string]: shouldHideOnMobile,
+    })}
+  >
     <Image
       className={styles.productImage}
       src={imageUrl}

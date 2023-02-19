@@ -7,7 +7,6 @@ import { Container } from "@/components/Container";
 import { BrandLink } from "@/components/BrandLink";
 import { ArrowRightSvg } from "@/icons/ArrowRightSvg";
 import { ProductItem } from "@/components/ProductItem";
-import { useWindowSize } from "@/hooks/useWindowSize";
 
 type ProductsCategoryProps = {
   title: string;
@@ -22,9 +21,6 @@ export const ProductsCategory: FC<ProductsCategoryProps> = ({
   products,
   priority = false,
 }) => {
-  const windowSize = useWindowSize();
-  const numberOfProducts = windowSize < 1024 ? 4 : 6;
-
   const categoryTitleId = `${title.toLowerCase()}-category-title`;
 
   return (
@@ -46,11 +42,12 @@ export const ProductsCategory: FC<ProductsCategoryProps> = ({
           className={styles.productList}
           aria-label={`Produtos da categoria ${title}`}
         >
-          {products.slice(0, numberOfProducts).map((product) => (
+          {products.slice(0, 6).map((product, index) => (
             <ProductItem
               key={product.id}
               product={product}
               priority={priority}
+              shouldHideOnMobile={index > 3}
             />
           ))}
         </ul>

@@ -1,3 +1,5 @@
+@use "../../styles/partials/custom-media.scss" as cm;
+
 .product {
   display: grid;
   align-content: flex-start;
@@ -13,5 +15,11 @@
   &Title {
     font-size: var(--fs-200);
     font-weight: 500;
+  }
+}
+
+@include cm.media(max, laptop) {
+  .mobileHidden {
+    display: none;
   }
 }
