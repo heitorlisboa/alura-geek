@@ -1,0 +1,14 @@
+services:
+  database:
+    container_name: alura_geek_database
+    image: mysql
+    volumes:
+      - database_data:/var/lib/mysql:rw
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+volumes:
+  database_data:
+    driver: local
